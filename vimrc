@@ -52,6 +52,9 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 
+" regenerate tags file on save
+Bundle 'craigemery/vim-autotag'
+
 Bundle 'tpope/vim-rails.git'
 
 " FuzzyFinder
@@ -61,7 +64,6 @@ Bundle 'tpope/vim-git'
 
 " filesystem tree explorer
 Bundle "scrooloose/nerdtree.git"
-map <leader>n :NERDTreeCWD<CR>
 
 Bundle 'kien/ctrlp.vim'
 
@@ -89,6 +91,8 @@ Bundle 'tomtom/tcomment_vim'
 Bundle 'tpope/vim-abolish'
 Bundle 'tpope/vim-repeat'
 
+" shows info from tags file for current file in side bar
+Bundle 'majutsushi/tagbar'
 "----- additional text objects-----
 
 " came & snake case words
@@ -203,10 +207,21 @@ map <leader>t :call RunTestFile()<cr>
 map <leader>T :call RunNearestTest()<cr>
 " map <leader>r :w\|:call RSpecCurrent()<cr>
 
+map <leader>n :NERDTreeCWD<CR>
 map <leader>b :CtrlPBuffer<cr>
+map <leader>. :CtrlPTag<cr>
+map <leader>q :TagbarToggle<cr>
 
 "clear search when you hit esc
- nnoremap <esc> :noh<CR><ESC>
+" Works around problem in term where vim starts in replace mode
+" http://stackoverflow.com/questions/11940801/mapping-esc-in-vimrc-causes-bizzare-arrow-behaviour
+if has('gui_running')
+  nnoremap <silent> <esc> :nohlsearch<cr><esc>
+else
+  augroup no_highlight
+    autocmd TermResponse * nnoremap <esc> :noh<cr><esc>
+  augroup END
+end
 
 " because otherwise rvm and zsh won't play nice when you use terminal commands
  set shell=bash
