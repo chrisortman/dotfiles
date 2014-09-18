@@ -1,0 +1,11 @@
+[user]
+	name = Chris Ortman
+	email = chris-ortman@uiowa.edu
+[alias]
+	st = status
+	ci = commit
+	co = checkout
+[merge]
+	tool = kdiff3
+[rerere]
+	enabled = true
