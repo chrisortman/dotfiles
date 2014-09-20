@@ -212,6 +212,11 @@ map <leader>b :CtrlPBuffer<cr>
 map <leader>. :CtrlPTag<cr>
 map <leader>q :TagbarToggle<cr>
 
+map rp :VimuxPromptCommand<cr>
+map rl :VimuxRunLastCommand<cr>
+map ri :VimuxInspectRunner<cr>
+map rc :VimuxCloseRunner<cr>
+
 "clear search when you hit esc
 " Works around problem in term where vim starts in replace mode
 " http://stackoverflow.com/questions/11940801/mapping-esc-in-vimrc-causes-bizzare-arrow-behaviour
