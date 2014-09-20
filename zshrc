@@ -45,7 +45,7 @@ export UPDATE_ZSH_DAYS=2
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git brew osx rails vi-mode rvm history history-substring-search)
+plugins=(vi-mode git brew osx rails vi-mode rvm history history-substring-search tmux)
 
 # These paths first so that RVM can insert itself to beginning of path
 export PATH="/Users/cortman/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
