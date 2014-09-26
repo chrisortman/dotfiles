@@ -41,7 +41,7 @@ let mapleader = ','
 " Font
 set guifont=Envy\ Code\ R\ VS:h13
 if has('mac')
-" set noantialias
+  "set noantialias
 endif
 
 

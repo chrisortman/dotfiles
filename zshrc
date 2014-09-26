@@ -55,7 +55,7 @@ export PATH="/Users/cortman/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PA
 
 DISABLE_AUTO_TITLE=true
 alias tmux="TERM=screen-256color-bce tmux"
-
+alias emacs="$(brew --prefix emacs)/Emacs.app/Contents/MacOS/Emacs -nw"
 foreground-vi() {
     fg %vi
 }
