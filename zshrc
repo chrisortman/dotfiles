@@ -45,7 +45,7 @@ export UPDATE_ZSH_DAYS=2
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(vi-mode git brew osx rails vi-mode rvm history history-substring-search tmux)
+plugins=(vi-mode git brew osx rails rvm history history-substring-search tmux)
 
 # These paths first so that RVM can insert itself to beginning of path
 export PATH="/Users/cortman/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
@@ -55,7 +55,7 @@ export PATH="/Users/cortman/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PA
 
 DISABLE_AUTO_TITLE=true
 alias tmux="TERM=screen-256color-bce tmux"
-alias emacs="$(brew --prefix emacs)/Emacs.app/Contents/MacOS/Emacs -nw"
+#alias emacs="$(brew --prefix emacs)/Emacs.app/Contents/MacOS/Emacs -nw"
 foreground-vi() {
     fg %vi
 }
@@ -111,6 +111,11 @@ export PATH="$(brew --prefix httpd24)/bin:$PATH"
 #RVM complains in tmux if it isn't first
 export PATH="$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
 
+# pip should only run if there is a virtualenv currently activated
+#export PIP_REQUIRE_VIRTUALENV=true
+# cache pip-installed packages to avoid re-downloading
+#export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
+
 # We source RVM before ZSH so we can put rvm info in our prompt
 # http://unix.stackexchange.com/questions/134088/ruby-version-prompt-oh-my-zsh-not-working-outside-of-tmux
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
@@ -118,5 +123,7 @@ export PATH="$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
 source $ZSH/oh-my-zsh.sh
 
 alias phpini='vim /usr/local/etc/php/5.3/php.ini'
+alias viewdsn='vim -O config/database.yml ~/etc/odbc.ini ~/etc/freetds.conf'
+alias ag='ag --color --ignore tags --pager less'
 #this stopped working when i moved some path logic before it?
 bindkey '^Z' foreground-vi

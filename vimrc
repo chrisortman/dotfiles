@@ -19,9 +19,9 @@ set nu!
 set list listchars=tab:\ \ ,trail:·
 
 " =============== Folds ===============
-set foldmethod=indent
-set foldnestmax=3
-set nofoldenable
+" set foldmethod=syntax
+" set foldnestmax=3
+" set nofoldenable
 
 " =============== Completion ===========
 set wildmode=list:longest
@@ -56,6 +56,7 @@ Bundle 'gmarik/vundle'
 Bundle 'craigemery/vim-autotag'
 
 Bundle 'tpope/vim-rails.git'
+Bundle 'tpope/vim-bundler'
 
 " FuzzyFinder
 Bundle 'L9'
@@ -107,7 +108,7 @@ Bundle 'mustache/vim-mustache-handlebars'
 Bundle 'slim-template/vim-slim.git'
 
 " HTML zen coding
-Bundle 'mattn/emmet-vim'
+" Bundle 'mattn/emmet-vim'
 
 Bundle 'kongo2002/fsharp-vim'
 Bundle 'pangloss/vim-javascript'
@@ -115,10 +116,21 @@ Bundle 'mxw/vim-jsx'
 
 " ack support
 Bundle 'mileszs/ack.vim'
+let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " tmux integration
 Bundle 'benmills/vimux'
 Bundle 'christoomey/vim-tmux-navigator'
+
+" clojure
+" Bundle 'tpope/vim-leiningen'
+" Bundle 'tpope/vim-projectionist'
+" Bundle 'tpope/vim-dispatch'
+" Bundle 'tpope/vim-fireplace'
+
+" slime, used for ruby repl
+Bundle 'jpalardy/vim-slime'
+let g:slime_target = "tmux"
 
 syntax enable
 set background=light
@@ -128,6 +140,7 @@ if !has("gui_running")
 endif
 set background=dark
 colorscheme solarized
+" color grb256
 
 filetype plugin indent on        " vundle  required!
 
@@ -136,10 +149,14 @@ filetype plugin indent on        " vundle  required!
 "##############################################################################                                                                         
 "
 "" Use ctrl-[hjkl] to select the active split!
-nmap <silent> <c-k> :wincmd k<CR>                                                                                                                       
-nmap <silent> <c-j> :wincmd j<CR>                                                                                                                       
-nmap <silent> <c-h> :wincmd h<CR>                                                                                                                       
+nmap <silent> <c-k> :wincmd k<CR>
+nmap <silent> <c-j> :wincmd j<CR>
+nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
+
+"" Shortcuts to goto definition in new tabs or splits
+" map <c-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+nmap g\ :vsp <CR>:exec(":tag ".expand("<cword>"))<CR>
 
 " put useful info in status bar
 if has('gui_running')
@@ -157,15 +174,17 @@ function! RunTests(filename)
   " Write the file and run tests for the given filename
   :w
   :silent !clear
-  if match(a:filename, '\.feature$') != -1
-    exec ":!script/features " . a:filename
+  if match(a:filename, '\.feature.*$') != -1
+    " exec ":!script/features " . a:filename
+    exec ":!bundle exec cucumber -sf " . a:filename
   elseif match(a:filename, '_test\.rb$') != -1
     exec ":!ruby -Itest " . a:filename
   else
     if filereadable("script/test")
       exec ":!script/test " . a:filename
     elseif filereadable("Gemfile")
-      exec ":!bundle exec rspec --color " . a:filename
+       exec ":!bundle exec rspec --color " . a:filename
+      " exec ":!bundle exec spec --color " . a:filename
     else
       exec ":!rspec --color " . a:filename
     end
@@ -223,9 +242,7 @@ map rc :VimuxCloseRunner<cr>
 if has('gui_running')
   nnoremap <silent> <esc> :nohlsearch<cr><esc>
 else
-  augroup no_highlight
-    autocmd TermResponse * nnoremap <esc> :noh<cr><esc>
-  augroup END
+  nnoremap <cr> :noh<cr><cr>
 end
 
 " because otherwise rvm and zsh won't play nice when you use terminal commands
