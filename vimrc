@@ -18,11 +18,6 @@ set nu!
 " Display tabs and trailing spaces
 set list listchars=tab:\ \ ,trail:·
 
-" =============== Folds ===============
-" set foldmethod=syntax
-" set foldnestmax=3
-" set nofoldenable
-
 " =============== Completion ===========
 set wildmode=list:longest
 set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
@@ -36,6 +31,7 @@ set wildignore+=log/**
 set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
 " let g:is_posix = 1
+
 let mapleader = ','
 
 " Font
@@ -79,6 +75,7 @@ let g:ctrlp_switch_buffer = 'e'
 Bundle 'gmarik/ingretu'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'jnurmine/Zenburn'
+
 " surround
 Bundle 'tpope/vim-surround'
 
@@ -107,9 +104,6 @@ Bundle 'mustache/vim-mustache-handlebars'
 " Slim
 Bundle 'slim-template/vim-slim.git'
 
-" HTML zen coding
-" Bundle 'mattn/emmet-vim'
-
 Bundle 'kongo2002/fsharp-vim'
 Bundle 'pangloss/vim-javascript'
 Bundle 'mxw/vim-jsx'
@@ -132,6 +126,8 @@ Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'jpalardy/vim-slime'
 let g:slime_target = "tmux"
 
+Bundle 'honza/dockerfile.vim'
+
 syntax enable
 set background=light
 if !has("gui_running")
@@ -140,7 +136,6 @@ if !has("gui_running")
 endif
 set background=dark
 colorscheme solarized
-" color grb256
 
 filetype plugin indent on        " vundle  required!
 
@@ -176,9 +171,9 @@ function! RunTests(filename)
   :silent !clear
   if match(a:filename, '\.feature.*$') != -1
     " exec ":!script/features " . a:filename
-    exec ":!bundle exec cucumber -sf " . a:filename
-  elseif match(a:filename, '_test\.rb$') != -1
-    exec ":!ruby -Itest " . a:filename
+    exec ":!bundle exec cucumber -p sf " . a:filename
+  elseif match(a:filename, '_test(_\w+)?\.rb$') != -1
+    exec ":!ruby -Ilib:test " . a:filename
   else
     if filereadable("script/test")
       exec ":!script/test " . a:filename

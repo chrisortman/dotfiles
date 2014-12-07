@@ -96,7 +96,7 @@ export EDITOR="vim"
 # ODBC Environment variables
 export ODBCINI=$HOME/etc/odbc.ini
 export ODBCSYSINI=$HOME/etc
-export FREETDSCONF=$HOME/etc/freetds.conf
+export FREETDS=$HOME/etc/freetds.conf
 export TDSDUMP=""
 
 # homebrew sometimes runs out of api requests so need to give it an api key
@@ -122,8 +122,19 @@ export PATH="$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
 
 source $ZSH/oh-my-zsh.sh
 
+function bzmerge3() {
+  kdiff3 $1.BASE $1.THIS $1.OTHER -o $1
+}
+
+function bzdiff() {
+  bzr diff $* | view -
+}
 alias phpini='vim /usr/local/etc/php/5.3/php.ini'
 alias viewdsn='vim -O config/database.yml ~/etc/odbc.ini ~/etc/freetds.conf'
-alias ag='ag --color --ignore tags --pager less'
+alias ag='ag --color --ignore tags'
+alias reseed='SQLITE=true RAILS_ENV=test bundle exec rake {db:schema:load,seeds:all}'
+alias sup='cd ~/code/uiris3/rails3 && SQLITE=true RAILS_ENV=test bundle exec rails server'
+alias sab='cd ~/code/uiris3/sandbox && RAILS_ENV=test SQLITE=true script/server'
+alias upload-gem='open http://vpr32.research.uiowa.edu:9290/upload'
 #this stopped working when i moved some path logic before it?
 bindkey '^Z' foreground-vi
