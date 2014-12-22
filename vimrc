@@ -71,7 +71,10 @@ let g:ctrlp_max_height = 20
 let g:ctrlp_match_window_reversed = 1
 let g:ctrlp_switch_buffer = 'e'
 
-
+Bundle 'bling/vim-airline'
+" By default vim only shows status line when 2 or more windows open, this will
+" always show it
+set laststatus=2
 Bundle 'gmarik/ingretu'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'jnurmine/Zenburn'
