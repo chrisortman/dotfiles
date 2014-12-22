@@ -78,6 +78,7 @@ set laststatus=2
 Bundle 'gmarik/ingretu'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'jnurmine/Zenburn'
+Bundle 'sickill/vim-monokai'
 
 " surround
 Bundle 'tpope/vim-surround'
@@ -111,6 +112,9 @@ Bundle 'kongo2002/fsharp-vim'
 Bundle 'pangloss/vim-javascript'
 Bundle 'mxw/vim-jsx'
 
+" functions for running ruby tests
+Bundle 'skalnik/vim-vroom'
+
 " ack support
 Bundle 'mileszs/ack.vim'
 let g:ackprg = 'ag --nogroup --nocolor --column'
@@ -135,10 +139,10 @@ syntax enable
 set background=light
 if !has("gui_running")
     let g:solarized_termcolors=16
-    set background=dark
+    " set background=dark
 endif
-set background=dark
-colorscheme solarized
+" set background=light
+colorscheme monokai
 
 filetype plugin indent on        " vundle  required!
 
@@ -156,73 +160,22 @@ nmap <silent> <c-l> :wincmd l<CR>
 " map <c-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 nmap g\ :vsp <CR>:exec(":tag ".expand("<cword>"))<CR>
 
-" put useful info in status bar
-if has('gui_running')
-set statusline=%F%m%r%h%w\ %{fugitive#statusline()}\ [%l,%c]\ [%L,%p%%]
-  " highlight the status bar when in insert mode
-  if version >= 700
-    au InsertEnter * hi StatusLine ctermfg=235 ctermbg=2
-    au InsertLeave * hi StatusLine ctermbg=240 ctermfg=12
-  endif
-endif
 
-
-" run specs with ',t' via Gary Bernhardt
-function! RunTests(filename)
-  " Write the file and run tests for the given filename
-  :w
-  :silent !clear
-  if match(a:filename, '\.feature.*$') != -1
-    " exec ":!script/features " . a:filename
-    exec ":!bundle exec cucumber -p sf " . a:filename
-  elseif match(a:filename, '_test(_\w+)?\.rb$') != -1
-    exec ":!ruby -Ilib:test " . a:filename
-  else
-    if filereadable("script/test")
-      exec ":!script/test " . a:filename
-    elseif filereadable("Gemfile")
-       exec ":!bundle exec rspec --color " . a:filename
-      " exec ":!bundle exec spec --color " . a:filename
-    else
-      exec ":!rspec --color " . a:filename
-    end
-  end
+function! UseLightSolarized()
+  set background=light
+    " set background=dark
+  colorscheme solarized
 endfunction
 
-function! SetTestFile()
-  " set the spec file that tests will be run for.
-  let t:grb_test_file=@%
+function! UseDarkSolarized()
+  set background=dark
+  colorscheme solarized
 endfunction
 
-function! RunTestFile(...)
-  if a:0
-    let command_suffix = a:1
-  else
-    let command_suffix = ""
-  endif
-
-  " run the tests for the previously-marked file.
-  let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\|_test.rb\)$') != -1
-  if in_test_file
-    call SetTestFile()
-  elseif !exists("t:grb_test_file")
-    return
-  end
-  call RunTests(t:grb_test_file . command_suffix)
+function! UseLightSolarized()
+  set background=dark
+  colorscheme monokai
 endfunction
-
-function! RunNearestTest()
-  let spec_line_number = line('.')
-  call RunTestFile(":" . spec_line_number . " -b")
-endfunction
-
-function! RSpecCurrent()
-    execute("!clear && rake spec SPEC=" . expand("%p") . ":" . line("."))
-endfunction
-" run test runner
-map <leader>t :call RunTestFile()<cr>
-map <leader>T :call RunNearestTest()<cr>
-" map <leader>r :w\|:call RSpecCurrent()<cr>
 
 map <leader>n :NERDTreeCWD<CR>
 map <leader>b :CtrlPBuffer<cr>
