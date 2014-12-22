@@ -45,7 +45,7 @@ export UPDATE_ZSH_DAYS=2
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(vi-mode git brew osx rails rvm history history-substring-search tmux)
+plugins=(vi-mode git brew osx rails rvm history history-substring-search tmux docker)
 
 # These paths first so that RVM can insert itself to beginning of path
 export PATH="/Users/cortman/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
@@ -60,7 +60,12 @@ foreground-vi() {
     fg %vi
 }
 
+
 zle -N foreground-vi
+
+foreground-server() {
+    fg %server
+}
 
 export EDITOR="vim"
 
@@ -132,9 +137,12 @@ function bzdiff() {
 alias phpini='vim /usr/local/etc/php/5.3/php.ini'
 alias viewdsn='vim -O config/database.yml ~/etc/odbc.ini ~/etc/freetds.conf'
 alias ag='ag --color --ignore tags'
-alias reseed='SQLITE=true RAILS_ENV=test bundle exec rake {db:schema:load,seeds:all}'
-alias sup='cd ~/code/uiris3/rails3 && SQLITE=true RAILS_ENV=test bundle exec rails server'
+alias reseed='SQLITE=true bundle exec rake {db:schema:load,seeds:all}'
+alias reseed-test='SQLITE=true RAILS_ENV=test bundle exec rake {db:schema:load,seeds:all}'
+alias sup='cd ~/code/uiris3/rails3 && SQLITE=true bundle exec rails server -u'
+alias demo='cd ~/code/uiris3/rails3 && DEMO=true bundle exec rails server'
 alias sab='cd ~/code/uiris3/sandbox && RAILS_ENV=test SQLITE=true script/server'
 alias upload-gem='open http://vpr32.research.uiowa.edu:9290/upload'
 #this stopped working when i moved some path logic before it?
 bindkey '^Z' foreground-vi
+bindkey '^X' foreground-server
