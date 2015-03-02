@@ -57,7 +57,7 @@ DISABLE_AUTO_TITLE=true
 alias tmux="TERM=screen-256color-bce tmux"
 #alias emacs="$(brew --prefix emacs)/Emacs.app/Contents/MacOS/Emacs -nw"
 foreground-vi() {
-    fg %vi
+    fg %mvim
 }
 
 
@@ -134,15 +134,25 @@ function bzmerge3() {
 function bzdiff() {
   bzr diff $* | view -
 }
+
+function backup() {
+  cp $1 $1~
+}
+
+function restore() {
+ cp $1~ $1
+}
+
 alias phpini='vim /usr/local/etc/php/5.3/php.ini'
 alias viewdsn='vim -O config/database.yml ~/etc/odbc.ini ~/etc/freetds.conf'
 alias ag='ag --color --ignore tags'
-alias reseed='SQLITE=true bundle exec rake {db:schema:load,seeds:all}'
-alias reseed-test='SQLITE=true RAILS_ENV=test bundle exec rake {db:schema:load,seeds:all}'
+alias reseed-dev='SQLITE=true bundle exec rake {db:schema:load,seeds:all}'
+alias reseed='SQLITE=true RAILS_ENV=test bundle exec rake {db:schema:load,seeds:all}'
 alias sup='cd ~/code/uiris3/rails3 && SQLITE=true bundle exec rails server -u'
 alias demo='cd ~/code/uiris3/rails3 && DEMO=true bundle exec rails server'
 alias sab='cd ~/code/uiris3/sandbox && RAILS_ENV=test SQLITE=true script/server'
 alias upload-gem='open http://vpr32.research.uiowa.edu:9290/upload'
+alias vim='mvim -v'
 #this stopped working when i moved some path logic before it?
 bindkey '^Z' foreground-vi
 bindkey '^X' foreground-server
