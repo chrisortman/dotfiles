@@ -53,6 +53,7 @@ Bundle 'craigemery/vim-autotag'
 
 Bundle 'tpope/vim-rails.git'
 Bundle 'tpope/vim-bundler'
+Bundle 'tpope/vim-cucumber'
 
 " FuzzyFinder
 Bundle 'L9'
@@ -111,6 +112,10 @@ Bundle 'slim-template/vim-slim.git'
 Bundle 'kongo2002/fsharp-vim'
 Bundle 'pangloss/vim-javascript'
 Bundle 'mxw/vim-jsx'
+Bundle 'kchmck/vim-coffee-script'
+
+" browse ruby documentation
+Bundle 'danchoi/ri.vim'
 
 " functions for running ruby tests
 Bundle 'skalnik/vim-vroom'
@@ -124,10 +129,10 @@ Bundle 'benmills/vimux'
 Bundle 'christoomey/vim-tmux-navigator'
 
 " clojure
-" Bundle 'tpope/vim-leiningen'
-" Bundle 'tpope/vim-projectionist'
-" Bundle 'tpope/vim-dispatch'
-" Bundle 'tpope/vim-fireplace'
+Bundle 'tpope/vim-leiningen'
+Bundle 'tpope/vim-projectionist'
+Bundle 'tpope/vim-dispatch'
+Bundle 'tpope/vim-fireplace'
 
 " slime, used for ruby repl
 Bundle 'jpalardy/vim-slime'
@@ -186,6 +191,9 @@ map rp :VimuxPromptCommand<cr>
 map rl :VimuxRunLastCommand<cr>
 map ri :VimuxInspectRunner<cr>
 map rc :VimuxCloseRunner<cr>
+nnoremap  ,ri :call ri#OpenSearchPrompt(0)<cr> " horizontal split
+nnoremap  ,RI :call ri#OpenSearchPrompt(1)<cr> " vertical split
+nnoremap  ,RK :call ri#LookupNameUnderCursor()<cr> " keyword lookup
 
 "clear search when you hit esc
 " Works around problem in term where vim starts in replace mode
