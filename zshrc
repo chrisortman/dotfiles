@@ -48,7 +48,7 @@ export UPDATE_ZSH_DAYS=2
 plugins=(vi-mode git brew osx rails rvm history history-substring-search tmux docker colorize colored-man per-directory-history bundler)
 
 # These paths first so that RVM can insert itself to beginning of path
-export PATH="/Users/cortman/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 
 
 # User configuration
@@ -124,6 +124,7 @@ export PATH="$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
 # We source RVM before ZSH so we can put rvm info in our prompt
 # http://unix.stackexchange.com/questions/134088/ruby-version-prompt-oh-my-zsh-not-working-outside-of-tmux
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
+export PATH="/Users/cortman/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh
 
