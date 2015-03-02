@@ -151,6 +151,21 @@ colorscheme monokai
 
 filetype plugin indent on        " vundle  required!
 
+" map .docker file to docker syntax
+au! BufNewFile,BufRead *.dockerfile set filetype=dockerfile
+
+" map ecma script 6 syntax to javascript
+autocmd BufRead,BufNewFile *.es6 setfiletype javascript
+
+" Add ruby syntax highlighting for Thorfile, Rakefile, Vagrantfile and Gemfile
+au BufRead,BufNewFile {Gemfile,Guardfile,Rakefile,Vagrantfile,Thorfile,config.ru} set ft=ruby
+"
+" Add haml syntax highlighting for .hamlc
+au BufRead,BufNewFile *.thor set ft=ruby
+
+" Allow highlighting of fenced code blocks in markdown files
+au BufNewFile,BufReadPost *.md set filetype=markdown
+let g:markdown_fenced_languages = ['coffee', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'html']
 "##############################################################################                                                                         
 "" Easier split navigation                                                                                                                               
 "##############################################################################                                                                         
