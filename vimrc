@@ -10,6 +10,7 @@ set smartindent
 set smarttab
 set tabstop=2 shiftwidth=2 softtabstop=2
 set expandtab
+set cursorline
 
 set hlsearch
 set incsearch
@@ -59,6 +60,7 @@ Bundle 'tpope/vim-cucumber'
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'tpope/vim-git'
+Bundle 'tpope/vim-fugitive'
 
 " filesystem tree explorer
 Bundle "scrooloose/nerdtree.git"

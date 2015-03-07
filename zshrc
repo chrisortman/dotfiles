@@ -1,3 +1,7 @@
+if [ -e ~/Dropbox/.secrets ]; then
+  source ~/Dropbox/.secrets
+fi
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -102,10 +106,7 @@ export EDITOR="vim"
 export ODBCINI=$HOME/etc/odbc.ini
 export ODBCSYSINI=$HOME/etc
 export FREETDS=$HOME/etc/freetds.conf
-export TDSDUMP=""
 
-# homebrew sometimes runs out of api requests so need to give it an api key
-export HOMEBREW_GITHUB_API_TOKEN="32cad6323552a5e431cfeab772e750adfc2b1997"
 
 # use the php53 I installed with homebrew instead of the system one
 export PATH="$(brew --prefix homebrew/php/php53)/bin:$PATH"
@@ -143,6 +144,10 @@ function backup() {
 function restore() {
  cp $1~ $1
 }
+
+# Automatically report time 
+# for any commands that take longer than 5 seconds to run
+export REPORTTIME=5
 
 alias phpini='vim /usr/local/etc/php/5.3/php.ini'
 alias viewdsn='vim -O config/database.yml ~/etc/odbc.ini ~/etc/freetds.conf'
