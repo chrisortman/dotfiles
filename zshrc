@@ -107,7 +107,8 @@ export ODBCINI=$HOME/etc/odbc.ini
 export ODBCSYSINI=$HOME/etc
 export FREETDS=$HOME/etc/freetds.conf
 
-
+# setup postresql command line tools
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
 # use the php53 I installed with homebrew instead of the system one
 export PATH="$(brew --prefix homebrew/php/php53)/bin:$PATH"
 

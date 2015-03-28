@@ -194,7 +194,7 @@ function! UseDarkSolarized()
   colorscheme solarized
 endfunction
 
-function! UseLightSolarized()
+function! UseMonokai()
   set background=dark
   colorscheme monokai
 endfunction
