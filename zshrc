@@ -146,9 +146,34 @@ function restore() {
  cp $1~ $1
 }
 
+function verify-with-docker() {
+  cd uiris3/source
+  git remote update upstream
+  git remote update local
+  git remote update origin
+  git reset --hard $1
+  cd ../..
+  ./build.sh && ./cucumber.sh;say done
+}
+function edit-last () {
+  local cmd
+  setopt local_options extended_glob
+  for cmd in $history; do
+    case $cmd in
+      ((ls|(cvs|git|hg|svn) status)(| *)) :;;
+      ("ag "*) vim -q<(eval "$cmd --vimgrep"); return;;
+      (edit-last) :;;
+      (*) echo >&2 "The previous ag command is too old."; return 125;;
+    esac
+  done
+}
 # Automatically report time 
 # for any commands that take longer than 5 seconds to run
 export REPORTTIME=5
+
+# Used by UIRIS3 cucumber setup to pick a 
+# firefox profile
+export DEV_FOX=true
 
 alias phpini='vim /usr/local/etc/php/5.3/php.ini'
 alias viewdsn='vim -O config/database.yml ~/etc/odbc.ini ~/etc/freetds.conf'
@@ -160,6 +185,7 @@ alias demo='cd ~/code/uiris3/rails3 && DEMO=true bundle exec rails server'
 alias sab='cd ~/code/uiris3/sandbox && RAILS_ENV=test SQLITE=true script/server'
 alias upload-gem='open http://vpr32.research.uiowa.edu:9290/upload'
 alias vim='mvim -v'
+alias rcd='cd .. && cd $OLDPWD'
 #this stopped working when i moved some path logic before it?
 bindkey '^Z' foreground-vi
 bindkey '^X' foreground-server
