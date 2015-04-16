@@ -11,6 +11,7 @@ set smarttab
 set tabstop=2 shiftwidth=2 softtabstop=2
 set expandtab
 set cursorline
+set hidden
 
 set hlsearch
 set incsearch
@@ -52,6 +53,8 @@ Bundle 'gmarik/vundle'
 " regenerate tags file on save
 Bundle 'craigemery/vim-autotag'
 
+Bundle 'tpope/vim-sensible'
+Bundle 'tpope/vim-sleuth.git'
 Bundle 'tpope/vim-rails.git'
 Bundle 'tpope/vim-bundler'
 Bundle 'tpope/vim-cucumber'
@@ -61,6 +64,7 @@ Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'tpope/vim-git'
 Bundle 'tpope/vim-fugitive'
+
 
 " filesystem tree explorer
 Bundle "scrooloose/nerdtree.git"
@@ -90,11 +94,13 @@ Bundle 'tpope/vim-surround'
 let g:surround_{char2nr('=')} = "<%= \r %>"
 let g:surround_{char2nr('-')} = "<% \r %>"
 
-" comment
-Bundle 'tomtom/tcomment_vim'
 " convert words
 Bundle 'tpope/vim-abolish'
 Bundle 'tpope/vim-repeat'
+
+" comment
+Bundle 'tomtom/tcomment_vim'
+Bundle 'tomtom/tinykeymap_vim'
 
 " shows info from tags file for current file in side bar
 Bundle 'majutsushi/tagbar'
@@ -141,6 +147,8 @@ Bundle 'jpalardy/vim-slime'
 let g:slime_target = "tmux"
 
 Bundle 'honza/dockerfile.vim'
+
+Bundle 'mtth/scratch.vim'
 
 syntax enable
 set background=light
