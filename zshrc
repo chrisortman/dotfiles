@@ -105,7 +105,7 @@ export EDITOR="vim"
 # ODBC Environment variables
 export ODBCINI=$HOME/etc/odbc.ini
 export ODBCSYSINI=$HOME/etc
-export FREETDS=$HOME/etc/freetds.conf
+export FREETDSCONF=$HOME/etc/freetds.conf
 
 # setup postresql command line tools
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
@@ -167,6 +167,20 @@ function edit-last () {
     esac
   done
 }
+
+
+
+reload-dir () {
+  cd ../
+  cd $OLDPWD
+  zle .accept-line
+}
+
+zle -N reload-dir
+
+alias docker-remove-stopped-containers='docker rm $(docker ps -a -q)'
+alias docker-remove-dangling-images='docker rmi $(docker images -q -f dangling=true)'
+  
 # Automatically report time 
 # for any commands that take longer than 5 seconds to run
 export REPORTTIME=5
@@ -189,3 +203,6 @@ alias rcd='cd .. && cd $OLDPWD'
 #this stopped working when i moved some path logic before it?
 bindkey '^Z' foreground-vi
 bindkey '^X' foreground-server
+bindkey '^r' reload-dir
+export PATH="/usr/local/sbin:$PATH"
+export PATH=$PATH:~/code/simple-revision-control

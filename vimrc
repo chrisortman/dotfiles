@@ -82,6 +82,7 @@ Bundle 'bling/vim-airline'
 " By default vim only shows status line when 2 or more windows open, this will
 " always show it
 set laststatus=2
+
 Bundle 'gmarik/ingretu'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'jnurmine/Zenburn'
@@ -104,6 +105,10 @@ Bundle 'tomtom/tinykeymap_vim'
 
 " shows info from tags file for current file in side bar
 Bundle 'majutsushi/tagbar'
+
+" show and clean whitespace
+Bundle 'ntpeters/vim-better-whitespace'
+
 "----- additional text objects-----
 
 " came & snake case words
@@ -127,6 +132,9 @@ Bundle 'danchoi/ri.vim'
 
 " functions for running ruby tests
 Bundle 'skalnik/vim-vroom'
+
+let g:vroom_use_colors = 1
+let g:vroom_use_vimux = 1
 
 " ack support
 Bundle 'mileszs/ack.vim'
@@ -154,9 +162,8 @@ syntax enable
 set background=light
 if !has("gui_running")
     let g:solarized_termcolors=16
-    " set background=dark
+    set background=dark
 endif
-" set background=light
 colorscheme monokai
 
 filetype plugin indent on        " vundle  required!
@@ -228,6 +235,11 @@ if has('gui_running')
 else
   nnoremap <cr> :noh<cr><cr>
 end
+
+" Insert current date with F5
+" In normal mode use m/d/y in insert use a timestamp
+:nnoremap <F5> "=strftime("%m/%d/%y")<CR>P
+:inoremap <F5> <C-R>=strftime("%FT%T%z")<CR>
 
 " because otherwise rvm and zsh won't play nice when you use terminal commands
  set shell=bash
