@@ -168,6 +168,13 @@ function edit-last () {
   done
 }
 
+function uiris-env () {
+  echo "SQLITE: $SQLITE"
+  echo "DEMO: $DEMO"
+  echo "RAILS_ENV: $RAILS_ENV"
+  echo "SKIP_LINT: $SKIP_LINT"
+  echo "DEV_FOX: $DEV_FOX"
+}
 
 
 reload-dir () {
