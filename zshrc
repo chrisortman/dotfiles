@@ -213,3 +213,5 @@ bindkey '^X' foreground-server
 bindkey '^r' reload-dir
 export PATH="/usr/local/sbin:$PATH"
 export PATH=$PATH:~/code/simple-revision-control
+
+$(boot2docker shellinit)

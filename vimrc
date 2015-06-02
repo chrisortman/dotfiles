@@ -82,6 +82,10 @@ Bundle 'bling/vim-airline'
 " By default vim only shows status line when 2 or more windows open, this will
 " always show it
 set laststatus=2
+let g:airline_theme='powerlineish'
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline_section_z=''
 
 Bundle 'gmarik/ingretu'
 Bundle 'altercation/vim-colors-solarized'
@@ -126,6 +130,10 @@ Bundle 'kongo2002/fsharp-vim'
 Bundle 'pangloss/vim-javascript'
 Bundle 'mxw/vim-jsx'
 Bundle 'kchmck/vim-coffee-script'
+
+" markdown support
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
 
 " browse ruby documentation
 Bundle 'danchoi/ri.vim'
@@ -196,10 +204,13 @@ Bundle 'tpope/vim-fireplace'
 " slime, used for ruby repl
 Bundle 'jpalardy/vim-slime'
 let g:slime_target = "tmux"
+nmap ,ss <Plug>SlimeLineSend
 
 Bundle 'honza/dockerfile.vim'
 
 Bundle 'mtth/scratch.vim'
+let g:scratch_insert_autohide=0
+let g:scratch_autohide=0
 
 syntax enable
 set background=light
@@ -207,7 +218,7 @@ if !has("gui_running")
     let g:solarized_termcolors=16
     set background=dark
 endif
-colorscheme monokai
+" colorscheme monokai
 
 filetype plugin indent on        " vundle  required!
 
