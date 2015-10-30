@@ -49,7 +49,7 @@ export UPDATE_ZSH_DAYS=2
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(vi-mode git brew osx rails rvm history history-substring-search tmux docker colorize colored-man per-directory-history bundler z)
+plugins=(vi-mode git brew osx rails rvm history history-substring-search tmux docker colorize colored-man  bundler z)
 
 # These paths first so that RVM can insert itself to beginning of path
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
@@ -169,6 +169,9 @@ function edit-last () {
 }
 
 function uiris-env () {
+  echo "DB: $DB"
+  echo "DBD: $DBD"
+  echo "HOST: $HOST"
   echo "SQLITE: $SQLITE"
   echo "DEMO: $DEMO"
   echo "RAILS_ENV: $RAILS_ENV"
@@ -192,22 +195,21 @@ alias docker-remove-dangling-images='docker rmi $(docker images -q -f dangling=t
 # for any commands that take longer than 5 seconds to run
 export REPORTTIME=5
 
-# Used by UIRIS3 cucumber setup to pick a 
-# firefox profile
-export DEV_FOX=true
 
 alias phpini='vim /usr/local/etc/php/5.3/php.ini'
 alias viewdsn='vim -O config/database.yml ~/etc/odbc.ini ~/etc/freetds.conf'
 alias ag='ag --color --ignore tags'
-alias reseed-dev='SQLITE=true bundle exec rake {db:schema:load,seeds:all}'
-alias reseed='SQLITE=true RAILS_ENV=test bundle exec rake {db:schema:load,seeds:all}'
-alias sup='cd ~/code/uiris3/rails3 && SQLITE=true bundle exec rails server -u'
-alias demo='cd ~/code/uiris3/rails3 && DEMO=true bundle exec rails server'
-alias sab='cd ~/code/uiris3/sandbox && RAILS_ENV=test SQLITE=true script/server'
+alias reseed-dev='DB=sqlite bundle exec rake {db:schema:load,seeds:all}'
+alias reseed='DB=sqlite SQLITE=true RAILS_ENV=test bundle exec rake {db:drop,db:schema:load,seeds:all}'
+alias reseed-mssql='RAILS_ENV=test DB=my bundle exec rake seeds:all'
+alias lint='DB=sqlite RAILS_ENV=test bundle exec rake upgrade:lint'
 alias upload-gem='open http://vpr32.research.uiowa.edu:9290/upload'
 alias vim='mvim -v'
 alias rcd='cd .. && cd $OLDPWD'
 alias ff='open -a firefox http://localhost:3000'
+alias gg="open -a 'Google Chrome' http://localhost:3000"
+alias rvm-create='rvm use $(rvm current) --create --ruby-version'
+alias retag='ctags -R -f .git/tags'
 #this stopped working when i moved some path logic before it?
 bindkey '^Z' foreground-vi
 bindkey '^X' foreground-server
@@ -215,4 +217,10 @@ bindkey '^r' reload-dir
 export PATH="/usr/local/sbin:$PATH"
 export PATH=$PATH:~/code/simple-revision-control
 
-$(boot2docker shellinit)
+# Need to define this in order to install 
+# go happyfinder binary
+export GOPATH=~/gocode
+export PATH=$PATH:~/gocode/bin
+
+# Need this for ansible 
+export ANSIBLE_INVENTORY=~/ansible_hosts

@@ -20,10 +20,6 @@ set nu!
 " Display tabs and trailing spaces
 set list listchars=tab:\ \ ,trail:·
 
-" I think vim-textobj-ruby requires this
-if has("autocmd")
-  filetype indent plugin on
-endif
 
 " =============== Completion ===========
 set wildmode=list:longest
@@ -64,6 +60,8 @@ Bundle 'tpope/vim-sleuth.git'
 Bundle 'tpope/vim-rails.git'
 Bundle 'tpope/vim-bundler'
 Bundle 'tpope/vim-cucumber'
+Bundle 'tpope/vim-obsession.git'
+Bundle 'tpope/vim-unimpaired'
 
 " FuzzyFinder
 Bundle 'L9'
@@ -84,14 +82,12 @@ let g:ctrlp_max_height = 20
 let g:ctrlp_match_window_reversed = 1
 let g:ctrlp_switch_buffer = 'e'
 
-Bundle 'bling/vim-airline'
+Bundle 'tpope/vim-flagship'
 " By default vim only shows status line when 2 or more windows open, this will
 " always show it
 set laststatus=2
-" let g:airline_theme='powerlineish'
-" let g:airline_left_sep=''
-" let g:airline_right_sep=''
-" let g:airline_section_z=''
+set showtabline=2
+set guioptions-=e
 
 Bundle 'gmarik/ingretu'
 Bundle 'altercation/vim-colors-solarized'
@@ -120,6 +116,7 @@ Bundle 'majutsushi/tagbar'
 " show and clean whitespace
 Bundle 'ntpeters/vim-better-whitespace'
 
+Bundle 'vim-ruby/vim-ruby'
 "----- additional text objects-----
 
 " came & snake case words
@@ -149,7 +146,7 @@ Bundle 'danchoi/ri.vim'
 Bundle 'skalnik/vim-vroom'
 
 let g:vroom_use_vimux = 1
-
+let g:vroom_test_unit_command = "m"
 
 " automatic end statement in ruby blocks
 Bundle 'tpope/vim-endwise'
@@ -158,12 +155,24 @@ Bundle 'tpope/vim-endwise'
 Bundle 'kana/vim-textobj-user'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 
+" Adds argument text object
+Bundle 'vim-scripts/argtextobj.vim'
+
 " gS and gJ to split & join code blocks
 Bundle 'AndrewRadev/splitjoin.vim'
 
 " ag support
 Bundle 'rking/ag.vim'
 
+" make incremental search results easier to see
+Bundle 'wincent/loupe'
+" I don't need a map to clear highlighting
+let g:LoupeCenterResults=0 
+
+" Enhanced multi file search
+Bundle 'wincent/ferret'
+" rust lang
+Bundle 'rust-lang/rust.vim'
 " nginx config file highlighting
 Bundle 'evanmiller/nginx-vim-syntax'
 au! BufRead,BufNewFile /etc/nginx/*,*/nginx/nginx.conf,*/nginx/conf.d/*,/usr/local/nginx/conf/* set filetype=nginx 
@@ -171,6 +180,7 @@ au! BufRead,BufNewFile /etc/nginx/*,*/nginx/nginx.conf,*/nginx/conf.d/*,/usr/loc
 " tmux integration
 Bundle 'benmills/vimux'
 Bundle 'christoomey/vim-tmux-navigator'
+
 
 " Change the cursor based on mode 
 " when running tmux in iterm
@@ -235,16 +245,15 @@ let g:scratch_autohide=0
 nmap <leader>gs <plug>(scratch-insert-reuse)
 xmap <leader>gs <plug>(scratch-selection-reuse)
 
+Bundle 'elixir-lang/vim-elixir'
+Bundle 'lambdatoast/elm.vim'
+
+filetype plugin indent on        " vundle  required!
+
 syntax enable
-set background=light
-if !has("gui_running")
-    let g:solarized_termcolors=16
-    set background=dark
-endif
 colorscheme monokai
 
 
-filetype plugin indent on        " vundle  required!
 
 " map .docker file to docker syntax
 au! BufNewFile,BufRead *.dockerfile set filetype=dockerfile
@@ -327,9 +336,10 @@ iabbr bpry require'pry';binding.pry
 " And admit that the typos happen:
 iabbr bpry require'pry';binding.pry
 iabbr brdb require 'debugger';debugger;
+iabbr wajax And I wait until all Ajax requests are complete
 
 " Add the pry debug line with \bp (or <Space>bp, if you did: map <Space> <Leader> )
-map <Leader>bp orequire'debugger';debugger<esc>:w<cr>
+" map <Leader>bp orequire'debugger';debugger<esc>:w<cr>
 
 "
 " ----------------------------------------------------------------------------
