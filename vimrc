@@ -20,6 +20,11 @@ set nu!
 " Display tabs and trailing spaces
 set list listchars=tab:\ \ ,trail:·
 
+" I think vim-textobj-ruby requires this
+if has("autocmd")
+  filetype indent plugin on
+endif
+
 " =============== Completion ===========
 set wildmode=list:longest
 set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
@@ -34,14 +39,15 @@ set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
 " let g:is_posix = 1
 
-let mapleader = ','
+let mapleader = ","
 
 " Font
-set guifont=Envy\ Code\ R\ VS:h13
+set guifont=Menlo:h13
 if has('mac')
   "set noantialias
 endif
 
+runtime macros/matchit.vim
 
 " BUNDLES 
 " enable vundle
@@ -82,15 +88,16 @@ Bundle 'bling/vim-airline'
 " By default vim only shows status line when 2 or more windows open, this will
 " always show it
 set laststatus=2
-let g:airline_theme='powerlineish'
-let g:airline_left_sep=''
-let g:airline_right_sep=''
-let g:airline_section_z=''
+" let g:airline_theme='powerlineish'
+" let g:airline_left_sep=''
+" let g:airline_right_sep=''
+" let g:airline_section_z=''
 
 Bundle 'gmarik/ingretu'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'jnurmine/Zenburn'
-Bundle 'sickill/vim-monokai'
+Bundle 'chrisortman/vim-monokai'
+" Bundle 'crusoexia/vim-monokai'
 
 " surround
 Bundle 'tpope/vim-surround'
@@ -132,8 +139,8 @@ Bundle 'mxw/vim-jsx'
 Bundle 'kchmck/vim-coffee-script'
 
 " markdown support
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
+Bundle 'godlygeek/tabular'
+Bundle 'plasticboy/vim-markdown'
 
 " browse ruby documentation
 Bundle 'danchoi/ri.vim'
@@ -141,12 +148,25 @@ Bundle 'danchoi/ri.vim'
 " functions for running ruby tests
 Bundle 'skalnik/vim-vroom'
 
-let g:vroom_use_colors = 1
 let g:vroom_use_vimux = 1
 
-" ack support
-Bundle 'mileszs/ack.vim'
-let g:ackprg = 'ag --nogroup --nocolor --column'
+
+" automatic end statement in ruby blocks
+Bundle 'tpope/vim-endwise'
+
+" adds ir and ar to select ruby blocks
+Bundle 'kana/vim-textobj-user'
+Bundle 'nelstrom/vim-textobj-rubyblock'
+
+" gS and gJ to split & join code blocks
+Bundle 'AndrewRadev/splitjoin.vim'
+
+" ag support
+Bundle 'rking/ag.vim'
+
+" nginx config file highlighting
+Bundle 'evanmiller/nginx-vim-syntax'
+au! BufRead,BufNewFile /etc/nginx/*,*/nginx/nginx.conf,*/nginx/conf.d/*,/usr/local/nginx/conf/* set filetype=nginx 
 
 " tmux integration
 Bundle 'benmills/vimux'
@@ -209,8 +229,11 @@ nmap ,ss <Plug>SlimeLineSend
 Bundle 'honza/dockerfile.vim'
 
 Bundle 'mtth/scratch.vim'
+let g:scratch_no_mappings = 1
 let g:scratch_insert_autohide=0
 let g:scratch_autohide=0
+nmap <leader>gs <plug>(scratch-insert-reuse)
+xmap <leader>gs <plug>(scratch-selection-reuse)
 
 syntax enable
 set background=light
@@ -218,7 +241,8 @@ if !has("gui_running")
     let g:solarized_termcolors=16
     set background=dark
 endif
-" colorscheme monokai
+colorscheme monokai
+
 
 filetype plugin indent on        " vundle  required!
 
@@ -295,5 +319,20 @@ end
 :nnoremap <F5> "=strftime("%m/%d/%y")<CR>P
 :inoremap <F5> <C-R>=strftime("%FT%T%z")<CR>
 
+" ----------------------------------------------------------------------------
+" from https://github.com/rking/pry-de/blob/master/vim/ftplugin/ruby_pry.vim
+"
+" …also, Insert Mode as bpry<space>
+iabbr bpry require'pry';binding.pry
+" And admit that the typos happen:
+iabbr bpry require'pry';binding.pry
+iabbr brdb require 'debugger';debugger;
+
+" Add the pry debug line with \bp (or <Space>bp, if you did: map <Space> <Leader> )
+map <Leader>bp orequire'debugger';debugger<esc>:w<cr>
+
+"
+" ----------------------------------------------------------------------------
+"
 " because otherwise rvm and zsh won't play nice when you use terminal commands
  set shell=bash

@@ -49,7 +49,7 @@ export UPDATE_ZSH_DAYS=2
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(vi-mode git brew osx rails rvm history history-substring-search tmux docker colorize colored-man per-directory-history bundler)
+plugins=(vi-mode git brew osx rails rvm history history-substring-search tmux docker colorize colored-man per-directory-history bundler z)
 
 # These paths first so that RVM can insert itself to beginning of path
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
@@ -207,6 +207,7 @@ alias sab='cd ~/code/uiris3/sandbox && RAILS_ENV=test SQLITE=true script/server'
 alias upload-gem='open http://vpr32.research.uiowa.edu:9290/upload'
 alias vim='mvim -v'
 alias rcd='cd .. && cd $OLDPWD'
+alias ff='open -a firefox http://localhost:3000'
 #this stopped working when i moved some path logic before it?
 bindkey '^Z' foreground-vi
 bindkey '^X' foreground-server
