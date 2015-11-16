@@ -181,7 +181,6 @@ au! BufRead,BufNewFile /etc/nginx/*,*/nginx/nginx.conf,*/nginx/conf.d/*,/usr/loc
 Bundle 'benmills/vimux'
 Bundle 'christoomey/vim-tmux-navigator'
 
-
 " Change the cursor based on mode 
 " when running tmux in iterm
 if exists('$ITERM_PROFILE')
@@ -248,9 +247,15 @@ xmap <leader>gs <plug>(scratch-selection-reuse)
 Bundle 'elixir-lang/vim-elixir'
 Bundle 'lambdatoast/elm.vim'
 
-filetype plugin indent on        " vundle  required!
 
-syntax enable
+syntax on
+filetype plugin indent on        " vundle  required!
+set omnifunc=syntaxcomplete#Complete
+
+" Get horrible lag in large ruby files
+" Interesting thread here https://github.com/vim/vim/issues/282
+set lazyredraw
+
 colorscheme monokai
 
 
