@@ -170,6 +170,7 @@ function edit-last () {
 
 function uiris-env () {
   echo "DB: $DB"
+  echo "DSN: $DSN"
   echo "DBD: $DBD"
   echo "HOST: $HOST"
   echo "SQLITE: $SQLITE"

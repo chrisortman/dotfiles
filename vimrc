@@ -117,6 +117,8 @@ Bundle 'majutsushi/tagbar'
 Bundle 'ntpeters/vim-better-whitespace'
 
 Bundle 'vim-ruby/vim-ruby'
+" better folding, only methods, classes & it blocks
+Bundle 'vim-utils/vim-ruby-fold'
 "----- additional text objects-----
 
 " came & snake case words
@@ -318,6 +320,7 @@ map rc :VimuxCloseRunner<cr>
 nnoremap  ,ri :call ri#OpenSearchPrompt(0)<cr> " horizontal split
 nnoremap  ,RI :call ri#OpenSearchPrompt(1)<cr> " vertical split
 nnoremap  ,RK :call ri#LookupNameUnderCursor()<cr> " keyword lookup
+nnoremap <Space> za
 
 "clear search when you hit esc
 " Works around problem in term where vim starts in replace mode
