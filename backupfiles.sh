@@ -1,5 +1,6 @@
 cp ~/.vimrc ./vimrc
 cp ~/.gitconfig ./gitconfig
+cp ~/.gitignore_global ./gitignore_global
 cp ~/.zshrc ./zshrc
 cp ~/.zshenv ./zshenv
 cp ~/.tmux.conf ./tmux.conf
