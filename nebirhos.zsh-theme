@@ -2,13 +2,7 @@
 # @host ➜ currentdir rvm:(rubyversion@gemset) git:(branchname)
 
 # Get the current ruby version in use with RVM:
-if [ -e ~/.rvm/bin/rvm-prompt ]; then
-    RUBY_PROMPT_="%{$fg_bold[blue]%}rvm:(%{$fg[green]%}\$(~/.rvm/bin/rvm-prompt s i v g)%{$fg_bold[blue]%})%{$reset_color%} "
-else
-  if which rbenv &> /dev/null; then
-    RUBY_PROMPT_="%{$fg_bold[blue]%}rbenv:(%{$fg[green]%}\$(rbenv version | sed -e 's/ (set.*$//')%{$fg_bold[blue]%})%{$reset_color%} "
-  fi
-fi
+RUBY_PROMPT_="%{$fg_bold[green]%}\$(chruby_prompt_info)"
 
 # Get the host name (first 4 chars)
 HOST_PROMPT_="%{$fg_bold[red]%}@chris %{$fg_bold[cyan]%}%c "

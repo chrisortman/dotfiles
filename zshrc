@@ -49,10 +49,10 @@ export UPDATE_ZSH_DAYS=2
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(vi-mode git brew osx rails rvm history history-substring-search tmux docker colorize colored-man  bundler z)
+plugins=(vi-mode git brew osx rails chruby history history-substring-search tmux docker colorize colored-man  bundler z)
 
 # These paths first so that RVM can insert itself to beginning of path
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+# export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 
 
 # User configuration
@@ -108,24 +108,14 @@ export ODBCSYSINI=$HOME/etc
 export FREETDSCONF=$HOME/etc/freetds.conf
 
 # setup postresql command line tools
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
-# use the php53 I installed with homebrew instead of the system one
-export PATH="$(brew --prefix homebrew/php/php53)/bin:$PATH"
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
 
-# use homebrew's apache instead of system
-export PATH="$(brew --prefix httpd24)/bin:$PATH"
-
-#RVM complains in tmux if it isn't first
-export PATH="$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
 
 # pip should only run if there is a virtualenv currently activated
 #export PIP_REQUIRE_VIRTUALENV=true
 # cache pip-installed packages to avoid re-downloading
 #export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
 
-# We source RVM before ZSH so we can put rvm info in our prompt
-# http://unix.stackexchange.com/questions/134088/ruby-version-prompt-oh-my-zsh-not-working-outside-of-tmux
-[[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
 export PATH="/Users/cortman/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -189,6 +179,19 @@ reload-dir () {
 
 zle -N reload-dir
 
+spring-web-app-generate () {
+  mvn archetype:generate  \
+  -DarchetypeGroupId=edu.uiowa.icts.archetype  \
+  -DarchetypeArtifactId=spring-4-web-application  \
+  -DarchetypeVersion=1.0.2-SNAPSHOT \
+  -DgroupId=edu.uiowa.icts  \
+  -Dversion=0.0.1-SNAPSHOT \
+  -DartifactId=$1
+}
+
+github-ignore () {
+  curl https://raw.githubusercontent.com/github/gitignore/master/$1.gitignore
+}
 alias docker-remove-stopped-containers='docker rm $(docker ps -a -q)'
 alias docker-remove-dangling-images='docker rmi $(docker images -q -f dangling=true)'
   
@@ -209,8 +212,11 @@ alias vim='mvim -v'
 alias rcd='cd .. && cd $OLDPWD'
 alias ff='open -a firefox http://localhost:3000'
 alias gg="open -a 'Google Chrome' http://localhost:3000"
-alias rvm-create='rvm use $(rvm current) --create --ruby-version'
 alias retag='ctags -R -f .git/tags'
+alias mysql-start='launchctl load -F /usr/local/opt/mysql/homebrew.mxcl.mysql.plist'
+alias mysql-stop='launchctl unload -F /usr/local/opt/mysql/homebrew.mxcl.mysql.plist'
+alias hfg='hf -git'
+
 #this stopped working when i moved some path logic before it?
 bindkey '^Z' foreground-vi
 bindkey '^X' foreground-server
@@ -223,5 +229,5 @@ export PATH=$PATH:~/code/simple-revision-control
 export GOPATH=~/gocode
 export PATH=$PATH:~/gocode/bin
 
-# Need this for ansible 
-export ANSIBLE_INVENTORY=~/ansible_hosts
+chruby ruby-2.2.3
+if which jenv > /dev/null; then eval "$(jenv init -)"; fi

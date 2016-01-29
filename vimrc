@@ -47,34 +47,34 @@ runtime macros/matchit.vim
 
 " BUNDLES 
 " enable vundle
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
 " regenerate tags file on save
-Bundle 'craigemery/vim-autotag'
+Plugin 'craigemery/vim-autotag'
 
-Bundle 'tpope/vim-sensible'
-Bundle 'tpope/vim-sleuth.git'
-Bundle 'tpope/vim-rails.git'
-Bundle 'tpope/vim-bundler'
-Bundle 'tpope/vim-cucumber'
-Bundle 'tpope/vim-obsession.git'
-Bundle 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-sensible'
+Plugin 'tpope/vim-sleuth.git'
+Plugin 'tpope/vim-rails.git'
+Plugin 'tpope/vim-bundler'
+Plugin 'tpope/vim-cucumber'
+Plugin 'tpope/vim-obsession.git'
+Plugin 'tpope/vim-unimpaired'
 
 " FuzzyFinder
-Bundle 'L9'
-Bundle 'FuzzyFinder'
-Bundle 'tpope/vim-git'
-Bundle 'tpope/vim-fugitive'
-Bundle 'airblade/vim-gitgutter'
+Plugin 'L9'
+Plugin 'FuzzyFinder'
+Plugin 'tpope/vim-git'
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
 
 
 " filesystem tree explorer
-Bundle "scrooloose/nerdtree.git"
+Plugin 'scrooloose/nerdtree'
 
-Bundle 'kien/ctrlp.vim'
+Plugin 'kien/ctrlp.vim'
 
 let g:ctrlp_map = '<leader>f'
 let g:ctrlp_max_height = 30
@@ -83,106 +83,106 @@ let g:ctrlp_max_height = 20
 let g:ctrlp_match_window_reversed = 1
 let g:ctrlp_switch_buffer = 'e'
 
-Bundle 'tpope/vim-flagship'
+Plugin 'tpope/vim-flagship'
 " By default vim only shows status line when 2 or more windows open, this will
 " always show it
 set laststatus=2
 set showtabline=2
 set guioptions-=e
 
-Bundle 'gmarik/ingretu'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'jnurmine/Zenburn'
-Bundle 'chrisortman/vim-monokai'
-" Bundle 'crusoexia/vim-monokai'
+Plugin 'gmarik/ingretu'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'jnurmine/Zenburn'
+" Plugin 'crusoexia/vim-monokai'
+Plugin 'chrisortman/vim-monokai'
 
 " surround
-Bundle 'tpope/vim-surround'
+Plugin 'tpope/vim-surround'
 
 " let's surround.vim know about <%=
 let g:surround_{char2nr('=')} = "<%= \r %>"
 let g:surround_{char2nr('-')} = "<% \r %>"
 
 " convert words
-Bundle 'tpope/vim-abolish'
-Bundle 'tpope/vim-repeat'
+Plugin 'tpope/vim-abolish'
+Plugin 'tpope/vim-repeat'
 
 " comment
-Bundle 'tomtom/tcomment_vim'
-Bundle 'tomtom/tinykeymap_vim'
+Plugin 'tomtom/tcomment_vim'
+Plugin 'tomtom/tinykeymap_vim'
 
 " shows info from tags file for current file in side bar
-Bundle 'majutsushi/tagbar'
+Plugin 'majutsushi/tagbar'
 
 " show and clean whitespace
-Bundle 'ntpeters/vim-better-whitespace'
+Plugin 'ntpeters/vim-better-whitespace'
 
-Bundle 'vim-ruby/vim-ruby'
+Plugin 'vim-ruby/vim-ruby'
 " better folding, only methods, classes & it blocks
-Bundle 'vim-utils/vim-ruby-fold'
+Plugin 'vim-utils/vim-ruby-fold'
 "----- additional text objects-----
 
 " came & snake case words
-" Bundle 'bkad/CamelCaseMotion' 
+" Plugin 'bkad/CamelCaseMotion' 
 
 "----------------------------------
 
 " Mustache / handlebars
-Bundle 'mustache/vim-mustache-handlebars'
+Plugin 'mustache/vim-mustache-handlebars'
 
 " Slim
-Bundle 'slim-template/vim-slim.git'
+Plugin 'slim-template/vim-slim.git'
 
-Bundle 'kongo2002/fsharp-vim'
-Bundle 'pangloss/vim-javascript'
-Bundle 'mxw/vim-jsx'
-Bundle 'kchmck/vim-coffee-script'
+Plugin 'kongo2002/fsharp-vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+Plugin 'kchmck/vim-coffee-script'
 
 " markdown support
-Bundle 'godlygeek/tabular'
-Bundle 'plasticboy/vim-markdown'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
 
 " browse ruby documentation
-Bundle 'danchoi/ri.vim'
+Plugin 'danchoi/ri.vim'
 
 " functions for running ruby tests
-Bundle 'skalnik/vim-vroom'
+Plugin 'skalnik/vim-vroom'
 
 let g:vroom_use_vimux = 1
 let g:vroom_test_unit_command = "m"
 
 " automatic end statement in ruby blocks
-Bundle 'tpope/vim-endwise'
+Plugin 'tpope/vim-endwise'
 
 " adds ir and ar to select ruby blocks
-Bundle 'kana/vim-textobj-user'
-Bundle 'nelstrom/vim-textobj-rubyblock'
+Plugin 'kana/vim-textobj-user'
+Plugin 'nelstrom/vim-textobj-rubyblock'
 
 " Adds argument text object
-Bundle 'vim-scripts/argtextobj.vim'
+Plugin 'vim-scripts/argtextobj.vim'
 
 " gS and gJ to split & join code blocks
-Bundle 'AndrewRadev/splitjoin.vim'
+Plugin 'AndrewRadev/splitjoin.vim'
 
 " ag support
-Bundle 'rking/ag.vim'
+Plugin 'rking/ag.vim'
 
 " make incremental search results easier to see
-Bundle 'wincent/loupe'
+Plugin 'wincent/loupe'
 " I don't need a map to clear highlighting
 let g:LoupeCenterResults=0 
 
 " Enhanced multi file search
-Bundle 'wincent/ferret'
+Plugin 'wincent/ferret'
 " rust lang
-Bundle 'rust-lang/rust.vim'
+Plugin 'rust-lang/rust.vim'
 " nginx config file highlighting
-Bundle 'evanmiller/nginx-vim-syntax'
+Plugin 'evanmiller/nginx-vim-syntax'
 au! BufRead,BufNewFile /etc/nginx/*,*/nginx/nginx.conf,*/nginx/conf.d/*,/usr/local/nginx/conf/* set filetype=nginx 
 
 " tmux integration
-Bundle 'benmills/vimux'
-Bundle 'christoomey/vim-tmux-navigator'
+Plugin 'benmills/vimux'
+Plugin 'christoomey/vim-tmux-navigator'
 
 " Change the cursor based on mode 
 " when running tmux in iterm
@@ -225,32 +225,32 @@ inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 " Intelligent switching between relative & absolute
 " line numbers
 " can also toggle with C-n
-Bundle 'jeffkreeftmeijer/vim-numbertoggle'
+Plugin 'jeffkreeftmeijer/vim-numbertoggle'
 
 " clojure
-Bundle 'tpope/vim-leiningen'
-Bundle 'tpope/vim-projectionist'
-Bundle 'tpope/vim-dispatch'
-Bundle 'tpope/vim-fireplace'
+Plugin 'tpope/vim-leiningen'
+Plugin 'tpope/vim-projectionist'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-fireplace'
 
 " slime, used for ruby repl
-Bundle 'jpalardy/vim-slime'
+Plugin 'jpalardy/vim-slime'
 let g:slime_target = "tmux"
 nmap ,ss <Plug>SlimeLineSend
 
-Bundle 'honza/dockerfile.vim'
+Plugin 'honza/dockerfile.vim'
 
-Bundle 'mtth/scratch.vim'
+Plugin 'mtth/scratch.vim'
 let g:scratch_no_mappings = 1
 let g:scratch_insert_autohide=0
 let g:scratch_autohide=0
 nmap <leader>gs <plug>(scratch-insert-reuse)
 xmap <leader>gs <plug>(scratch-selection-reuse)
 
-Bundle 'elixir-lang/vim-elixir'
-Bundle 'lambdatoast/elm.vim'
+Plugin 'elixir-lang/vim-elixir'
+Plugin 'lambdatoast/elm.vim'
 
-
+call vundle#end()
 syntax on
 filetype plugin indent on        " vundle  required!
 set omnifunc=syntaxcomplete#Complete
