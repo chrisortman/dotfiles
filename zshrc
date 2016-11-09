@@ -45,15 +45,20 @@ export UPDATE_ZSH_DAYS=2
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(vi-mode git brew osx rails chruby history history-substring-search tmux docker colorize colored-man  bundler z)
-
 # These paths first so that RVM can insert itself to beginning of path
 # export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 
+#####
+# I couldn't come up with a quick and easy way to not have the chruby plugin load the
+# auto change ruby stuff, so I hacked my auto.sh script that homebrew installs
+# to not sitck the preexec function in
+# ####
 
 # User configuration
 
@@ -61,7 +66,7 @@ DISABLE_AUTO_TITLE=true
 alias tmux="TERM=screen-256color-bce tmux"
 #alias emacs="$(brew --prefix emacs)/Emacs.app/Contents/MacOS/Emacs -nw"
 foreground-vi() {
-    fg %mvim
+    fg %/usr/local/binvim
 }
 
 
@@ -200,15 +205,8 @@ alias docker-remove-dangling-images='docker rmi $(docker images -q -f dangling=t
 export REPORTTIME=5
 
 
-alias phpini='vim /usr/local/etc/php/5.3/php.ini'
-alias viewdsn='vim -O config/database.yml ~/etc/odbc.ini ~/etc/freetds.conf'
 alias ag='ag --color --ignore tags'
-alias reseed-dev='DB=sqlite bundle exec rake {db:schema:load,seeds:all}'
-alias reseed='DB=sqlite SQLITE=true RAILS_ENV=test bundle exec rake {db:drop,db:schema:load,seeds:all}'
-alias reseed-mssql='RAILS_ENV=test DB=my bundle exec rake seeds:all'
-alias lint='DB=sqlite RAILS_ENV=test bundle exec rake upgrade:lint'
-alias upload-gem='open http://vpr32.research.uiowa.edu:9290/upload'
-alias vim='mvim -v'
+alias vim='/usr/local/bin/vim'
 alias rcd='cd .. && cd $OLDPWD'
 alias ff='open -a firefox http://localhost:3000'
 alias gg="open -a 'Google Chrome' http://localhost:3000"
@@ -229,5 +227,9 @@ export PATH=$PATH:~/code/simple-revision-control
 export GOPATH=~/gocode
 export PATH=$PATH:~/gocode/bin
 
-chruby ruby-2.2.3
+chruby ruby-2.2.4
 if which jenv > /dev/null; then eval "$(jenv init -)"; fi
+
+export JETTY_MAVEN_OPTS="-Xms2000m -Xmx2000m -XX:MaxPermSize=2000m"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

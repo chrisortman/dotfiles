@@ -73,6 +73,7 @@ Plugin 'airblade/vim-gitgutter'
 
 " filesystem tree explorer
 Plugin 'scrooloose/nerdtree'
+let NERDTreeIgnore = ['\.pyc$']
 
 Plugin 'kien/ctrlp.vim'
 
@@ -95,6 +96,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'jnurmine/Zenburn'
 " Plugin 'crusoexia/vim-monokai'
 Plugin 'chrisortman/vim-monokai'
+Plugin 'tomasr/molokai'
 
 " surround
 Plugin 'tpope/vim-surround'
@@ -117,7 +119,13 @@ Plugin 'majutsushi/tagbar'
 " show and clean whitespace
 Plugin 'ntpeters/vim-better-whitespace'
 
+Plugin 'tpope/vim-rbenv'
 Plugin 'vim-ruby/vim-ruby'
+" autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+" autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+" autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1   
+" autocmd FileType ruby,eruby let g:rubycomplete_use_bundler = 1   
+
 " better folding, only methods, classes & it blocks
 Plugin 'vim-utils/vim-ruby-fold'
 "----- additional text objects-----
@@ -135,6 +143,8 @@ Plugin 'slim-template/vim-slim.git'
 
 Plugin 'kongo2002/fsharp-vim'
 Plugin 'pangloss/vim-javascript'
+Plugin 'tpope/vim-jdaddy' " json helpers
+
 Plugin 'mxw/vim-jsx'
 Plugin 'kchmck/vim-coffee-script'
 
@@ -146,12 +156,16 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'danchoi/ri.vim'
 
 " functions for running ruby tests
-Plugin 'skalnik/vim-vroom'
+" Plugin 'skalnik/vim-vroom'
+Plugin 'chrisortman/vim-test'
+let test#strategy='vimux'
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>l :TestLast<CR>
+" let g:vroom_use_vimux = 1
+" let g:vroom_test_unit_command = "rails test"
 
-let g:vroom_use_vimux = 1
-let g:vroom_test_unit_command = "m"
-
-" automatic end statement in ruby blocks
+" automatic end statement in ruby blocks => 'my-build'
 Plugin 'tpope/vim-endwise'
 
 " adds ir and ar to select ruby blocks
@@ -240,27 +254,31 @@ nmap ,ss <Plug>SlimeLineSend
 
 Plugin 'honza/dockerfile.vim'
 
-Plugin 'mtth/scratch.vim'
-let g:scratch_no_mappings = 1
-let g:scratch_insert_autohide=0
-let g:scratch_autohide=0
-nmap <leader>gs <plug>(scratch-insert-reuse)
-xmap <leader>gs <plug>(scratch-selection-reuse)
+" Plugin 'mtth/scratch.vim'
+" let g:scratch_no_mappings = 1
+" let g:scratch_insert_autohide=0
+" let g:scratch_autohide=0
+" nmap <leader>gs <plug>(scratch-insert-reuse)
+" xmap <leader>gs <plug>(scratch-selection-reuse)
 
 Plugin 'elixir-lang/vim-elixir'
+Plugin 'slashmili/alchemist.vim'
 Plugin 'lambdatoast/elm.vim'
-
+Plugin 'keith/swift.vim'
+Plugin 'brow/vim-xctool'
+Plugin 'mattn/emmet-vim'
 call vundle#end()
 syntax on
 filetype plugin indent on        " vundle  required!
-set omnifunc=syntaxcomplete#Complete
+"set omnifunc=syntaxcomplete#Complete
 
 " Get horrible lag in large ruby files
 " Interesting thread here https://github.com/vim/vim/issues/282
 set lazyredraw
 
-colorscheme monokai
-
+" let g:molokai_original=1
+let g:rehash256=1
+colorscheme molokai
 
 
 " map .docker file to docker syntax
@@ -270,7 +288,7 @@ au! BufNewFile,BufRead *.dockerfile set filetype=dockerfile
 autocmd BufRead,BufNewFile *.es6 setfiletype javascript
 
 " Add ruby syntax highlighting for Thorfile, Rakefile, Vagrantfile and Gemfile
-au BufRead,BufNewFile {Gemfile,Guardfile,Rakefile,Vagrantfile,Thorfile,config.ru} set ft=ruby
+au BufRead,BufNewFile {Gemfile,Guardfile,Rakefile,Vagrantfile,Thorfile,config.ru,Fastfile} set ft=ruby
 "
 " Add haml syntax highlighting for .hamlc
 au BufRead,BufNewFile *.thor set ft=ruby
@@ -354,4 +372,5 @@ iabbr wajax And I wait until all Ajax requests are complete
 " ----------------------------------------------------------------------------
 "
 " because otherwise rvm and zsh won't play nice when you use terminal commands
- set shell=bash
+" set shell=bash
+" set shell=$SHELL\ -l
