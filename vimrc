@@ -52,11 +52,13 @@ call plug#begin('~/.vim/plugged')
   " Plug 'craigemery/vim-autotag'
 
   Plug 'tpope/vim-sensible'
-  Plug 'tpope/vim-sleuth.git'
-  Plug 'tpope/vim-rails.git', {'for' : ['ruby','rails'] }
-  Plug 'tpope/vim-bundler', {'for' : ['ruby','rails'] }
+  Plug 'tpope/vim-sleuth'
+  Plug 'tpope/vim-rails'
+  Plug 'tpope/vim-bundler'
   Plug 'tpope/vim-cucumber'
-  Plug 'tpope/vim-obsession.git'
+  Plug 'tpope/vim-obsession'
+
+  " Provides navigation with [q ]q etc
   Plug 'tpope/vim-unimpaired'
 
   " FuzzyFinder
@@ -64,7 +66,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'FuzzyFinder'
   Plug 'tpope/vim-git'
   Plug 'tpope/vim-fugitive'
-  " Plug 'airblade/vim-gitgutter'
 
 
   " filesystem tree explorer
@@ -73,7 +74,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'kien/ctrlp.vim'
 
   Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+  Plug 'vim-syntastic/syntastic'
 
+  " Color schemes
   Plug 'gmarik/ingretu'
   Plug 'altercation/vim-colors-solarized'
   Plug 'jnurmine/Zenburn'
@@ -107,7 +110,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'mustache/vim-mustache-handlebars'
 
   " Slim
-  Plug 'slim-template/vim-slim.git'
+  Plug 'slim-template/vim-slim'
 
   Plug 'pangloss/vim-javascript'
   Plug 'tpope/vim-jdaddy' " json helpers
@@ -129,8 +132,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-endwise'
 
   " adds ir and ar to select ruby blocks
-  Plug 'kana/vim-textobj-user', {'for' : ['ruby'] }
-  Plug 'nelstrom/vim-textobj-rubyblock', {'for' : ['ruby'] }
+  Plug 'kana/vim-textobj-user'
+  Plug 'nelstrom/vim-textobj-rubyblock'
 
   " Adds argument text object
   Plug 'vim-scripts/argtextobj.vim'
@@ -155,11 +158,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'honza/dockerfile.vim'
 
-  Plug 'elixir-lang/vim-elixir', {'for' : ['elixir'] }
-  Plug 'slashmili/alchemist.vim', {'for' : ['elixir'] }
-  Plug 'lambdatoast/elm.vim', {'for' : ['elm'] }
-  Plug 'keith/swift.vim', {'for' : ['swift'] }
-  Plug 'brow/vim-xctool', {'for' : ['swift'] }
+  Plug 'elixir-lang/vim-elixir'
+  Plug 'slashmili/alchemist.vim'
+  Plug 'lambdatoast/elm.vim'
+  Plug 'keith/swift.vim'
+  Plug 'brow/vim-xctool'
   Plug 'mattn/emmet-vim'
   " Intelligent switching between relative & absolute
   " line numbers
@@ -167,19 +170,22 @@ call plug#begin('~/.vim/plugged')
   Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
   " clojure
-  Plug 'tpope/vim-leiningen', {'for' : ['clojure'] }
-  Plug 'tpope/vim-projectionist', {'for' : ['clojure'] }
+  Plug 'tpope/vim-leiningen'
+  Plug 'tpope/vim-projectionist'
   Plug 'tpope/vim-dispatch'
-  Plug 'tpope/vim-fireplace', {'for' : ['clojure'] }
+  Plug 'tpope/vim-fireplace'
 
   " slime, used for ruby repl
   Plug 'jpalardy/vim-slime'
 
-  Plug 'tpope/vim-flagship'
+  " Plug 'tpope/vim-flagship'
 
 call plug#end()
 
+" Hide pyc files in nerdtree explorer
 let NERDTreeIgnore = ['\.pyc$']
+
+" Configuration for fuzzy file finding
 let g:ctrlp_map = '<leader>f'
 let g:ctrlp_max_height = 30
 let g:ctrlp_match_window_bottom=1
@@ -192,12 +198,21 @@ let g:ctrlp_switch_buffer = 'e'
 set laststatus=2
 set showtabline=2
 set guioptions-=e
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
+let g:syntastic_swift_checkers = ['swiftlint']
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 " let's surround.vim know about <%=
 let g:surround_{char2nr('=')} = "<%= \r %>"
 let g:surround_{char2nr('-')} = "<% \r %>"
 
+" Key maps and configuration for running tests from editor
 let test#strategy='vimux'
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
@@ -208,6 +223,7 @@ nmap <silent> <leader>l :TestLast<CR>
 " I don't need a map to clear highlighting
 let g:LoupeCenterResults=0 
 
+" Let vim recognize nginx files
 au! BufRead,BufNewFile /etc/nginx/*,*/nginx/nginx.conf,*/nginx/conf.d/*,/usr/local/nginx/conf/* set filetype=nginx 
 
 
@@ -320,6 +336,7 @@ map rp :VimuxPromptCommand<cr>
 map rl :VimuxRunLastCommand<cr>
 map ri :VimuxInspectRunner<cr>
 map rc :VimuxCloseRunner<cr>
+
 nnoremap  ,ri :call ri#OpenSearchPrompt(0)<cr> " horizontal split
 nnoremap  ,RI :call ri#OpenSearchPrompt(1)<cr> " vertical split
 nnoremap  ,RK :call ri#LookupNameUnderCursor()<cr> " keyword lookup
