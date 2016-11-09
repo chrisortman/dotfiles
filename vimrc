@@ -46,37 +46,140 @@ endif
 runtime macros/matchit.vim
 
 " BUNDLES 
-" enable vundle
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 
-Plugin 'gmarik/vundle'
+  " regenerate tags file on save
+  " Plug 'craigemery/vim-autotag'
 
-" regenerate tags file on save
-Plugin 'craigemery/vim-autotag'
+  Plug 'tpope/vim-sensible'
+  Plug 'tpope/vim-sleuth.git'
+  Plug 'tpope/vim-rails.git', {'for' : ['ruby','rails'] }
+  Plug 'tpope/vim-bundler', {'for' : ['ruby','rails'] }
+  Plug 'tpope/vim-cucumber'
+  Plug 'tpope/vim-obsession.git'
+  Plug 'tpope/vim-unimpaired'
 
-Plugin 'tpope/vim-sensible'
-Plugin 'tpope/vim-sleuth.git'
-Plugin 'tpope/vim-rails.git'
-Plugin 'tpope/vim-bundler'
-Plugin 'tpope/vim-cucumber'
-Plugin 'tpope/vim-obsession.git'
-Plugin 'tpope/vim-unimpaired'
-
-" FuzzyFinder
-Plugin 'L9'
-Plugin 'FuzzyFinder'
-Plugin 'tpope/vim-git'
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
+  " FuzzyFinder
+  Plug 'L9'
+  Plug 'FuzzyFinder'
+  Plug 'tpope/vim-git'
+  Plug 'tpope/vim-fugitive'
+  " Plug 'airblade/vim-gitgutter'
 
 
-" filesystem tree explorer
-Plugin 'scrooloose/nerdtree'
+  " filesystem tree explorer
+  Plug 'scrooloose/nerdtree'
+
+  Plug 'kien/ctrlp.vim'
+
+  Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+  Plug 'gmarik/ingretu'
+  Plug 'altercation/vim-colors-solarized'
+  Plug 'jnurmine/Zenburn'
+  " Plug 'crusoexia/vim-monokai'
+  Plug 'chrisortman/vim-monokai'
+  Plug 'tomasr/molokai'
+
+  " surround
+  Plug 'tpope/vim-surround'
+  " convert words
+  " Plug 'tpope/vim-abolish'
+  Plug 'tpope/vim-repeat'
+
+  " comment
+  Plug 'tomtom/tcomment_vim'
+  " Plug 'tomtom/tinykeymap_vim'
+
+  " shows info from tags file for current file in side bar
+  Plug 'majutsushi/tagbar'
+
+  " show and clean whitespace
+  Plug 'ntpeters/vim-better-whitespace'
+
+  " Plug 'tpope/vim-rbenv'
+  Plug 'vim-ruby/vim-ruby'
+
+  " better folding, only methods, classes & it blocks
+  Plug 'vim-utils/vim-ruby-fold'
+
+  " Mustache / handlebars
+  Plug 'mustache/vim-mustache-handlebars'
+
+  " Slim
+  Plug 'slim-template/vim-slim.git'
+
+  Plug 'pangloss/vim-javascript'
+  Plug 'tpope/vim-jdaddy' " json helpers
+
+  Plug 'mxw/vim-jsx'
+  Plug 'kchmck/vim-coffee-script'
+
+  " markdown support
+  " Plug 'godlygeek/tabular'
+  Plug 'plasticboy/vim-markdown'
+
+  " browse ruby documentation
+  Plug 'danchoi/ri.vim'
+
+  " functions for running ruby tests
+  " Plug 'skalnik/vim-vroom'
+  Plug 'chrisortman/vim-test'
+  " automatic end statement in ruby blocks => 'my-build'
+  Plug 'tpope/vim-endwise'
+
+  " adds ir and ar to select ruby blocks
+  Plug 'kana/vim-textobj-user', {'for' : ['ruby'] }
+  Plug 'nelstrom/vim-textobj-rubyblock', {'for' : ['ruby'] }
+
+  " Adds argument text object
+  Plug 'vim-scripts/argtextobj.vim'
+
+  " gS and gJ to split & join code blocks
+  Plug 'AndrewRadev/splitjoin.vim'
+
+  " ag support
+  Plug 'rking/ag.vim'
+
+  " make incremental search results easier to see
+  Plug 'wincent/loupe'
+
+  " Enhanced multi file search
+  " Plug 'wincent/ferret'
+  " rust lang
+  Plug 'rust-lang/rust.vim'
+  " nginx config file highlighting
+  Plug 'evanmiller/nginx-vim-syntax'
+  " tmux integration
+  Plug 'benmills/vimux'
+  Plug 'christoomey/vim-tmux-navigator'
+  Plug 'honza/dockerfile.vim'
+
+  Plug 'elixir-lang/vim-elixir', {'for' : ['elixir'] }
+  Plug 'slashmili/alchemist.vim', {'for' : ['elixir'] }
+  Plug 'lambdatoast/elm.vim', {'for' : ['elm'] }
+  Plug 'keith/swift.vim', {'for' : ['swift'] }
+  Plug 'brow/vim-xctool', {'for' : ['swift'] }
+  Plug 'mattn/emmet-vim'
+  " Intelligent switching between relative & absolute
+  " line numbers
+  " can also toggle with C-n
+  Plug 'jeffkreeftmeijer/vim-numbertoggle'
+
+  " clojure
+  Plug 'tpope/vim-leiningen', {'for' : ['clojure'] }
+  Plug 'tpope/vim-projectionist', {'for' : ['clojure'] }
+  Plug 'tpope/vim-dispatch'
+  Plug 'tpope/vim-fireplace', {'for' : ['clojure'] }
+
+  " slime, used for ruby repl
+  Plug 'jpalardy/vim-slime'
+
+  Plug 'tpope/vim-flagship'
+
+call plug#end()
+
 let NERDTreeIgnore = ['\.pyc$']
-
-Plugin 'kien/ctrlp.vim'
-
 let g:ctrlp_map = '<leader>f'
 let g:ctrlp_max_height = 30
 let g:ctrlp_match_window_bottom=1
@@ -84,80 +187,17 @@ let g:ctrlp_max_height = 20
 let g:ctrlp_match_window_reversed = 1
 let g:ctrlp_switch_buffer = 'e'
 
-Plugin 'tpope/vim-flagship'
 " By default vim only shows status line when 2 or more windows open, this will
 " always show it
 set laststatus=2
 set showtabline=2
 set guioptions-=e
 
-Plugin 'gmarik/ingretu'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'jnurmine/Zenburn'
-" Plugin 'crusoexia/vim-monokai'
-Plugin 'chrisortman/vim-monokai'
-Plugin 'tomasr/molokai'
-
-" surround
-Plugin 'tpope/vim-surround'
 
 " let's surround.vim know about <%=
 let g:surround_{char2nr('=')} = "<%= \r %>"
 let g:surround_{char2nr('-')} = "<% \r %>"
 
-" convert words
-Plugin 'tpope/vim-abolish'
-Plugin 'tpope/vim-repeat'
-
-" comment
-Plugin 'tomtom/tcomment_vim'
-Plugin 'tomtom/tinykeymap_vim'
-
-" shows info from tags file for current file in side bar
-Plugin 'majutsushi/tagbar'
-
-" show and clean whitespace
-Plugin 'ntpeters/vim-better-whitespace'
-
-Plugin 'tpope/vim-rbenv'
-Plugin 'vim-ruby/vim-ruby'
-" autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-" autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-" autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1   
-" autocmd FileType ruby,eruby let g:rubycomplete_use_bundler = 1   
-
-" better folding, only methods, classes & it blocks
-Plugin 'vim-utils/vim-ruby-fold'
-"----- additional text objects-----
-
-" came & snake case words
-" Plugin 'bkad/CamelCaseMotion' 
-
-"----------------------------------
-
-" Mustache / handlebars
-Plugin 'mustache/vim-mustache-handlebars'
-
-" Slim
-Plugin 'slim-template/vim-slim.git'
-
-Plugin 'kongo2002/fsharp-vim'
-Plugin 'pangloss/vim-javascript'
-Plugin 'tpope/vim-jdaddy' " json helpers
-
-Plugin 'mxw/vim-jsx'
-Plugin 'kchmck/vim-coffee-script'
-
-" markdown support
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
-
-" browse ruby documentation
-Plugin 'danchoi/ri.vim'
-
-" functions for running ruby tests
-" Plugin 'skalnik/vim-vroom'
-Plugin 'chrisortman/vim-test'
 let test#strategy='vimux'
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
@@ -165,38 +205,11 @@ nmap <silent> <leader>l :TestLast<CR>
 " let g:vroom_use_vimux = 1
 " let g:vroom_test_unit_command = "rails test"
 
-" automatic end statement in ruby blocks => 'my-build'
-Plugin 'tpope/vim-endwise'
-
-" adds ir and ar to select ruby blocks
-Plugin 'kana/vim-textobj-user'
-Plugin 'nelstrom/vim-textobj-rubyblock'
-
-" Adds argument text object
-Plugin 'vim-scripts/argtextobj.vim'
-
-" gS and gJ to split & join code blocks
-Plugin 'AndrewRadev/splitjoin.vim'
-
-" ag support
-Plugin 'rking/ag.vim'
-
-" make incremental search results easier to see
-Plugin 'wincent/loupe'
 " I don't need a map to clear highlighting
 let g:LoupeCenterResults=0 
 
-" Enhanced multi file search
-Plugin 'wincent/ferret'
-" rust lang
-Plugin 'rust-lang/rust.vim'
-" nginx config file highlighting
-Plugin 'evanmiller/nginx-vim-syntax'
 au! BufRead,BufNewFile /etc/nginx/*,*/nginx/nginx.conf,*/nginx/conf.d/*,/usr/local/nginx/conf/* set filetype=nginx 
 
-" tmux integration
-Plugin 'benmills/vimux'
-Plugin 'christoomey/vim-tmux-navigator'
 
 " Change the cursor based on mode 
 " when running tmux in iterm
@@ -236,38 +249,9 @@ endfunction
 
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
-" Intelligent switching between relative & absolute
-" line numbers
-" can also toggle with C-n
-Plugin 'jeffkreeftmeijer/vim-numbertoggle'
-
-" clojure
-Plugin 'tpope/vim-leiningen'
-Plugin 'tpope/vim-projectionist'
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-fireplace'
-
-" slime, used for ruby repl
-Plugin 'jpalardy/vim-slime'
 let g:slime_target = "tmux"
 nmap ,ss <Plug>SlimeLineSend
 
-Plugin 'honza/dockerfile.vim'
-
-" Plugin 'mtth/scratch.vim'
-" let g:scratch_no_mappings = 1
-" let g:scratch_insert_autohide=0
-" let g:scratch_autohide=0
-" nmap <leader>gs <plug>(scratch-insert-reuse)
-" xmap <leader>gs <plug>(scratch-selection-reuse)
-
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'slashmili/alchemist.vim'
-Plugin 'lambdatoast/elm.vim'
-Plugin 'keith/swift.vim'
-Plugin 'brow/vim-xctool'
-Plugin 'mattn/emmet-vim'
-call vundle#end()
 syntax on
 filetype plugin indent on        " vundle  required!
 "set omnifunc=syntaxcomplete#Complete
