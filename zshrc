@@ -66,7 +66,7 @@ DISABLE_AUTO_TITLE=true
 alias tmux="TERM=screen-256color-bce tmux"
 #alias emacs="$(brew --prefix emacs)/Emacs.app/Contents/MacOS/Emacs -nw"
 foreground-vi() {
-    fg %/usr/local/binvim
+    fg %/usr/local/bin/vim
 }
 
 
