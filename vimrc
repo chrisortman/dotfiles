@@ -49,7 +49,7 @@ runtime macros/matchit.vim
 call plug#begin('~/.vim/plugged')
 
   " regenerate tags file on save
-  " Plug 'craigemery/vim-autotag'
+  Plug 'craigemery/vim-autotag'
 
   Plug 'tpope/vim-sensible'
   Plug 'tpope/vim-sleuth'
@@ -205,9 +205,12 @@ set statusline+=%*
 let g:syntastic_swift_checkers = ['swiftlint']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
-
+" Prevent syntastic from checking handlebars files as html
+let g:syntastic_mode_map={ 'mode': 'active',
+                     \ 'active_filetypes': [],
+                     \ 'passive_filetypes': ['html'] }
 " let's surround.vim know about <%=
 let g:surround_{char2nr('=')} = "<%= \r %>"
 let g:surround_{char2nr('-')} = "<% \r %>"

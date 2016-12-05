@@ -227,7 +227,7 @@ export PATH=$PATH:~/code/simple-revision-control
 export GOPATH=~/gocode
 export PATH=$PATH:~/gocode/bin
 
-chruby ruby-2.2.4
+chruby ruby-2.3.1
 if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 
 export JETTY_MAVEN_OPTS="-Xms2000m -Xmx2000m -XX:MaxPermSize=2000m"
