@@ -76,7 +76,7 @@ call plug#begin('~/.vim/plugged')
 
   Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
   Plug 'vim-syntastic/syntastic'
-  "Plug 'neomake/neomake'
+  " Plug 'neomake/neomake'
 
   " Color schemes
   Plug 'gmarik/ingretu'
@@ -203,25 +203,22 @@ set laststatus=2
 set showtabline=2
 set guioptions-=e
 set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 let g:syntastic_swift_checkers = ['swiftlint']
+let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
+let g:syntastic_javascript_checkers=['eslint']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers=['eslint']
-let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
+
 " Prevent syntastic from checking handlebars files as html
 let g:syntastic_mode_map={ 'mode': 'active',
                      \ 'active_filetypes': [],
-                     \ 'passive_filetypes': ['html','java','javascript'] }
+                     \ 'passive_filetypes': ['html'] }
 
-" Run Neomake on save
-" autocmd! BufWritePost * Neomake
-"let g:neomake_javascript_eslint_exe='$(npm bin)/eslint'
-let g:neomake_javascript_enabled_makers = ['eslint']
 " let's surround.vim know about <%=
 let g:surround_{char2nr('=')} = "<%= \r %>"
 let g:surround_{char2nr('-')} = "<% \r %>"
@@ -270,7 +267,6 @@ endfunction
 
 let &t_SI .= WrapForTmux("\<Esc>[?2004h")
 let &t_EI .= WrapForTmux("\<Esc>[?2004l")
-
 
 let g:slime_target = "tmux"
 nmap ,ss <Plug>SlimeLineSend
@@ -382,16 +378,3 @@ iabbr wajax And I wait until all Ajax requests are complete
 " because otherwise rvm and zsh won't play nice when you use terminal commands
 " set shell=bash
 " set shell=$SHELL\ -l
-
-function! RunEmberTest()
-  let lineNumber = line('.')
-
-  while lineNumber > 0
-    let test = matchlist(getline(lineNumber), '^test \(.*\), ->$')
-    if len(test) > 0
-      exe "!ember test --filter ".substitute(test[1], '"', '\\"', 'g'))
-    else
-      let lineNumber -= 1
-    endif
-  endwhile
-endfunction

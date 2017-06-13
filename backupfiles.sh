@@ -1,4 +1,5 @@
 cp ~/.vimrc ./vimrc
+cp ~/.config/nvim/init.vim ./nvim-init
 cp ~/.gitconfig ./gitconfig
 cp ~/.gitignore_global ./gitignore_global
 cp ~/.zshrc ./zshrc
