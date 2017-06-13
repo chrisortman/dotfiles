@@ -33,6 +33,7 @@ set wildignore+=*.gem
 set wildignore+=log/**
 set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
+set wildignore+=node_modules/**
 " let g:is_posix = 1
 
 let mapleader = ","
@@ -75,6 +76,7 @@ call plug#begin('~/.vim/plugged')
 
   Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
   Plug 'vim-syntastic/syntastic'
+  "Plug 'neomake/neomake'
 
   " Color schemes
   Plug 'gmarik/ingretu'
@@ -117,6 +119,7 @@ call plug#begin('~/.vim/plugged')
 
   Plug 'mxw/vim-jsx'
   Plug 'kchmck/vim-coffee-script'
+  Plug 'posva/vim-vue'
 
   " markdown support
   " Plug 'godlygeek/tabular'
@@ -127,7 +130,7 @@ call plug#begin('~/.vim/plugged')
 
   " functions for running ruby tests
   " Plug 'skalnik/vim-vroom'
-  Plug 'chrisortman/vim-test'
+  Plug 'janko-m/vim-test'
   " automatic end statement in ruby blocks => 'my-build'
   Plug 'tpope/vim-endwise'
 
@@ -192,6 +195,7 @@ let g:ctrlp_match_window_bottom=1
 let g:ctrlp_max_height = 20
 let g:ctrlp_match_window_reversed = 1
 let g:ctrlp_switch_buffer = 'e'
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files']
 
 " By default vim only shows status line when 2 or more windows open, this will
 " always show it
@@ -199,18 +203,25 @@ set laststatus=2
 set showtabline=2
 set guioptions-=e
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 let g:syntastic_swift_checkers = ['swiftlint']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
 " Prevent syntastic from checking handlebars files as html
 let g:syntastic_mode_map={ 'mode': 'active',
                      \ 'active_filetypes': [],
-                     \ 'passive_filetypes': ['html'] }
+                     \ 'passive_filetypes': ['html','java','javascript'] }
+
+" Run Neomake on save
+" autocmd! BufWritePost * Neomake
+"let g:neomake_javascript_eslint_exe='$(npm bin)/eslint'
+let g:neomake_javascript_enabled_makers = ['eslint']
 " let's surround.vim know about <%=
 let g:surround_{char2nr('=')} = "<%= \r %>"
 let g:surround_{char2nr('-')} = "<% \r %>"
@@ -378,3 +389,16 @@ iabbr wajax And I wait until all Ajax requests are complete
 " because otherwise rvm and zsh won't play nice when you use terminal commands
 " set shell=bash
 " set shell=$SHELL\ -l
+
+function! RunEmberTest()
+  let lineNumber = line('.')
+
+  while lineNumber > 0
+    let test = matchlist(getline(lineNumber), '^test \(.*\), ->$')
+    if len(test) > 0
+      exe "!ember test --filter ".substitute(test[1], '"', '\\"', 'g'))
+    else
+      let lineNumber -= 1
+    endif
+  endwhile
+endfunction

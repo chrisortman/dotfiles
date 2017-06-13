@@ -17,6 +17,7 @@
 	enabled = true
 [core]
 	excludesfile = /Users/cortman/.gitignore_global
+	trustctime = false
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 

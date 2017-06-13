@@ -233,3 +233,8 @@ if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 export JETTY_MAVEN_OPTS="-Xms2000m -Xmx2000m -XX:MaxPermSize=2000m"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+export PATH="/usr/local/opt/node@6/bin:$PATH"
+
+# added by travis gem
+[ -f /Users/cortman/.travis/travis.sh ] && source /Users/cortman/.travis/travis.sh
+source ~/bin/tmuxinator.zsh
