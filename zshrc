@@ -2,6 +2,10 @@ if [ -e ~/Dropbox/.secrets ]; then
   source ~/Dropbox/.secrets
 fi
 
+if [ -e ~/.config/.local_secrets ]; then
+  source ~/.config/.local_secrets
+fi
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -9,7 +13,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-# ZSH_THEME="robbyrussell"
+#ZSH_THEME="robbyrussell"
 ZSH_THEME="nebirhos"
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -24,7 +28,7 @@ export UPDATE_ZSH_DAYS=2
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -106,12 +110,6 @@ export EDITOR="vim"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-
-# ODBC Environment variables
-export ODBCINI=$HOME/etc/odbc.ini
-export ODBCSYSINI=$HOME/etc
-export FREETDSCONF=$HOME/etc/freetds.conf
-
 # setup postresql command line tools
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
 
@@ -125,14 +123,6 @@ export PATH="/Users/cortman/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh
 
-function bzmerge3() {
-  kdiff3 $1.BASE $1.THIS $1.OTHER -o $1
-}
-
-function bzdiff() {
-  bzr diff $* | view -
-}
-
 function backup() {
   cp $1 $1~
 }
@@ -141,15 +131,6 @@ function restore() {
  cp $1~ $1
 }
 
-function verify-with-docker() {
-  cd uiris3/source
-  git remote update upstream
-  git remote update local
-  git remote update origin
-  git reset --hard $1
-  cd ../..
-  ./build.sh && ./cucumber.sh;say done
-}
 function edit-last () {
   local cmd
   setopt local_options extended_glob
@@ -162,19 +143,6 @@ function edit-last () {
     esac
   done
 }
-
-function uiris-env () {
-  echo "DB: $DB"
-  echo "DSN: $DSN"
-  echo "DBD: $DBD"
-  echo "HOST: $HOST"
-  echo "SQLITE: $SQLITE"
-  echo "DEMO: $DEMO"
-  echo "RAILS_ENV: $RAILS_ENV"
-  echo "SKIP_LINT: $SKIP_LINT"
-  echo "DEV_FOX: $DEV_FOX"
-}
-
 
 reload-dir () {
   cd ../
@@ -197,9 +165,26 @@ spring-web-app-generate () {
 github-ignore () {
   curl https://raw.githubusercontent.com/github/gitignore/master/$1.gitignore
 }
+
+if [ -e /usr/local/opt/fzf/shell/completion.zsh ]; then
+  source /usr/local/opt/fzf/shell/key-bindings.zsh
+  source /usr/local/opt/fzf/shell/completion.zsh
+fi
+
+# fzf + ag configuration
+if _has fzf && _has ag; then
+  export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
+  export FZF_DEFAULT_OPTS='
+  --color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108
+  --color info:108,prompt:109,spinner:108,pointer:168,marker:168
+  '
+fi
+
 alias docker-remove-stopped-containers='docker rm $(docker ps -a -q)'
 alias docker-remove-dangling-images='docker rmi $(docker images -q -f dangling=true)'
-  
+
 # Automatically report time 
 # for any commands that take longer than 5 seconds to run
 export REPORTTIME=5
@@ -207,13 +192,13 @@ export REPORTTIME=5
 
 alias ag='ag --color --ignore tags'
 alias vim='/usr/local/bin/vim'
+alias vi='/usr/local/bin/vim'
 alias rcd='cd .. && cd $OLDPWD'
 alias ff='open -a firefox http://localhost:3000'
 alias gg="open -a 'Google Chrome' http://localhost:3000"
 alias retag='ctags -R -f .git/tags'
 alias mysql-start='launchctl load -F /usr/local/opt/mysql/homebrew.mxcl.mysql.plist'
 alias mysql-stop='launchctl unload -F /usr/local/opt/mysql/homebrew.mxcl.mysql.plist'
-alias hfg='hf -git'
 
 #this stopped working when i moved some path logic before it?
 bindkey '^Z' foreground-vi
@@ -227,7 +212,7 @@ export PATH=$PATH:~/code/simple-revision-control
 export GOPATH=~/gocode
 export PATH=$PATH:~/gocode/bin
 
-chruby ruby-2.3.1
+chruby ruby-2.4.2
 if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 
 export JETTY_MAVEN_OPTS="-Xms2000m -Xmx2000m -XX:MaxPermSize=2000m"
@@ -238,3 +223,15 @@ export PATH="/usr/local/opt/node@6/bin:$PATH"
 # added by travis gem
 [ -f /Users/cortman/.travis/travis.sh ] && source /Users/cortman/.travis/travis.sh
 source ~/bin/tmuxinator.zsh
+
+precmd() {
+  # sets the tab title to current dir
+  CURRENT=$(print -P %3~)
+  echo -ne "\e]1;~/${CURRENT##*/}\a"
+}
+
+function iterm2_print_user_vars() {
+  iterm2_set_user_var currTime $(date +%T)
+}
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -20,21 +20,9 @@ set nu!
 " Display tabs and trailing spaces
 set list listchars=tab:\ \ ,trail:·
 
-
-" =============== Completion ===========
-set wildmode=list:longest
-set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
-set wildignore+=*sass-cache*
-set wildignore+=*DS_Store*
-set wildignore+=vendor/rails/**
-set wildignore+=vendor/cache/**
-set wildignore+=*.gem
-set wildignore+=log/**
-set wildignore+=tmp/**
-set wildignore+=*.png,*.jpg,*.gif
-set wildignore+=node_modules/**
-" let g:is_posix = 1
+set wildmenu                " Show possible completions on command line
+set wildmode=list:longest,full " List all options and complete
+set wildignore=*.class,*.o,*~,*.pyc,.git,node_modules  " Ignore certain files in tab-completion
 
 let mapleader = ","
 
@@ -62,9 +50,7 @@ call plug#begin('~/.vim/plugged')
   " Provides navigation with [q ]q etc
   Plug 'tpope/vim-unimpaired'
 
-  " FuzzyFinder
-  Plug 'L9'
-  Plug 'FuzzyFinder'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'tpope/vim-git'
   Plug 'tpope/vim-fugitive'
 
@@ -72,8 +58,8 @@ call plug#begin('~/.vim/plugged')
   " filesystem tree explorer
   Plug 'scrooloose/nerdtree'
 
-  Plug 'kien/ctrlp.vim'
-
+"  Plug 'kien/ctrlp.vim'
+  Plug 'junegunn/fzf.vim'
   Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
   Plug 'vim-syntastic/syntastic'
   "Plug 'neomake/neomake'
@@ -167,6 +153,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'keith/swift.vim'
   Plug 'brow/vim-xctool'
   Plug 'mattn/emmet-vim'
+  Plug 'udalov/kotlin-vim'
   " Intelligent switching between relative & absolute
   " line numbers
   " can also toggle with C-n
@@ -189,14 +176,6 @@ call plug#end()
 let NERDTreeIgnore = ['\.pyc$']
 
 " Configuration for fuzzy file finding
-let g:ctrlp_map = '<leader>f'
-let g:ctrlp_max_height = 30
-let g:ctrlp_match_window_bottom=1
-let g:ctrlp_max_height = 20
-let g:ctrlp_match_window_reversed = 1
-let g:ctrlp_switch_buffer = 'e'
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files']
-
 " By default vim only shows status line when 2 or more windows open, this will
 " always show it
 set laststatus=2
@@ -228,9 +207,6 @@ let g:surround_{char2nr('-')} = "<% \r %>"
 
 " Key maps and configuration for running tests from editor
 let test#strategy='vimux'
-nmap <silent> <leader>t :TestNearest<CR>
-nmap <silent> <leader>T :TestFile<CR>
-nmap <silent> <leader>l :TestLast<CR>
 " let g:vroom_use_vimux = 1
 " let g:vroom_test_unit_command = "rails test"
 
@@ -273,7 +249,6 @@ let &t_EI .= WrapForTmux("\<Esc>[?2004l")
 
 
 let g:slime_target = "tmux"
-nmap ,ss <Plug>SlimeLineSend
 
 syntax on
 filetype plugin indent on        " vundle  required!
@@ -303,10 +278,17 @@ au BufRead,BufNewFile *.thor set ft=ruby
 " Allow highlighting of fenced code blocks in markdown files
 au BufNewFile,BufReadPost *.md set filetype=markdown
 let g:markdown_fenced_languages = ['coffee', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'html']
-"##############################################################################                                                                         
-"" Easier split navigation                                                                                                                               
-"##############################################################################                                                                         
-"
+
+nmap <leader>n :NERDTreeCWD<CR>
+nmap <leader>b :Buffers<CR>
+nmap <leader>f :Files<CR>
+nmap <leader>. :Tags<CR>
+nmap <leader>q :TagbarToggle<cr>
+nmap <Leader>a :Ag<CR>
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap ,ss <Plug>SlimeLineSend
 "" Use ctrl-[hjkl] to select the active split!
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
@@ -316,28 +298,6 @@ nmap <silent> <c-l> :wincmd l<CR>
 "" Shortcuts to goto definition in new tabs or splits
 " map <c-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 nmap g\ :vsp <CR>:exec(":tag ".expand("<cword>"))<CR>
-
-
-function! UseLightSolarized()
-  set background=light
-    " set background=dark
-  colorscheme solarized
-endfunction
-
-function! UseDarkSolarized()
-  set background=dark
-  colorscheme solarized
-endfunction
-
-function! UseMonokai()
-  set background=dark
-  colorscheme monokai
-endfunction
-
-map <leader>n :NERDTreeCWD<CR>
-map <leader>b :CtrlPBuffer<cr>
-map <leader>. :CtrlPTag<cr>
-map <leader>q :TagbarToggle<cr>
 
 map rp :VimuxPromptCommand<cr>
 map rl :VimuxRunLastCommand<cr>
@@ -357,6 +317,24 @@ if has('gui_running')
 else
   nnoremap <cr> :noh<cr><cr>
 end
+
+function! UseLightSolarized()
+  set background=light
+    " set background=dark
+  colorscheme solarized
+endfunction
+
+function! UseDarkSolarized()
+  set background=dark
+  colorscheme solarized
+endfunction
+
+function! UseMonokai()
+  set background=dark
+  colorscheme monokai
+endfunction
+
+
 
 " Insert current date with F5
 " In normal mode use m/d/y in insert use a timestamp
