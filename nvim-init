@@ -39,7 +39,6 @@ set wildignore+=node_modules/**
 let mapleader = ","
 
 " Font
-set guifont=Menlo:h13
 if has('mac')
   "set noantialias
 endif
@@ -182,8 +181,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'jpalardy/vim-slime'
 
   " Plug 'tpope/vim-flagship'
+  Plug 'vimwiki/vimwiki'
 
 call plug#end()
+
+let g:vimwiki_list = [{'path': '~/Documents/wiki/'}]
 
 " Hide pyc files in nerdtree explorer
 let NERDTreeIgnore = ['\.pyc$']
@@ -268,7 +270,7 @@ endfunction
 let &t_SI .= WrapForTmux("\<Esc>[?2004h")
 let &t_EI .= WrapForTmux("\<Esc>[?2004l")
 
-let g:slime_target = "tmux"
+let g:slime_target = "neovim"
 nmap ,ss <Plug>SlimeLineSend
 
 syntax on

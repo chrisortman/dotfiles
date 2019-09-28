@@ -12,10 +12,16 @@ set tabstop=2 shiftwidth=2 softtabstop=2
 set expandtab
 set cursorline
 set hidden
-
+" https://github.com/neoclide/coc.nvim
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
 set hlsearch
 set incsearch
 set nu!
+" Use the old vim regex engine (version 1, as opposed to version 2, which was
+" introduced in Vim 7.3.969). The Ruby syntax highlighting is significantly
+" slower with the new regex engine.
+set re=1
 
 " Display tabs and trailing spaces
 set list listchars=tab:\ \ ,trail:·
@@ -34,23 +40,30 @@ endif
 
 runtime macros/matchit.vim
 
+" Suppress python3 warning
+" https://github.com/vim/vim/issues/3117
+if has('python3')
+  silent! python3 1
+endif
+
 " BUNDLES 
 call plug#begin('~/.vim/plugged')
 
   " regenerate tags file on save
-  Plug 'craigemery/vim-autotag'
+" This plugin started causing errors after an upgrade to vim 8.1, plug update
+" didnt fix it, so commenting out for now
 
   Plug 'tpope/vim-sensible'
   Plug 'tpope/vim-sleuth'
   Plug 'tpope/vim-rails'
   Plug 'tpope/vim-bundler'
-  Plug 'tpope/vim-cucumber'
   Plug 'tpope/vim-obsession'
 
   " Provides navigation with [q ]q etc
   Plug 'tpope/vim-unimpaired'
 
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug '/usr/local/opt/fzf'
+  Plug 'junegunn/fzf.vim'
   Plug 'tpope/vim-git'
   Plug 'tpope/vim-fugitive'
 
@@ -58,32 +71,27 @@ call plug#begin('~/.vim/plugged')
   " filesystem tree explorer
   Plug 'scrooloose/nerdtree'
 
-"  Plug 'kien/ctrlp.vim'
-  Plug 'junegunn/fzf.vim'
-  Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-  Plug 'vim-syntastic/syntastic'
-  "Plug 'neomake/neomake'
+  let g:UltiSnipsExpandTrigger="<tab>"
+  " Never seen this work
+  let g:UltiSnipsListSnippets="<c-s>"
+  Plug 'SirVer/ultisnips'
+  let g:UltiSnipsEditSplit="vertical"
+  let g:UltiSnipsSnippetDirectories=[$HOME.'/Documents/UltiSnips',"UltiSnips"]
+  " Plug 'w0rp/ale'
 
   " Color schemes
-  Plug 'gmarik/ingretu'
   Plug 'altercation/vim-colors-solarized'
-  Plug 'jnurmine/Zenburn'
   " Plug 'crusoexia/vim-monokai'
   Plug 'chrisortman/vim-monokai'
   Plug 'tomasr/molokai'
 
   " surround
   Plug 'tpope/vim-surround'
-  " convert words
-  " Plug 'tpope/vim-abolish'
   Plug 'tpope/vim-repeat'
 
   " comment
   Plug 'tomtom/tcomment_vim'
   " Plug 'tomtom/tinykeymap_vim'
-
-  " shows info from tags file for current file in side bar
-  Plug 'majutsushi/tagbar'
 
   " show and clean whitespace
   Plug 'ntpeters/vim-better-whitespace'
@@ -104,21 +112,16 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-jdaddy' " json helpers
 
   Plug 'mxw/vim-jsx'
-  Plug 'kchmck/vim-coffee-script'
-  Plug 'posva/vim-vue'
 
   " markdown support
   " Plug 'godlygeek/tabular'
   Plug 'plasticboy/vim-markdown'
 
-  " browse ruby documentation
-  Plug 'danchoi/ri.vim'
-
   " functions for running ruby tests
-  " Plug 'skalnik/vim-vroom'
   Plug 'janko-m/vim-test'
   " automatic end statement in ruby blocks => 'my-build'
-  Plug 'tpope/vim-endwise'
+  " Seems incompatible with vim coc
+  " Plug 'tpope/vim-endwise'
 
   " adds ir and ar to select ruby blocks
   Plug 'kana/vim-textobj-user'
@@ -147,17 +150,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'honza/dockerfile.vim'
 
-  Plug 'elixir-lang/vim-elixir'
-  Plug 'slashmili/alchemist.vim'
-  Plug 'lambdatoast/elm.vim'
+  Plug 'elixir-editors/vim-elixir'
   Plug 'keith/swift.vim'
-  Plug 'brow/vim-xctool'
-  Plug 'mattn/emmet-vim'
   Plug 'udalov/kotlin-vim'
-  " Intelligent switching between relative & absolute
-  " line numbers
-  " can also toggle with C-n
-  Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
   " clojure
   Plug 'tpope/vim-leiningen'
@@ -169,11 +164,13 @@ call plug#begin('~/.vim/plugged')
   Plug 'jpalardy/vim-slime'
 
   " Plug 'tpope/vim-flagship'
-
+  Plug 'vimwiki/vimwiki'
+  " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
+let g:vimwiki_list = [{'path': '~/Documents/wiki/'}]
 " Hide pyc files in nerdtree explorer
-let NERDTreeIgnore = ['\.pyc$']
+let NERDTreeIgnore = ['\.pyc$', '\.egg-info$', '__pycache__', '__pycache__']
 
 " Configuration for fuzzy file finding
 " By default vim only shows status line when 2 or more windows open, this will
@@ -182,21 +179,13 @@ set laststatus=2
 set showtabline=2
 set guioptions-=e
 set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_swift_checkers = ['swiftlint']
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers=['eslint']
-let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
-" Prevent syntastic from checking handlebars files as html
-let g:syntastic_mode_map={ 'mode': 'active',
-                     \ 'active_filetypes': [],
-                     \ 'passive_filetypes': ['html','java','javascript'] }
+set errorformat+=%f:\ line\ %l\\,\ col\ %c\\,\ %trror\ -\ %m
+set errorformat+=%f:\ line\ %l\\,\ col\ %c\\,\ %tarning\ -\ %m
 
+let g:ale_lint_on_text_changed='never'
+let g:ale_lint_on_enter = 0
 " Run Neomake on save
 " autocmd! BufWritePost * Neomake
 "let g:neomake_javascript_eslint_exe='$(npm bin)/eslint'
@@ -260,6 +249,7 @@ set lazyredraw
 
 " let g:molokai_original=1
 let g:rehash256=1
+set t_Co=256
 colorscheme molokai
 
 
@@ -270,10 +260,16 @@ au! BufNewFile,BufRead *.dockerfile set filetype=dockerfile
 autocmd BufRead,BufNewFile *.es6 setfiletype javascript
 
 " Add ruby syntax highlighting for Thorfile, Rakefile, Vagrantfile and Gemfile
-au BufRead,BufNewFile {Gemfile,Guardfile,Rakefile,Vagrantfile,Thorfile,config.ru,Fastfile} set ft=ruby
+au BufRead,BufNewFile {Gemfile,Guardfile,Rakefile,Vagrantfile,Thorfile,config.ru,Fastfile,app.god,Eyefile,*.eye} set ft=ruby
 "
 " Add haml syntax highlighting for .hamlc
 au BufRead,BufNewFile *.thor set ft=ruby
+
+" Jump to last cursor position unless it's invalid or in an event handler
+autocmd BufReadPost *
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \   exe "normal g`\"" |
+      \ endif
 
 " Allow highlighting of fenced code blocks in markdown files
 au BufNewFile,BufReadPost *.md set filetype=markdown
@@ -281,7 +277,8 @@ let g:markdown_fenced_languages = ['coffee', 'css', 'erb=eruby', 'javascript', '
 
 nmap <leader>n :NERDTreeCWD<CR>
 nmap <leader>b :Buffers<CR>
-nmap <leader>f :Files<CR>
+nmap <leader>f :GFiles<CR>
+nmap <leader>F :Files<CR>
 nmap <leader>. :Tags<CR>
 nmap <leader>q :TagbarToggle<cr>
 nmap <Leader>a :Ag<CR>
@@ -308,6 +305,27 @@ nnoremap  ,ri :call ri#OpenSearchPrompt(0)<cr> " horizontal split
 nnoremap  ,RI :call ri#OpenSearchPrompt(1)<cr> " vertical split
 nnoremap  ,RK :call ri#LookupNameUnderCursor()<cr> " keyword lookup
 nnoremap <Space> za
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <TAB>
+	  \ pumvisible() ? coc#_select_confirm() :
+	  \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+	  \ <SID>check_back_space() ? "\<TAB>" :
+	  \ coc#refresh()
+	
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+
+imap <c-l> <space>=><space>
+" Can't be bothered to understand ESC vs <c-c> in insert mode
+imap <c-c> <esc>
 
 "clear search when you hit esc
 " Works around problem in term where vim starts in replace mode
@@ -317,6 +335,11 @@ if has('gui_running')
 else
   nnoremap <cr> :noh<cr><cr>
 end
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SHORTCUT TO REFERENCE CURRENT FILE'S PATH IN COMMAND LINE MODE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+cnoremap <expr> %% expand('%:h').'/'
 
 function! UseLightSolarized()
   set background=light

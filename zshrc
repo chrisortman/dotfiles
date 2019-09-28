@@ -1,10 +1,22 @@
+if [[ -v ZSH_PROF ]]; then
+  zmodload zsh/zprof
+fi
+
 if [ -e ~/Dropbox/.secrets ]; then
   source ~/Dropbox/.secrets
+fi
+
+if [ -e /keybase/private/chriso/.secrets ]; then
+  source /keybase/private/chriso/.secrets
 fi
 
 if [ -e ~/.config/.local_secrets ]; then
   source ~/.config/.local_secrets
 fi
+
+_has(){
+    command type "$1" > /dev/null 2>&1
+}
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -50,13 +62,12 @@ DISABLE_AUTO_TITLE="true"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 
+export NVM_LAZY_LOAD=true
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(vi-mode git brew osx rails chruby history history-substring-search tmux docker colorize colored-man  bundler z)
-# These paths first so that RVM can insert itself to beginning of path
-# export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+plugins=(vi-mode git brew osx rails chruby zsh-nvm history history-substring-search tmux docker colorize colored-man  bundler z)
 
 #####
 # I couldn't come up with a quick and easy way to not have the chruby plugin load the
@@ -82,23 +93,9 @@ foreground-server() {
 
 export EDITOR="vim"
 
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
 
 # ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
+export SSH_KEY_PATH="~/.ssh/id_rsa"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -111,15 +108,7 @@ export EDITOR="vim"
 
 
 # setup postresql command line tools
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
-
-
-# pip should only run if there is a virtualenv currently activated
-#export PIP_REQUIRE_VIRTUALENV=true
-# cache pip-installed packages to avoid re-downloading
-#export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
-
-export PATH="/Users/cortman/bin:$PATH"
+export PATH="/Users/cortman/bin:/Applications/Postgres.app/Contents/Versions/latest/bin::/Users/cortman/.cargo/bin:$PATH/usr/local/sbin:/Users/cortman/gocode/bin:/Users/cortman/Library/Python/3.7/bin"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -187,7 +176,7 @@ alias docker-remove-dangling-images='docker rmi $(docker images -q -f dangling=t
 
 # Automatically report time 
 # for any commands that take longer than 5 seconds to run
-export REPORTTIME=5
+export REPORTTIME=60
 
 
 alias ag='ag --color --ignore tags'
@@ -199,29 +188,31 @@ alias gg="open -a 'Google Chrome' http://localhost:3000"
 alias retag='ctags -R -f .git/tags'
 alias mysql-start='launchctl load -F /usr/local/opt/mysql/homebrew.mxcl.mysql.plist'
 alias mysql-stop='launchctl unload -F /usr/local/opt/mysql/homebrew.mxcl.mysql.plist'
+alias preview="fzf --preview 'bat --color \"always\" {}'"
+alias ping='prettyping --nolegend'
+alias top="sudo htop"
+alias every-third="awk 'NR == 1 || NR % 3 == 0'"
+alias profile='/usr/local/bin/gtime -f "mem=%K RSS=%M elapsed=%E cpu.sys=%S .user=%U"'
 
 #this stopped working when i moved some path logic before it?
 bindkey '^Z' foreground-vi
 bindkey '^X' foreground-server
 bindkey '^r' reload-dir
-export PATH="/usr/local/sbin:$PATH"
-export PATH=$PATH:~/code/simple-revision-control
 
 # Need to define this in order to install 
 # go happyfinder binary
 export GOPATH=~/gocode
-export PATH=$PATH:~/gocode/bin
 
-chruby ruby-2.4.2
+chruby ruby-2.5.5
 if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 
 export JETTY_MAVEN_OPTS="-Xms2000m -Xmx2000m -XX:MaxPermSize=2000m"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-export PATH="/usr/local/opt/node@6/bin:$PATH"
 
 # added by travis gem
 [ -f /Users/cortman/.travis/travis.sh ] && source /Users/cortman/.travis/travis.sh
+
 source ~/bin/tmuxinator.zsh
 
 precmd() {
@@ -234,4 +225,12 @@ function iterm2_print_user_vars() {
   iterm2_set_user_var currTime $(date +%T)
 }
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# No analytics please
+export HOMEBREW_NO_ANALYTICS=1
+
+# source $HOME/.asdf/asdf.sh
+# source $HOME/.asdf/completions/asdf.bash
+
+ [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+unalias rg
