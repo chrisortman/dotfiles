@@ -126,9 +126,9 @@ function edit-last () {
   for cmd in $history; do
     case $cmd in
       ((ls|(cvs|git|hg|svn) status)(| *)) :;;
-      ("ag "*) vim -q<(eval "$cmd --vimgrep"); return;;
+      ("rg "*) vim -q<(eval "$cmd --vimgrep"); return;;
       (edit-last) :;;
-      (*) echo >&2 "The previous ag command is too old."; return 125;;
+      (*) echo >&2 "The previous rg command is too old."; return 125;;
     esac
   done
 }
@@ -234,3 +234,5 @@ export HOMEBREW_NO_ANALYTICS=1
  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 unalias rg
+
+source /Users/cortman/Library/Preferences/org.dystroy.broot/launcher/bash/br
