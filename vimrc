@@ -80,9 +80,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'ntpeters/vim-better-whitespace'
   Plug 'SirVer/ultisnips'
   Plug 'tpope/vim-unimpaired'
-  Plug 'srstevenson/vim-picker'
-  " Plug '/usr/local/opt/fzf'
-  " Plug 'junegunn/fzf.vim'
+  Plug '/usr/local/opt/fzf'
+  Plug 'junegunn/fzf.vim'
   Plug 'tpope/vim-git'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-sensible'
@@ -203,11 +202,11 @@ au BufNewFile,BufReadPost *.md set filetype=markdown
 let g:markdown_fenced_languages = ['coffee', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'html']
 
 nmap <leader>n :NERDTreeCWD<CR>
-nmap <leader>b <Plug>(PickerBuffer)
-nmap <leader>f <Plug>(PickerEdit)
+nmap <leader>b :Buffers<CR>
+nmap <leader>f :GFiles<CR>
 nmap <leader>F :Files<CR>
-nmap <leader>. <Plug>(PickerTag)
-nmap <leader>q :TagbarToggle<cr>
+nmap <leader>. :Tags<CR>
+nmap <leader>q :TagbarToggle<CR>
 nmap <Leader>a :Rg<CR>
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
