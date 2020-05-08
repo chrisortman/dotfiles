@@ -218,7 +218,7 @@ nmap <leader>n :NERDTreeCWD<CR>
 nmap <leader>b :PickerBuffer<CR>
 nmap <leader>f :PickerEdit<CR>
 nmap <leader>F :Files<CR>
-nmap <leader>. :Tags<CR>
+nmap <leader>. <Plug>(PickerTag)
 nmap <leader>q :TagbarToggle<cr>
 nmap <Leader>a :Rg<CR>
 nmap <silent> <leader>t :TestNearest<CR>

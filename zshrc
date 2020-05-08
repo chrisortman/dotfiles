@@ -78,7 +78,7 @@ plugins=(vi-mode git brew osx rails chruby zsh-nvm history history-substring-sea
 # User configuration
 
 DISABLE_AUTO_TITLE=true
-alias tmux="TERM=screen-256color-bce tmux"
+alias tmux256="TERM=screen-256color-bce tmux"
 #alias emacs="$(brew --prefix emacs)/Emacs.app/Contents/MacOS/Emacs -nw"
 foreground-vi() {
     fg %/usr/local/bin/vim
@@ -182,10 +182,11 @@ export REPORTTIME=60
 alias ag='ag --color --ignore tags'
 alias vim='/usr/local/bin/vim'
 alias vi='/usr/local/bin/vim'
-alias rcd='cd .. && cd $OLDPWD'
+alias vimide='nvim -u ~/vim-ide/.vimrc'
+#alias rcd='cd .. && cd $OLDPWD'
 alias ff='open -a firefox http://localhost:3000'
 alias gg="open -a 'Google Chrome' http://localhost:3000"
-alias retag='ctags -R -f .git/tags'
+#alias retag='ctags -R -f .git/tags'
 alias mysql-start='launchctl load -F /usr/local/opt/mysql/homebrew.mxcl.mysql.plist'
 alias mysql-stop='launchctl unload -F /usr/local/opt/mysql/homebrew.mxcl.mysql.plist'
 alias preview="fzf --preview 'bat --color \"always\" {}'"
@@ -193,6 +194,7 @@ alias ping='prettyping --nolegend'
 alias top="sudo htop"
 alias every-third="awk 'NR == 1 || NR % 3 == 0'"
 alias profile='/usr/local/bin/gtime -f "mem=%K RSS=%M elapsed=%E cpu.sys=%S .user=%U"'
+alias aws1=/usr/local/opt/awscli@1/bin/aws
 
 #this stopped working when i moved some path logic before it?
 bindkey '^Z' foreground-vi
@@ -203,7 +205,7 @@ bindkey '^r' reload-dir
 # go happyfinder binary
 export GOPATH=~/gocode
 
-chruby ruby-2.5.5
+chruby ruby-2.6.6
 if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 
 export JETTY_MAVEN_OPTS="-Xms2000m -Xmx2000m -XX:MaxPermSize=2000m"
@@ -236,3 +238,6 @@ export HOMEBREW_NO_ANALYTICS=1
 unalias rg
 
 source /Users/cortman/Library/Preferences/org.dystroy.broot/launcher/bash/br
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/vault vault

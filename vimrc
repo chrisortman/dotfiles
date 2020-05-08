@@ -33,10 +33,13 @@ set wildignore=*.class,*.o,*~,*.pyc,.git,node_modules  " Ignore certain files in
 let mapleader = ","
 
 " Font
-set guifont=Menlo:h13
+set guifont=JetBrainsMonoNL-Regular:h13
 if has('mac')
   "set noantialias
 endif
+
+set splitbelow
+set splitright
 
 runtime macros/matchit.vim
 
@@ -73,7 +76,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'wincent/loupe'
   Plug 'rking/ag.vim'
   " Seems incompatible with vim coc
-"  Plug 'tpope/vim-endwise'
+  Plug 'tpope/vim-endwise'
   Plug 'ntpeters/vim-better-whitespace'
   Plug 'SirVer/ultisnips'
   Plug 'tpope/vim-unimpaired'
@@ -111,14 +114,17 @@ call plug#begin('~/.vim/plugged')
   Plug 'mustache/vim-mustache-handlebars'
   Plug 'vim-ruby/vim-ruby'
 
-  Plug 'pangloss/vim-javascript'
   Plug 'tpope/vim-jdaddy' " json helpers
-  Plug 'mxw/vim-jsx'
   Plug 'tpope/vim-rails'
-
-
+  Plug 'janko/vim-test'
+  Plug 'cespare/vim-toml'
   " slime, used for ruby repl
 
+  "javascript
+  Plug 'othree/yajs.vim'
+  Plug 'othree/javascript-libraries-syntax.vim'
+  Plug 'othree/es.next.syntax.vim'
+  Plug 'moll/vim-node'
 call plug#end()
 
 let g:vimwiki_list = [{'path': '~/Documents/wiki/'}]
@@ -131,18 +137,9 @@ let NERDTreeIgnore = ['\.pyc$', '\.egg-info$', '__pycache__', '__pycache__']
 set laststatus=2
 set showtabline=2
 set guioptions-=e
-" set statusline+=%#warningmsg#
-" set statusline+=%*
-"
-" set errorformat+=%f:\ line\ %l\\,\ col\ %c\\,\ %trror\ -\ %m
-" set errorformat+=%f:\ line\ %l\\,\ col\ %c\\,\ %tarning\ -\ %m
 
 let g:ale_lint_on_text_changed='never'
 let g:ale_lint_on_enter = 0
-" Run Neomake on save
-" autocmd! BufWritePost * Neomake
-"let g:neomake_javascript_eslint_exe='$(npm bin)/eslint'
-let g:neomake_javascript_enabled_makers = ['eslint']
 " let's surround.vim know about <%=
 let g:surround_{char2nr('=')} = "<%= \r %>"
 let g:surround_{char2nr('-')} = "<% \r %>"
@@ -153,8 +150,6 @@ let test#strategy='vimux'
 " I don't need a map to clear highlighting
 let g:LoupeCenterResults=0 
 
-let g:endwise_no_mappings = 1
-inoremap <expr> <CR> pumvisible() ? "\<C-R>=ExpandSnippetOrCarriageReturn()\<CR>" : "\<CR>\<C-R>=EndwiseDiscretionary()\<CR>"
 " Change the cursor based on mode 
 " when running tmux in iterm
 if exists('$ITERM_PROFILE')
@@ -166,25 +161,6 @@ if exists('$ITERM_PROFILE')
     let &t_EI = "\<Esc>]50;CursorShape=0\x7"
   endif
 end
-
-
-" for tmux to automatically set paste and nopaste mode at the time pasting (as
-" " happens in VIM UI)
-"
-" function! WrapForTmux(s)
-"   if !exists('$TMUX')
-"     return a:s
-"   endif
-"
-"   let tmux_start = "\<Esc>Ptmux;"
-"   let tmux_end = "\<Esc>\\"
-"
-"   return tmux_start . substitute(a:s, "\<Esc>", "\<Esc>\<Esc>", 'g') . tmux_end
-" endfunction
-"
-" let &t_SI .= WrapForTmux("\<Esc>[?2004h")
-" let &t_EI .= WrapForTmux("\<Esc>[?2004l")
-"
 
 let g:slime_target = "tmux"
 
@@ -250,27 +226,8 @@ map ri :VimuxInspectRunner<cr>
 map rc :VimuxCloseRunner<cr>
 
 nnoremap <Space> za
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <silent><expr> <TAB>
-	  \ pumvisible() ? coc#_select_confirm() :
-	  \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-	  \ <SID>check_back_space() ? "\<TAB>" :
-	  \ coc#refresh()
-	
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-let g:coc_snippet_next = '<tab>'
 
 imap <c-l> <space>=><space>
-" Can't be bothered to understand ESC vs <c-c> in insert mode
-imap <c-c> <esc>
 
 "clear search when you hit esc
 " Works around problem in term where vim starts in replace mode
