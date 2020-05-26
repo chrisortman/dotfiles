@@ -1,5 +1,4 @@
 cp ~/.vimrc ./vimrc
-cp ~/.config/nvim/init.vim ./nvim-init
 cp ~/.gitconfig ./gitconfig
 cp ~/.gitignore_global ./gitignore_global
 cp ~/.zshrc ./zshrc
@@ -7,3 +6,4 @@ cp ~/.zshenv ./zshenv
 cp ~/.tmux.conf ./tmux.conf
 cp ~/.oh-my-zsh/custom/themes/nebirhos.zsh-theme ./nebirhos.zsh-theme
 cp ~/.gemrc ./gemrc
+cp ~/.config/nvim/init.vim ./nvim-init

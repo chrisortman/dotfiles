@@ -71,7 +71,7 @@ call plug#begin('~/.vim/plugged')
   "Plug 'tpope/vim-projectionist'
   Plug 'jpalardy/vim-slime'
   Plug 'AndrewRadev/splitjoin.vim'
-"  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'kana/vim-textobj-user'
   Plug 'wincent/loupe'
   Plug 'rking/ag.vim'
@@ -88,6 +88,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-sleuth'
   Plug 'jremmen/vim-ripgrep'
   Plug 'stefandtw/quickfix-reflector.vim'
+  Plug 'godlygeek/tabular.git'
+  Plug 'majutsushi/tagbar'
 
   " Tmux integration
   Plug 'christoomey/vim-tmux-navigator'
@@ -124,6 +126,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'othree/javascript-libraries-syntax.vim'
   Plug 'othree/es.next.syntax.vim'
   Plug 'moll/vim-node'
+  Plug 'leafgarland/typescript-vim'
+  Plug 'peitalin/vim-jsx-typescript'
 call plug#end()
 
 let g:vimwiki_list = [{'path': '~/Documents/wiki/'}]
@@ -161,7 +165,11 @@ if exists('$ITERM_PROFILE')
   endif
 end
 
-let g:slime_target = "tmux"
+if exists("$TMUX")
+  let g:slime_target = "tmux"
+else
+  let g:slime_target = "vimterminal"
+endif
 
 syntax on
 filetype plugin indent on        " vundle  required!

@@ -162,7 +162,7 @@ fi
 
 # fzf + ag configuration
 if _has fzf; then
-  export FZF_DEFAULT_OPTS="--preview 'bat --style=numbers --color=always {}' \
+  export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {}' \
     --color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108 \
     --color info:108,prompt:109,spinner:108,pointer:168,marker:168"
 fi
@@ -201,7 +201,7 @@ bindkey '^r' reload-dir
 # go happyfinder binary
 export GOPATH=~/gocode
 
-chruby ruby-2.6.6
+chruby ruby-2.5.8
 if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 
 export JETTY_MAVEN_OPTS="-Xms2000m -Xmx2000m -XX:MaxPermSize=2000m"
