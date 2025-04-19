@@ -5,20 +5,23 @@
 	st = status
 	ci = commit
 	co = checkout
-        bird = log --graph --decorate --format=format:'%C(bold blue)%h%C(reset)%C(bold yellow)%d%C(reset): %s' 
+  bird = log --graph --decorate --format=format:'%C(bold blue)%h%C(reset)%C(bold yellow)%d%C(reset): %s' 
 
   lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
   lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
   lg3 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
   lg = !"git lg1"
 	who-did-what = log --pretty=\"format:%an - %s\"
+
 [merge]
-	tool = kdiff3
+	tool = bc
 [rerere]
 	enabled = true
 [core]
-	excludesfile = /Users/cortman/.gitignore_global
+	excludesfile = /home/cortman/.gitignore_global
 	trustctime = false
+  attributesfile = /home/cortman/.gitattributes
+  symlinks = true
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
@@ -36,13 +39,8 @@
 	cmd = kdiff3 --L1 \"$MERGED (Base)\" --L2 \"$MERGED (Local)\" --L3 \"$MERGED (Remote)\" -o \"$MERGED\" \"$BASE\" \"$LOCAL\" \"$REMOTE\"
 [color]
 	ui = auto
-[credential]
-	helper = osxkeychain
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[pager]
-  diff = diff-so-fancy | less --tabs=1,5 -RFX
-  show = diff-so-fancy | less --tabs=1,5 -RFX

@@ -1,0 +1,27 @@
+# Too bad need a tool for stow!!
+
+[vars]
+verbose_arg = '--verbose'
+[tasks.install-config]
+description = "Uses gnu stow to install the config for the given package"
+run = 'stow --dir config --target /home/cortman --dotfiles {{vars.verbose_arg}} {{arg(name="package")}}'
+
+[tasks.install-config2]
+description = "Uses gnu stow to install the config for the given package"
+run = 'exa -D -1 config | xargs stow --dir config --target /home/cortman --dotfiles {{vars.verbose_arg}}'
+
+[tasks.install-all-config]
+description = "Uses gnu stow to install the config for the given package"
+run = [
+  'stow --dir config --target /home/cortman --dotfiles {{vars.verbose_arg}} rubygems',
+  'stow --dir config --target /home/cortman --dotfiles {{vars.verbose_arg}} git',
+]
+
+[tasks.list-configs]
+hide = true
+quiet = true
+description = "List the stow packages"
+run = 'eza -D -1 config'
+
+[tools]
+usage = "latest"
