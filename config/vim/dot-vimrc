@@ -80,7 +80,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'ntpeters/vim-better-whitespace'
   Plug 'SirVer/ultisnips'
   Plug 'tpope/vim-unimpaired'
-  Plug '/usr/local/opt/fzf'
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
   Plug 'tpope/vim-git'
   Plug 'tpope/vim-fugitive'

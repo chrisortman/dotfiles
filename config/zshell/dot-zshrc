@@ -20,5 +20,3 @@ export REPORTTIME=60
 eval "$(/home/cortman/.local/bin/mise activate zsh)"
 source <(fzf --zsh)
 
-#source /usr/share/doc/fzf/examples/key-bindings.zsh
-#source /usr/share/doc/fzf/examples/completion.zsh
