@@ -1,3 +1,8 @@
+#!/usr/bin/env bash
+
+#MISE description="Installs essential libraries for development"
+#MISE depends=["system-update"]
+
 sudo apt install -y \
   build-essential pkg-config autoconf bison clang rustc \
   libssl-dev libreadline-dev zlib1g-dev libyaml-dev libreadline-dev libncurses5-dev libffi-dev libgdbm-dev libjemalloc2 \

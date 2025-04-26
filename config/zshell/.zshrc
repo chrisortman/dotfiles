@@ -1,0 +1,24 @@
+is-macos() {
+  [[ $OSTYPE == darwin* ]]
+}
+
+export EDITOR=vim
+
+source /home/cortman/.antidote/antidote.zsh
+
+# initialize plugins statically with ~/.zsh_plugins.txt
+antidote load
+
+autoload -Uz promptinit && promptinit && prompt pure
+
+# Not sure why this setting is ignored in my config.toml file
+# So i export env var here
+export MISE_IGNORED_CONFIG_PATHS="/Users/cortman/.config/mise/config.toml"
+
+export REPORTTIME=60
+
+eval "$(/home/cortman/.local/bin/mise activate zsh)"
+source <(fzf --zsh)
+
+#source /usr/share/doc/fzf/examples/key-bindings.zsh
+#source /usr/share/doc/fzf/examples/completion.zsh
