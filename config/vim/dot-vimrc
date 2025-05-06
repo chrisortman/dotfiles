@@ -1,9 +1,9 @@
 set nocompatible
 filetype off                         " vundle required
 
+set directory=$HOME/.vim/swap//
 set nobackup
 " set nowritebackup
-set noswapfile
 set history=1000
 set autoindent
 set smartindent
@@ -23,6 +23,7 @@ set nu!
 " slower with the new regex engine.
 set re=1
 
+set nrformats+=alpha
 " Display tabs and trailing spaces
 set list listchars=tab:\ \ ,trail:·
 
@@ -32,8 +33,14 @@ set wildignore=*.class,*.o,*~,*.pyc,.git,node_modules  " Ignore certain files in
 
 let mapleader = ","
 
+if has("gui_running")
+  set columns=120
+  set lines=56
+endif
+
+set colorcolumn=128
 " Font
-set guifont=JetBrainsMonoNL-Regular:h13
+set guifont=Berkeley\ Mono:h14
 if has('mac')
   "set noantialias
 endif
@@ -61,26 +68,28 @@ call plug#begin('~/.vim/plugged')
   " Color schemes
   Plug 'chrisortman/vim-monokai'
   Plug 'tomasr/molokai'
+  Plug 'morhetz/gruvbox'
   Plug 'danilo-augusto/vim-afterglow'
   Plug 'fmoralesc/molokayo'
   Plug 'patstockwell/vim-monokai-tasty'
-
+  Plug 'sonph/onehalf', {'rtp': 'vim/'}
+  Plug 'NLKNguyen/papercolor-theme'
+  
   " General editing support
   Plug 'scrooloose/nerdtree'
   Plug 'justinmk/vim-dirvish'
+  Plug 'skywind3000/asyncrun.vim'
   "Plug 'tpope/vim-projectionist'
   Plug 'jpalardy/vim-slime'
   Plug 'AndrewRadev/splitjoin.vim'
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'kana/vim-textobj-user'
   Plug 'wincent/loupe'
   Plug 'rking/ag.vim'
   " Seems incompatible with vim coc
   Plug 'tpope/vim-endwise'
-  Plug 'ntpeters/vim-better-whitespace'
-  Plug 'SirVer/ultisnips'
+"  Plug 'ntpeters/vim-better-whitespace'
   Plug 'tpope/vim-unimpaired'
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug '/opt/homebrew/opt/fzf'
   Plug 'junegunn/fzf.vim'
   Plug 'tpope/vim-git'
   Plug 'tpope/vim-fugitive'
@@ -88,14 +97,16 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-sleuth'
   Plug 'jremmen/vim-ripgrep'
   Plug 'stefandtw/quickfix-reflector.vim'
-  Plug 'godlygeek/tabular.git'
+  Plug 'godlygeek/tabular'
   Plug 'majutsushi/tagbar'
+  Plug 'markstory/vim-zoomwin'
 
   " Tmux integration
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'benmills/vimux'
   Plug 'tomtom/tcomment_vim'
   Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-abolish'
   Plug 'tpope/vim-repeat'
 
 
@@ -117,10 +128,12 @@ call plug#begin('~/.vim/plugged')
 
   Plug 'tpope/vim-jdaddy' " json helpers
   Plug 'tpope/vim-rails'
+  Plug 'tpope/vim-ragtag'
   Plug 'janko/vim-test'
   Plug 'cespare/vim-toml'
+  Plug 'terrastruct/d2-vim'
   " slime, used for ruby repl
-
+  Plug 'jvirtanen/vim-hcl'
   "javascript
   Plug 'othree/yajs.vim'
   Plug 'othree/javascript-libraries-syntax.vim'
@@ -128,6 +141,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'moll/vim-node'
   Plug 'leafgarland/typescript-vim'
   Plug 'peitalin/vim-jsx-typescript'
+  Plug 'pedrohdz/vim-yaml-folds'
+  Plug 'NoahTheDuke/vim-just'
 call plug#end()
 
 let g:vimwiki_list = [{'path': '~/Documents/wiki/'}]
@@ -143,16 +158,43 @@ set guioptions-=e
 
 let g:ale_lint_on_text_changed='never'
 let g:ale_lint_on_enter = 0
-" let's surround.vim know about <%=
-let g:surround_{char2nr('=')} = "<%= \r %>"
-let g:surround_{char2nr('-')} = "<% \r %>"
+" " let's surround.vim know about <%=
+" let g:surround_{char2nr('=')} = "<%= \r %>"
+" let g:surround_{char2nr('-')} = "<% \r %>"
 
 " Key maps and configuration for running tests from editor
-let test#strategy='vimux'
+" let test#strategy='vimux'
 
 " I don't need a map to clear highlighting
 let g:LoupeCenterResults=0 
 
+let g:tagbar_type_elixir = {
+    \ 'ctagstype' : 'elixir',
+    \ 'kinds' : [
+        \ 'p:protocols',
+        \ 'm:modules',
+        \ 'e:exceptions',
+        \ 'y:types',
+        \ 'd:delegates',
+        \ 'f:functions',
+        \ 'c:callbacks',
+        \ 'a:macros',
+        \ 't:tests',
+        \ 'i:implementations',
+        \ 'o:operators',
+        \ 'r:records'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 'p' : 'protocol',
+        \ 'm' : 'module'
+    \ },
+    \ 'scope2kind' : {
+        \ 'protocol' : 'p',
+        \ 'module' : 'm'
+    \ },
+    \ 'sort' : 0
+\ }
 " Change the cursor based on mode 
 " when running tmux in iterm
 if exists('$ITERM_PROFILE')
@@ -167,8 +209,14 @@ end
 
 if exists("$TMUX")
   let g:slime_target = "tmux"
+  let test#strategy='vimux'
+elseif has("gui_running")
+  let g:slime_target = "vimterminal"
+  let test#strategy='vimterminal'
+  "let test#strategy='iterm'
 else
   let g:slime_target = "vimterminal"
+  let test#strategy='vimterminal'
 endif
 
 syntax on
@@ -185,8 +233,9 @@ set t_Co=256
 " colorscheme molokai
 let g:afterglow_inherit_background=1
 " 2nd favorite colorscheme molokayo
-colorscheme molokai
-
+set background=light
+colorscheme PaperColor
+" colorscheme gruvbox
 " map .docker file to docker syntax
 au! BufNewFile,BufRead *.dockerfile set filetype=dockerfile
 
@@ -209,17 +258,20 @@ autocmd BufReadPost *
 au BufNewFile,BufReadPost *.md set filetype=markdown
 let g:markdown_fenced_languages = ['coffee', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'html']
 
+command! -bang -nargs=? GFilesCwd
+  \ call fzf#vim#gitfiles('--cached --others --exclude-standard', fzf#vim#with_preview(<q-args> == '?' ? { 'dir': getcwd(), 'placeholder': '' } : { 'dir': getcwd() }), <bang>0)
+
 nmap <leader>n :NERDTreeCWD<CR>
 nmap <leader>b :Buffers<CR>
-nmap <leader>f :GFiles<CR>
+nmap <leader>f :GFilesCwd<CR>
 nmap <leader>F :Files<CR>
+nmap <leader>s :Snippets<CR>
 nmap <leader>. :Tags<CR>
 nmap <leader>q :TagbarToggle<CR>
-nmap <Leader>a :Rg<CR>
+nmap <leader>a :Rg<CR>
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>l :TestLast<CR>
-nmap ,ss <Plug>SlimeLineSend
 
 "" Use ctrl-[hjkl] to select the active split!
 nmap <silent> <c-k> :wincmd k<CR>
@@ -233,8 +285,6 @@ map ri :VimuxInspectRunner<cr>
 map rc :VimuxCloseRunner<cr>
 
 nnoremap <Space> za
-
-imap <c-l> <space>=><space>
 
 "clear search when you hit esc
 " Works around problem in term where vim starts in replace mode
@@ -255,7 +305,13 @@ function! UseMonokai()
   colorscheme monokai
 endfunction
 
+abbr fro # frozen_string_literal: true
+abbr aeq assert_equal
+function UnderCase()
+  :%s/\%V /_/g
+endfunction
 
+xnoremap <leader>s :call UnderCase()<cr>
 "
 " ----------------------------------------------------------------------------
 "
