@@ -5,16 +5,17 @@ usage = "latest"
 
 [vars]
 verbose_arg = '--verbose'
+home_dir = '/Users/cortman'
 
 [tasks.stow-home]
 hide = true
 description = "Stows a package into your home directory"
-run = 'stow --dir config --target /home/cortman --dotfiles {{vars.verbose_arg}} {{arg(name="package")}}'
+run = 'stow --dir config --target {{vars.home_dir}} --dotfiles {{vars.verbose_arg}} {{arg(name="package")}}'
 
 [tasks.stow-xdg]
 hide = true
 description = "Stows a package into ~/.config"
-run = 'stow --dir config --target /home/cortman/.config --dotfiles {{vars.verbose_arg}} {{arg(name="package")}}'
+run = 'stow --dir config --target {{vars.home_dir}}/.config --dotfiles {{vars.verbose_arg}} {{arg(name="package")}}'
 
 [tasks.stow]
 description = """
@@ -23,8 +24,8 @@ There are two inocations. Any package that starts with an underscore will go to 
 this way I don't have to have hidden .config folders in the tree
 """
 run = [
-  'exa -D -1 -I "_*" config | xargs stow --dir config --target /home/cortman --dotfiles {{vars.verbose_arg}}',
-  'exa -D -1 -I "[a-z]*" config | xargs stow --dir config --target /home/cortman/.config --dotfiles {{vars.verbose_arg}}',
+  'eza -D -1 -I "_*" config | xargs stow --dir config --target {{vars.home_dir}} --dotfiles {{vars.verbose_arg}}',
+  'eza -D -1 -I "[a-z]*" config | xargs stow --dir config --target {{vars.home_dir}}/.config --dotfiles {{vars.verbose_arg}}',
 ]
 
 
