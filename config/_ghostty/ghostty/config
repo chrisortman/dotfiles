@@ -1,0 +1,14 @@
+font-family = "Berkeley Mono"
+font-size = 13.5
+theme = "Monokai Remastered"
+# use ghostty +list-themes, can prefix value with light: and dark:
+#cursor-style = block
+#shell-integration-features = no-cursor
+
+
+keybind = super+shift+l=goto_split:right
+keybind = super+shift+h=goto_split:left
+keybind = super+shift+k=goto_split:top
+keybind = super+shift+j=goto_split:bottom
+#keybind = global:ctrl+grave_accent=toggle_quick_terminal
+
