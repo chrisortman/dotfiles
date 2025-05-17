@@ -36,6 +36,6 @@ require("config.lazy")
 -- the correct color mappings when they load.
 vim.cmd[[set termguicolors]]
 
-vim.o.background = 'dark'
-vim.cmd.colorscheme 'tokyonight'
+vim.o.background = 'light'
+vim.cmd.colorscheme 'monokai-pro-classic'
 vim.cmd.hi 'Comment gui=none'

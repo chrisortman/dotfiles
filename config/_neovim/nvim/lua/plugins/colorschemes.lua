@@ -101,7 +101,19 @@ return {
   {
     "loctvl842/monokai-pro.nvim",
     config = function()
-      require("monokai-pro").setup()
+      require("monokai-pro").setup({
+        transparent_background = true,
+        filter = "classic",
+        -- This is so that I get a crisp back background
+        overrideScheme = function(cs, p, config, hp)
+          local cs_override = {}
+          -- local calc_bg = hp.blend(p.background, 0.85, '#000000')
+          cs_override.editor = {
+            background = '#000000',
+          }
+          return cs_override
+        end
+      })
     end
   }
 
