@@ -17,6 +17,11 @@ vim.keymap.set('n', '<c-k>', ':wincmd k<CR>', {remap = true, desc = 'Select spli
 vim.keymap.set('n', '<c-j>', ':wincmd j<CR>', {remap = true, desc = 'Select split below'})
 vim.keymap.set('n', '<c-h>', ':wincmd h<CR>', {remap = true, desc = 'Select split left'})
 vim.keymap.set('n', '<c-l>', ':wincmd l<CR>', {remap = true, desc = 'Select split right'})
+-- Terminal mode mappings for window navigation
+vim.keymap.set('t', '<C-h>', [[<C-\><C-n><C-w>h]])
+vim.keymap.set('t', '<C-j>', [[<C-\><C-n><C-w>j]])
+vim.keymap.set('t', '<C-k>', [[<C-\><C-n><C-w>k]])
+vim.keymap.set('t', '<C-l>', [[<C-\><C-n><C-w>l]])
 
 -- Clear search when you hit escape
 -- nnoremap <silent> <Esc> <Esc>:noh<CR>
