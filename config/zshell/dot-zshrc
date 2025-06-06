@@ -25,7 +25,7 @@ autoload -Uz promptinit && promptinit && prompt pure
 PROMPT='$(aws_identity) '$PROMPT
 
 foreground-vi() {
-    fg %/usr/local/bin/vim || fg %nvim
+    fg %/opt/homebrew/bin/vim || fg %nvim
 }
 
 zle -N foreground-vi
