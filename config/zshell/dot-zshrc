@@ -81,10 +81,10 @@ bindkey '^[f' forward-word
 bindkey '^[b' backward-word
 
 
-export PATH="/Users/cortman/bin:/Applications/Postgres.app/Contents/Versions/17/bin:$PATH"
+source <(fzf --zsh)
+export PATH="/Users/cortman/bin:/Applications/Postgres.app/Contents/Versions/17/bin:/Users/cortman/oracle/instantclient_23_3:$PATH"
 eval "$(mise activate zsh)"
 # Set up fzf key bindings and fuzzy completion
-source <(fzf --zsh)
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/cortman/.lmstudio/bin"
