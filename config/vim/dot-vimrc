@@ -286,6 +286,14 @@ map rc :VimuxCloseRunner<cr>
 
 nnoremap <Space> za
 
+fun! TrimWhitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfun
+
+command! TrimWhitespace call TrimWhitespace()
+
 "clear search when you hit esc
 " Works around problem in term where vim starts in replace mode
 " http://stackoverflow.com/questions/11940801/mapping-esc-in-vimrc-causes-bizzare-arrow-behaviour
