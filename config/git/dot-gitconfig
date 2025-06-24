@@ -20,7 +20,7 @@
   bird = log --graph --decorate --format=format:'%C(bold blue)%h%C(reset)%C(bold yellow)%d%C(reset): %s' 
 
 [merge]
-	tool = bc
+	tool = kdiff3NoAuto
 [rerere]
 	enabled = true
 [core]
