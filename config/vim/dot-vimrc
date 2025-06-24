@@ -235,7 +235,13 @@ map rc :VimuxCloseRunner<cr>
 
 nnoremap <Space> za
 
-imap <c-l> <space>=><space>
+fun! TrimWhitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfun
+
+command! TrimWhitespace call TrimWhitespace()
 
 "clear search when you hit esc
 " Works around problem in term where vim starts in replace mode
