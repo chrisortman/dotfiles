@@ -22,8 +22,9 @@ set nu!
 " introduced in Vim 7.3.969). The Ruby syntax highlighting is significantly
 " slower with the new regex engine.
 set re=1
-
+set colorcolumn=128
 " Display tabs and trailing spaces
+set nrformats+=alpha
 set list listchars=tab:\ \ ,trail:·
 
 set wildmenu                " Show possible completions on command line
@@ -52,11 +53,6 @@ endif
 " BUNDLES 
 call plug#begin('~/.vim/plugged')
 
-  let g:UltiSnipsExpandTrigger="<tab>"
-  " Never seen this work
-  let g:UltiSnipsListSnippets="<c-s>"
-  let g:UltiSnipsEditSplit="vertical"
-  let g:UltiSnipsSnippetDirectories=[$HOME.'/Documents/UltiSnips',"UltiSnips"]
 
   " Color schemes
   Plug 'chrisortman/vim-monokai'
@@ -68,17 +64,17 @@ call plug#begin('~/.vim/plugged')
   " General editing support
   Plug 'scrooloose/nerdtree'
   Plug 'justinmk/vim-dirvish'
+  Plug 'skywind3000/asyncrun.vim'
   "Plug 'tpope/vim-projectionist'
   Plug 'jpalardy/vim-slime'
   Plug 'AndrewRadev/splitjoin.vim'
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
   Plug 'kana/vim-textobj-user'
   Plug 'wincent/loupe'
   Plug 'rking/ag.vim'
   " Seems incompatible with vim coc
   Plug 'tpope/vim-endwise'
   Plug 'ntpeters/vim-better-whitespace'
-  Plug 'SirVer/ultisnips'
   Plug 'tpope/vim-unimpaired'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
@@ -88,14 +84,16 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-sleuth'
   Plug 'jremmen/vim-ripgrep'
   Plug 'stefandtw/quickfix-reflector.vim'
-  Plug 'godlygeek/tabular.git'
+  Plug 'godlygeek/tabular'
   Plug 'majutsushi/tagbar'
+  Plug 'markstory/vim-zoomwin'
 
   " Tmux integration
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'benmills/vimux'
   Plug 'tomtom/tcomment_vim'
   Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-abolish'
   Plug 'tpope/vim-repeat'
 
 
@@ -117,6 +115,7 @@ call plug#begin('~/.vim/plugged')
 
   Plug 'tpope/vim-jdaddy' " json helpers
   Plug 'tpope/vim-rails'
+  Plug 'tpope/vim-ragtag'
   Plug 'janko/vim-test'
   Plug 'cespare/vim-toml'
   " slime, used for ruby repl
@@ -128,6 +127,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'moll/vim-node'
   Plug 'leafgarland/typescript-vim'
   Plug 'peitalin/vim-jsx-typescript'
+  Plug 'pedrohdz/vim-yaml-folds'
+  Plug 'NoahTheDuke/vim-just'
 call plug#end()
 
 let g:vimwiki_list = [{'path': '~/Documents/wiki/'}]
