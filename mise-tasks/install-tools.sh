@@ -5,7 +5,7 @@
 #
 # Contains a lot of the linxu tools available as packages
 #
-sudo apt install -y stow ripgrep bat eza zoxide btop apache2-utils fd-find tldr tmux cloc
+sudo apt install -y stow ripgrep bat eza zoxide btop apache2-utils fd-find tldr tmux cloc man
 
 # Ubuntu has a really old fzf so we install it using mise instead. the biggest
 # difference compatability wise is that presence of a command for shell integration
