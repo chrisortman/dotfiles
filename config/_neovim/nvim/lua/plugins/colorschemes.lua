@@ -101,7 +101,20 @@ return {
   {
     "loctvl842/monokai-pro.nvim",
     config = function()
-      require("monokai-pro").setup()
+      require("monokai-pro").setup({
+        transparent_background = false,
+        terminal_colors = true,
+        -- overrideScheme = function(cs, p, config, hp)
+        --   local cs_override = {}
+        --   local calc_bg = hp.blend(p.background, 0.95, '#000000')
+        --
+        --   cs_override.editor = {
+        --     background = calc_bg,
+        --   }
+        --   return cs_override
+        -- end
+
+      })
     end
   }
 
