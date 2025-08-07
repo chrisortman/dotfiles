@@ -1,0 +1,31 @@
+[settings.ruby]
+ruby_install = true
+
+[tools]
+claude = "latest"
+docker-compose = "latest"
+fzf = "latest"
+glab = "latest"
+glow = "latest"
+jq = "latest"
+lua = "latest"
+neovim = "latest"
+node = "lts"
+overmind = "latest"
+python = "3.11"
+ripgrep = "latest"
+ruby = "3.4"
+yarn = "3.8.7"
+
+[settings]
+# Want to ignore macOS version of this file
+ignored_config_paths = [
+  "/Users/cortman/.config/mise/config.toml"
+]
+idiomatic_version_file_enable_tools = ["ruby"]
+
+[env]
+_.path = [
+  "/opt/oracle/instantclient"
+]
+LD_LIBRARY_PATH = "/opt/oracle/instantclient"
