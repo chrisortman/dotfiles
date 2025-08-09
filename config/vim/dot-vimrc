@@ -149,7 +149,7 @@ let g:surround_{char2nr('=')} = "<%= \r %>"
 let g:surround_{char2nr('-')} = "<% \r %>"
 
 " Key maps and configuration for running tests from editor
-let test#strategy='vimux'
+let test#strategy='vimterminal'
 
 " I don't need a map to clear highlighting
 let g:LoupeCenterResults=0 
