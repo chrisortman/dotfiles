@@ -16,6 +16,7 @@ overmind = "latest"
 python = "3.11"
 ripgrep = "latest"
 ruby = "3.4"
+rust = "latest"
 yarn = "3.8.7"
 
 [settings]
