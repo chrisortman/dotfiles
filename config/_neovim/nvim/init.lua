@@ -13,10 +13,10 @@ vim.o.guifont = 'Berkeley Mono:h14'
 
 
 -- Navigate  split windows without having to use control key
-vim.keymap.set('n', '<c-k>', ':wincmd k<CR>', {remap = true, desc = 'Select split above'})
-vim.keymap.set('n', '<c-j>', ':wincmd j<CR>', {remap = true, desc = 'Select split below'})
-vim.keymap.set('n', '<c-h>', ':wincmd h<CR>', {remap = true, desc = 'Select split left'})
-vim.keymap.set('n', '<c-l>', ':wincmd l<CR>', {remap = true, desc = 'Select split right'})
+-- vim.keymap.set('n', '<c-k>', ':wincmd k<CR>', {remap = true, desc = 'Select split above'})
+-- vim.keymap.set('n', '<c-j>', ':wincmd j<CR>', {remap = true, desc = 'Select split below'})
+-- vim.keymap.set('n', '<c-h>', ':wincmd h<CR>', {remap = true, desc = 'Select split left'})
+-- vim.keymap.set('n', '<c-l>', ':wincmd l<CR>', {remap = true, desc = 'Select split right'})
 
 -- Clear search when you hit escape
 -- nnoremap <silent> <Esc> <Esc>:noh<CR>
