@@ -30,3 +30,4 @@ zvm_after_init() {
   fi
 }
 
+alias rc="bin/rails console"
