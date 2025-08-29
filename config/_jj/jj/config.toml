@@ -16,3 +16,11 @@ log-recent = ["log", "-r", "default() & recent()"]
 'immutable_heads()' = "builtin_immutable_heads() | remote_bookmarks()"
 'default()' = 'coalesce(trunk(),root())::present(@) | ancestors(visible_heads() & recent(), 2)'
 'recent()' = 'committer_date(after:"1 month ago")'
+
+[colors]
+# Highlight hunks with background
+"diff removed token" = { underline = false }
+"diff added token" = {  underline = false }
+# Alternatively, swap colors
+"diff token" = { reverse = false, underline = false }
+
