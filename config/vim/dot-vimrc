@@ -34,11 +34,6 @@ set wildignore=*.class,*.o,*~,*.pyc,.git,node_modules  " Ignore certain files in
 let mapleader = ","
 
 " Font
-set guifont=JetBrainsMonoNL-Regular:h13
-if has('mac')
-  "set noantialias
-endif
-
 set splitbelow
 set splitright
 
