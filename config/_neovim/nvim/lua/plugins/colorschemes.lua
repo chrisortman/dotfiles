@@ -98,24 +98,37 @@ return {
     lazy = false,
     priority = 1000,
   },
+  -- {
+  --   "loctvl842/monokai-pro.nvim",
+  --   config = function()
+  --     require("monokai-pro").setup({
+  --       transparent_background = true,
+  --       terminal_colors = true,
+  --       filter = "classic",
+  --       -- overrideScheme = function(cs, p, config, hp)
+  --       --   local cs_override = {}
+  --       --   local calc_bg = hp.blend(p.background, 0.95, '#000000')
+  --       --
+  --       --   cs_override.editor = {
+  --       --     background = calc_bg,
+  --       --   }
+  --       --   return cs_override
+  --       -- end
+  --
+  --     })
+  --   end
+  -- },
+
   {
-    "loctvl842/monokai-pro.nvim",
-    config = function()
-      require("monokai-pro").setup({
-        transparent_background = false,
-        terminal_colors = true,
-        -- overrideScheme = function(cs, p, config, hp)
-        --   local cs_override = {}
-        --   local calc_bg = hp.blend(p.background, 0.95, '#000000')
-        --
-        --   cs_override.editor = {
-        --     background = calc_bg,
-        --   }
-        --   return cs_override
-        -- end
-
-      })
-    end
-  }
-
+      'sainnhe/sonokai',
+      lazy = false,
+      priority = 1000,
+      config = function()
+        -- Optionally configure and load the colorscheme
+        -- directly inside the plugin declaration.
+        vim.g.sonokai_enable_italic = false
+        vim.g.sonokai_transparent_background = 1
+        vim.g.sonokai_style = "default"
+      end
+    }
 }

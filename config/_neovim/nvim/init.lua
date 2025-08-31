@@ -30,9 +30,11 @@ require("config.lazy")
 -- This has to be set so that some color schemes (molokai) will define 
 -- the correct color mappings when they load.
 --vim.cmd[[set termguicolors]]
+vim.o.termguicolors = true
+vim.opt.background = 'dark'
+--vim.cmd.colorscheme 'monokai-pro'
+vim.cmd.colorscheme('sonokai')
 
-vim.o.background = 'dark'
-vim.cmd.colorscheme 'molokai'
 vim.cmd.hi 'Comment gui=none'
 
 vim.api.nvim_create_autocmd('FileType', {
