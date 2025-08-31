@@ -9,6 +9,7 @@ default-command = "log-recent"
 
 [aliases]
 log-recent = ["log", "-r", "default() & recent()"]
+log-full = ["log", "-r", "default()"]
 
 [revset-aliases]
 # set all remote bookmarks (commits pushed to remote branches) to be immutable
