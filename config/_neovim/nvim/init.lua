@@ -37,5 +37,6 @@ require("config.lazy")
 vim.cmd[[set termguicolors]]
 
 vim.o.background = 'light'
-vim.cmd.colorscheme 'monokai-pro-classic'
+--vim.cmd.colorscheme 'monokai-pro-classic'
+vim.cmd.colorscheme 'PaperColor'
 vim.cmd.hi 'Comment gui=none'
