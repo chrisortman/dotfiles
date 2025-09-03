@@ -33,7 +33,7 @@ require("config.lazy")
 vim.o.termguicolors = true
 vim.opt.background = 'dark'
 --vim.cmd.colorscheme 'monokai-pro'
-vim.cmd.colorscheme('sonokai')
+vim.cmd.colorscheme('monokai')
 
 vim.cmd.hi 'Comment gui=none'
 

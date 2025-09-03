@@ -2,7 +2,7 @@ return {
 
   {
     "NLKNguyen/papercolor-theme",
-    lazy = false,
+    lazy = true,
     priority = 1000,
     config = function()
     end,
@@ -98,26 +98,13 @@ return {
     lazy = false,
     priority = 1000,
   },
-  -- {
-  --   "loctvl842/monokai-pro.nvim",
-  --   config = function()
-  --     require("monokai-pro").setup({
-  --       transparent_background = true,
-  --       terminal_colors = true,
-  --       filter = "classic",
-  --       -- overrideScheme = function(cs, p, config, hp)
-  --       --   local cs_override = {}
-  --       --   local calc_bg = hp.blend(p.background, 0.95, '#000000')
-  --       --
-  --       --   cs_override.editor = {
-  --       --     background = calc_bg,
-  --       --   }
-  --       --   return cs_override
-  --       -- end
-  --
-  --     })
-  --   end
-  -- },
+  {
+    "tanvirtin/monokai.nvim",
+    config = function()
+      require("monokai").setup({
+      })
+    end
+  },
 
   {
       'sainnhe/sonokai',
