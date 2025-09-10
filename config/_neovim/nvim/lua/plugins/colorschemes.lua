@@ -2,7 +2,7 @@ return {
 
   {
     "NLKNguyen/papercolor-theme",
-    lazy = false,
+    lazy = true,
     priority = 1000,
     config = function()
     end,
@@ -99,22 +99,23 @@ return {
     priority = 1000,
   },
   {
-    "loctvl842/monokai-pro.nvim",
+    "tanvirtin/monokai.nvim",
     config = function()
-      require("monokai-pro").setup({
-        -- transparent_background = true,
-        -- filter = "classic",
-        -- -- This is so that I get a crisp back background
-        -- overrideScheme = function(cs, p, config, hp)
-        --   local cs_override = {}
-        --   -- local calc_bg = hp.blend(p.background, 0.85, '#000000')
-        --   cs_override.editor = {
-        --     background = '#000000',
-        --   }
-        --   return cs_override
-        -- end
+      require("monokai").setup({
       })
     end
-  }
+  },
 
+  {
+      'sainnhe/sonokai',
+      lazy = false,
+      priority = 1000,
+      config = function()
+        -- Optionally configure and load the colorscheme
+        -- directly inside the plugin declaration.
+        vim.g.sonokai_enable_italic = false
+        vim.g.sonokai_transparent_background = 1
+        vim.g.sonokai_style = "default"
+      end
+    }
 }

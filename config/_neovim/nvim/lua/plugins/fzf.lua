@@ -54,7 +54,7 @@ return {
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>f', builtin.git_files, { desc = '[S]earch [F]iles' })
+      --vim.keymap.set('n', '<leader>f', builtin.git_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>F', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
@@ -62,7 +62,9 @@ return {
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader>b', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      vim.keymap.set('n', '<leader>b', function()
+        builtin.buffers({sort_lastused = true, ignore_current_buffer = true})
+      end, { desc = '[ ] Find existing buffers' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -89,27 +91,27 @@ return {
     end,
   },
 
-  -- {
-  --   "zschreur/telescope-jj.nvim",
-  --   config = function()
-  --     local builtin = require("telescope.builtin")
-  --     local telescope = require("telescope")
-  --
-  --     telescope.load_extension("jj")
-  --
-  --     local vcs_picker = function(opts)
-  --         local jj_pick_status, jj_res = pcall(telescope.extensions.jj.files, opts)
-  --         if jj_pick_status then
-  --             return
-  --         end
-  --
-  --         local git_files_status, git_res = pcall(builtin.git_files, opts)
-  --         if not git_files_status then
-  --             error("Could not launch jj/git files: \n" .. jj_res .. "\n" .. git_res)
-  --         end
-  --     end
-  --
-  --     vim.keymap.set("n", "<leader>f", vcs_picker, {})
-  --   end
-  -- }
+  {
+    "zschreur/telescope-jj.nvim",
+    config = function()
+      local builtin = require("telescope.builtin")
+      local telescope = require("telescope")
+
+      telescope.load_extension("jj")
+
+      local vcs_picker = function(opts)
+          local jj_pick_status, jj_res = pcall(telescope.extensions.jj.files, opts)
+          if jj_pick_status then
+              return
+          end
+
+          local git_files_status, git_res = pcall(builtin.git_files, opts)
+          if not git_files_status then
+              error("Could not launch jj/git files: \n" .. jj_res .. "\n" .. git_res)
+          end
+      end
+
+      vim.keymap.set("n", "<leader>f", vcs_picker, {})
+    end
+  }
 }

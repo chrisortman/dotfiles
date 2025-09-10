@@ -13,10 +13,10 @@ vim.o.guifont = 'Berkeley Mono:h14'
 
 
 -- Navigate  split windows without having to use control key
-vim.keymap.set('n', '<c-k>', ':wincmd k<CR>', {remap = true, desc = 'Select split above'})
-vim.keymap.set('n', '<c-j>', ':wincmd j<CR>', {remap = true, desc = 'Select split below'})
-vim.keymap.set('n', '<c-h>', ':wincmd h<CR>', {remap = true, desc = 'Select split left'})
-vim.keymap.set('n', '<c-l>', ':wincmd l<CR>', {remap = true, desc = 'Select split right'})
+-- vim.keymap.set('n', '<c-k>', ':wincmd k<CR>', {remap = true, desc = 'Select split above'})
+-- vim.keymap.set('n', '<c-j>', ':wincmd j<CR>', {remap = true, desc = 'Select split below'})
+-- vim.keymap.set('n', '<c-h>', ':wincmd h<CR>', {remap = true, desc = 'Select split left'})
+-- vim.keymap.set('n', '<c-l>', ':wincmd l<CR>', {remap = true, desc = 'Select split right'})
 -- Terminal mode mappings for window navigation
 vim.keymap.set('t', '<C-h>', [[<C-\><C-n><C-w>h]])
 vim.keymap.set('t', '<C-j>', [[<C-\><C-n><C-w>j]])
@@ -34,9 +34,17 @@ require("config.lazy")
 
 -- This has to be set so that some color schemes (molokai) will define 
 -- the correct color mappings when they load.
-vim.cmd[[set termguicolors]]
+--vim.cmd[[set termguicolors]]
+vim.o.termguicolors = true
+vim.opt.background = 'dark'
+--vim.cmd.colorscheme 'monokai-pro'
+vim.cmd.colorscheme('monokai')
 
-vim.o.background = 'light'
---vim.cmd.colorscheme 'monokai-pro-classic'
-vim.cmd.colorscheme 'PaperColor'
 vim.cmd.hi 'Comment gui=none'
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { '<filetype>' },
+  callback = function() vim.treesitter.start() end,
+})
+
+vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
