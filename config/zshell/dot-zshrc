@@ -3,9 +3,9 @@ is-macos() {
 }
 
 export EDITOR=vim
-HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=1000
+export HISTFILE=~/.zsh_history
+export HISTSIZE=10000
+export SAVEHIST=1000
 setopt SHARE_HISTORY
 
 source /home/cortman/.antidote/antidote.zsh
