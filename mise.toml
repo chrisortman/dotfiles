@@ -33,7 +33,3 @@ hide = true
 quiet = true
 description = "List the stow packages"
 run = 'eza -D -1 config'
-
-[tasks.install-fastfetch]
-description = "Install fastfetch for displaying system information"
-file = "install/terminal/app-fastfetch.sh"
