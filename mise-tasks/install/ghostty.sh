@@ -13,9 +13,13 @@ if [[ -z "$current_version" ]]; then
 fi
 
 # Check if we found a version
+# We dont' care if it isn't found, we'll just assume
+# we need the term info
 if [[ -z "$current_version" ]]; then
     echo "ncurses not found"
-    exit 2
+    echo "install ghostty term info"
+    tic -x files/xterm-ghostty
+    exit 0
 fi
 
 # Compare with 6.5 using version sort
@@ -26,6 +30,6 @@ if printf '%s\n6.5\n' "$current_version" | sort -V | head -1 | grep -q "^6\.5$";
 else
     echo "ncurses $current_version is not newer than 6.5"
     echo "install ghostty term info"
-    tic -x ../../files/xterm-ghostty
+    tic -x files/xterm-ghostty
     exit 0
 fi
