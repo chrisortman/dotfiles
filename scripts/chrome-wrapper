@@ -1,0 +1,141 @@
+#!/usr/bin/env ruby
+
+require 'open3'
+
+# Path to Chrome on macOS
+CHROME_PATH = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+
+# Check if Chrome exists
+unless File.exist?(CHROME_PATH)
+  puts "Error: Google Chrome not found at #{CHROME_PATH}"
+  puts "Please ensure Google Chrome is installed in the Applications folder."
+  exit 1
+end
+
+# Build the command with forwarded arguments
+chrome_args = ARGV.join(' ')
+command = "\"#{CHROME_PATH}\" #{chrome_args}"
+
+puts "Launching Chrome with command: #{command}"
+puts "Press Ctrl+C to quit both this script and Chrome"
+puts "-" * 50
+
+# Variable to store the Chrome process
+chrome_pid = nil
+
+# Set up signal handlers for graceful shutdown
+['INT', 'TERM'].each do |signal|
+  Signal.trap(signal) do
+    puts "\nReceived #{signal} signal. Shutting down Chrome..."
+    if chrome_pid
+      begin
+        # Process.kill('TERM', chrome_pid)
+        # # Give Chrome a moment to shut down gracefully
+        # sleep(1)
+        # Force kill if still running
+        Process.kill('KILL', chrome_pid) rescue nil
+      rescue Errno::ESRCH
+        # Process already dead
+      end
+    end
+    exit 0
+  end
+end
+
+begin
+  # Function to process Chrome output lines
+  def process_chrome_output(line)
+    line.gsub('127.0.0.1', 'host.orb.internal')
+  end
+  
+  # When run interactively, show debug info
+  if $stdout.tty?
+    puts "Chrome started with PID will be shown after launch"
+    
+    # Launch Chrome and capture its process ID and streams
+    Open3.popen3(command) do |stdin, stdout, stderr, wait_thr|
+      chrome_pid = wait_thr.pid
+      puts "Chrome started with PID: #{chrome_pid}"
+      
+      # Create threads to handle stdout and stderr with debug prefixes and processing
+      stdout_thread = Thread.new do
+        stdout.each_line do |line|
+          processed_line = process_chrome_output(line)
+          puts "[CHROME OUT] #{processed_line}"
+        end
+      rescue IOError
+        # Stream closed
+      end
+      
+      stderr_thread = Thread.new do
+        stderr.each_line do |line|
+          processed_line = process_chrome_output(line)
+          puts "[CHROME ERR] #{processed_line}"
+        end
+      rescue IOError
+        # Stream closed
+      end
+      
+      # Wait for Chrome to exit
+      exit_status = wait_thr.value
+      
+      # Wait for output threads to finish
+      stdout_thread.join
+      stderr_thread.join
+      
+      if exit_status.success?
+        puts "\nChrome exited normally."
+      else
+        puts "\nChrome exited with status: #{exit_status.exitstatus}"
+      end
+    end
+  else
+    # When used by Ferrum, process and forward streams
+    Open3.popen3(command) do |stdin, stdout, stderr, wait_thr|
+      chrome_pid = wait_thr.pid
+      
+      # Forward streams with processing
+      stdout_thread = Thread.new do
+        stdout.each_line do |line|
+          processed_line = process_chrome_output(line)
+          $stdout.print processed_line
+          $stdout.flush
+        end
+      rescue IOError
+        # Stream closed
+      end
+      
+      stderr_thread = Thread.new do
+        stderr.each_line do |line|
+          processed_line = process_chrome_output(line)
+          $stderr.print processed_line
+          $stderr.flush
+        end
+      rescue IOError
+        # Stream closed
+      end
+      
+      # Wait for Chrome to exit
+      exit_status = wait_thr.value
+      
+      # Wait for stream forwarding to complete
+      stdout_thread.join
+      stderr_thread.join
+      
+      # Exit with Chrome's exit code
+      exit exit_status.exitstatus
+    end
+  end
+
+rescue Errno::ENOENT
+  puts "Error: Failed to launch Chrome. Command not found."
+  exit 1
+rescue Interrupt
+  puts "\nInterrupted by user."
+  exit 0
+rescue => e
+  puts "Error launching Chrome: #{e.message}"
+  exit 1
+end
+
+puts "Script finished."
