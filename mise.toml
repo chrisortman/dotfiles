@@ -23,8 +23,12 @@ There are two inocations. Any package that starts with an underscore will go to 
 this way I don't have to have hidden .config folders in the tree
 """
 run = [
-  'exa -D -1 -I "_*" config | xargs stow --dir config --target /home/cortman --dotfiles {{vars.verbose_arg}}',
-  'exa -D -1 -I "[a-z]*" config | xargs stow --dir config --target /home/cortman/.config --dotfiles {{vars.verbose_arg}}',
+  # Stow will fail if the ~/.config/*** dirs do not exist
+  './create_config_dirs.sh',
+  # symlink our dotfiles that go directly into the home folder
+  'eza -D -1 -I "_*" config | xargs stow --dir config --target /home/cortman --dotfiles {{vars.verbose_arg}}',
+  # symlink the dotfiles that go into ~/.config
+  'eza -D -1 -I "[a-z]*" config | xargs stow --dir config --target /home/cortman/.config --dotfiles {{vars.verbose_arg}}',
 ]
 
 
