@@ -9,7 +9,7 @@ theme = "Monokai Remastered"
 #cursor-style = block
 #shell-integration-features = no-cursor
 
-#command = "/Users/cortman/bin/orbterm.sh"
+command = "direct:/Users/cortman/bin/orbterm.sh"
 
 # Don't dim the inactive pane
 unfocused-split-opacity = 0.6
