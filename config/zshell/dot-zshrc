@@ -31,3 +31,21 @@ zvm_after_init() {
 }
 
 alias rc="bin/rails console"
+
+# Function to report directory
+__report_working_directory() {
+    echo "orb" > /mnt/mac/tmp/last.txt
+    echo $PWD > /mnt/mac/tmp/lastdir.txt
+    printf '\e]7;file://%s%s\a' "$HOST" "$PWD"
+}
+
+# Add to precmd hook (runs before each prompt)
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd __report_working_directory
+
+# Override cd to report immediately
+cd() {
+    builtin cd "$@"
+    __report_working_directory
+}
+
