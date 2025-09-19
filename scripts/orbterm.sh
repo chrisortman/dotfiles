@@ -1,6 +1,5 @@
 
 if [[ $(cat /tmp/last.txt) == "orb" ]]; then
-  echo "File contains orb"
 	/Applications/OrbStack.app/Contents/MacOS/bin/orb '-m' 'ubuntu' '-w' "$(cat /tmp/lastdir.txt)"
 else
 	
