@@ -21,7 +21,7 @@ export MISE_IGNORED_CONFIG_PATHS="/Users/cortman/.config/mise/config.toml"
 
 export REPORTTIME=60
 
-eval "$(/home/cortman/.local/bin/mise activate zsh)"
+eval "$(mise activate zsh)"
 
 # zsh-vi-mode compatibility function for fzf
 zvm_after_init() {
