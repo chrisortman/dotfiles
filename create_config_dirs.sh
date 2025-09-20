@@ -4,7 +4,7 @@
 
 # Get the directory where this script is located
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-CONFIG_DIR="$SCRIPT_DIR/config"
+CONFIG_DIR="$SCRIPT_DIR/config/ubuntu-noble"
 
 # Check if config directory exists
 if [[ ! -d "$CONFIG_DIR" ]]; then
