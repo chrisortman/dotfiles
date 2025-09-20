@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #MISE description="Installs packages needed for interacting with Microsoft SQL Server. Does not install a database"
-#MISE depends=["system-update"]
+#MISE depends=["linux:system-update"]
 
 echo "Updating package lists..."
 sudo apt-get update

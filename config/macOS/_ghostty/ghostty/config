@@ -1,0 +1,24 @@
+font-family = "Berkeley Mono"
+#font-family = "Menlo"
+font-size = 14
+
+theme = "Monokai Remastered"
+#theme = "Monokai Pro Light Sun"
+# use ghostty +list-themes, can prefix value with light: and dark:
+
+#cursor-style = block
+#shell-integration-features = no-cursor
+
+command = "direct:/Users/cortman/bin/orbterm.sh"
+
+# Don't dim the inactive pane
+unfocused-split-opacity = 0.6
+
+keybind = super+shift+l=goto_split:right
+keybind = super+shift+h=goto_split:left
+keybind = super+shift+k=goto_split:top
+keybind = super+shift+j=goto_split:bottom
+#keybind = global:ctrl+grave_accent=toggle_quick_terminal
+
+
+keybind = shift+enter=text:\n

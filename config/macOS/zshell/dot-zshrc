@@ -1,0 +1,102 @@
+is-macos() {
+  [[ $OSTYPE == darwin* ]]
+}
+
+export EDITOR=vim
+export HISTFILE=~/.zsh_history
+export HISTSIZE=10000
+export SAVEHIST=1000
+setopt SHARE_HISTORY
+
+function aws_identity() {
+    if [[ -f ~/.aws-login/identity.txt ]]; then
+      echo "[$(cat ~/.aws-login/identity.txt)]"
+    else
+        echo ""
+    fi
+}
+
+
+source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
+antidote load
+
+autoload -Uz promptinit && promptinit && prompt pure
+
+PROMPT='$(aws_identity) '$PROMPT
+
+foreground-vi() {
+    fg %/opt/homebrew/bin/vim || fg %nvim
+}
+
+zle -N foreground-vi
+
+function edit-last () {
+  local cmd
+  setopt local_options extended_glob
+  for cmd in $history; do
+    case $cmd in
+      ((ls|(cvs|git|hg|svn) status)(| *)) :;;
+      ("rg "*) vim -q<(eval "$cmd --vimgrep"); return;;
+      (edit-last) :;;
+      (*) echo >&2 "The previous rg command is too old."; return 125;;
+    esac
+  done
+}
+
+github-ignore () {
+  curl https://raw.githubusercontent.com/github/gitignore/master/$1.gitignore
+}
+
+
+alias docker-remove-stopped-containers='docker rm $(docker ps -a -q)'
+alias docker-remove-dangling-images='docker rmi $(docker images -q -f dangling=true)'
+
+# Automatically report time
+# for any commands that take longer than 5 seconds to run
+export REPORTTIME=60
+# No analytics please
+export HOMEBREW_NO_ANALYTICS=1
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+
+alias ff='open -a firefox http://localhost:3000'
+alias gg="open -a 'Google Chrome' http://localhost:3000"
+#alias retag='ctags -R -f .git/tags'
+alias preview="fzf --preview 'bat --color \"always\" {}'"
+alias ping='prettyping --nolegend'
+alias top="sudo htop"
+alias profile='/usr/local/bin/gtime -f "mem=%K RSS=%M elapsed=%E cpu.sys=%S .user=%U"'
+alias aws1=~/.virtualenvs/awscliv1/bin/aws
+alias ls=eza
+alias vim='/opt/homebrew/bin/vim'
+alias vi='/opt/homebrew/bin/vim'
+alias mobileproxy='ssh -o "ControlMaster=no" -R 3333:localhost:3000 icts-test-reversetunnel'
+#this stopped working when i moved some path logic before it?
+bindkey '^Z' foreground-vi
+# bindkey '^X' foreground-server
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
+bindkey '^r' reload-dir
+bindkey '^[f' forward-word
+bindkey '^[b' backward-word
+
+
+source <(fzf --zsh)
+export PATH="/Users/cortman/bin:/Applications/Postgres.app/Contents/Versions/17/bin:/Users/cortman/oracle/instantclient_23_3:$PATH"
+eval "$(mise activate zsh)"
+# Set up fzf key bindings and fuzzy completion
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/cortman/.lmstudio/bin"
+
+# Function to report directory
+# On macOS ghostty will work just fine without
+# me doing the directory stuff
+__report_working_directory() {
+    echo "mac" > /tmp/last.txt
+}
+
+# Add to precmd hook (runs before each prompt)
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd __report_working_directory
+

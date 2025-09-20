@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #MISE description="Installs essential libraries for development"
-#MISE depends=["system-update"]
+#MISE depends=["linux:system-update"]
 
 sudo apt install -y \
   build-essential pkg-config autoconf bison clang rustc \

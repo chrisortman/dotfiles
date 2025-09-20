@@ -1,0 +1,20 @@
+[env]
+#OCI_DIR = "{{ exec(command='brew --prefix',cache_key='brew_loc',cache_duration='1d') ~ '/lib' }}"
+OCI_DIR = "/Users/cortman/oracle/instantclient_23_3"
+[tasks.build]
+run = 'echo "running build tasks"'
+
+[settings]
+idiomatic_version_file_enable_tools = ["ruby"]
+
+[settings.ruby]
+ruby_install = true
+
+[tools]
+aws-cli = "latest"
+git-lfs = "latest"
+lua = "5.1"
+node = "lts"
+python = "3.11.11"
+ruby = "3.4"
+yarn = "3.8.7"

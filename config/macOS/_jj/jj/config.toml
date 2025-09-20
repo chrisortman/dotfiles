@@ -1,0 +1,27 @@
+"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+
+[user]
+name = "Chris Ortman"
+email = "chris-ortman@uiowa.edu"
+
+[ui]
+#default-command = "log-recent"
+
+[aliases]
+#log-recent = ["log", "-r", "default() & recent()"]
+#log-full = ["log", "-r", "default()"]
+
+[revset-aliases]
+# set all remote bookmarks (commits pushed to remote branches) to be immutable
+# https://zerowidth.com/2025/jj-tips-and-tricks/
+# 'immutable_heads()' = "builtin_immutable_heads() | remote_bookmarks()"
+# 'default()' = 'coalesce(trunk(),root())::present(@) | ancestors(visible_heads() & recent(), 2)'
+# 'recent()' = 'committer_date(after:"1 month ago")'
+
+[colors]
+# Highlight hunks with background
+"diff removed token" = { underline = false }
+"diff added token" = {  underline = false }
+# Alternatively, swap colors
+"diff token" = { reverse = false, underline = false }
+
