@@ -1,0 +1,3 @@
+# Don't commit neovim lazy lock file because it isn't
+# automatically consistent between systems
+lazy-lock.json
