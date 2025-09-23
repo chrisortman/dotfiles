@@ -8,6 +8,14 @@ export HISTSIZE=10000
 export SAVEHIST=1000
 setopt SHARE_HISTORY
 
+# Ghostty shell integration for Zsh
+export GHOSTTY_RESOURCES_DIR="/Applications/Ghostty.app/Contents/Resources/ghostty"
+export GHOSTTY_SHELL_FEATURES="cursor,title"
+
+if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
+    source "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration"
+fi
+
 source /home/cortman/.antidote/antidote.zsh
 
 # initialize plugins statically with ~/.zsh_plugins.txt
