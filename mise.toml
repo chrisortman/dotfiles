@@ -34,6 +34,23 @@ run = [
   'eza -D -1 -I "[a-z]*" config/{{ os() }} | xargs stow --restow --dir config/{{ os() }} --target {{vars.home_dir}}/.config --dotfiles {{vars.verbose_arg}}',
 ]
 
+[tasks.clean]
+description = "Deletes symlinks created by stow"
+confirm = "Are you sure you want to remove dotfile symlinks"
+run = [
+  "rm -f ~/.gitattributes",
+  "rm -f ~/.gitconfig",
+  "rm -f ~/.gitignore_global",
+  "rm -f ~/.gemrc",
+  "rm -f ~/.tmux.conf",
+  "rm -f ~/.vimrc",
+  "rm -f ~/.zshrc",
+  "rm -f ~/.zsh_plugins.txt",
+  "rm -r ~/.config/jj",
+  "rm -r ~/.config/nvim",
+  "rm -r ~/.config/mise",
+  "rm -r ~/.config/zellij"
+]
 
 [tasks.list-configs]
 hide = true
