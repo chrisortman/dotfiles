@@ -6,7 +6,7 @@ usage = "latest"
 
 [vars]
 verbose_arg = '--verbose'
-home_dir = '/home/cortman'
+home_dir = "{{ get_env(name='HOME', default='/tmp') }}"
 
 [tasks.stow-home]
 hide = true
@@ -26,11 +26,12 @@ this way I don't have to have hidden .config folders in the tree
 """
 run = [
   # Stow will fail if the ~/.config/*** dirs do not exist
-  #'./create_config_dirs.sh',
+  './create_config_dirs.sh',
+  # './create_config_dirs.sh {{ os() }}',
   # symlink our dotfiles that go directly into the home folder
-  'eza -D -1 -I "_*" config/ubuntu-noble | xargs stow --dir config/ubuntu-noble --target {{vars.home_dir}} --dotfiles {{vars.verbose_arg}}',
+  'eza -D -1 -I "_*" config/{{ os() }} | xargs stow --restow --dir config/{{ os() }} --target {{vars.home_dir}} --dotfiles {{vars.verbose_arg}}',
   # symlink the dotfiles that go into ~/.config
-  'eza -D -1 -I "[a-z]*" config/ubuntu-noble | xargs stow --dir config/ubuntu-noble --target {{vars.home_dir}}/.config --dotfiles {{vars.verbose_arg}}',
+  'eza -D -1 -I "[a-z]*" config/{{ os() }} | xargs stow --restow --dir config/{{ os() }} --target {{vars.home_dir}}/.config --dotfiles {{vars.verbose_arg}}',
 ]
 
 
