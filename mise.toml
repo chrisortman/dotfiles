@@ -24,9 +24,8 @@ Uses gnu stow to install the config for the given package
 There are two inocations. Any package that starts with an underscore will go to the .config folder
 this way I don't have to have hidden .config folders in the tree
 """
+depends = ["create_config_dirs"]
 run = [
-  # Stow will fail if the ~/.config/*** dirs do not exist
-  './create_config_dirs.sh',
   # './create_config_dirs.sh {{ os() }}',
   # symlink our dotfiles that go directly into the home folder
   'eza -D -1 -I "_*" config/{{ os() }} | xargs stow --restow --dir config/{{ os() }} --target {{vars.home_dir}} --dotfiles {{vars.verbose_arg}}',
@@ -51,6 +50,12 @@ run = [
   "rm -r ~/.config/mise",
   "rm -r ~/.config/zellij"
 ]
+
+[tasks.create_config_dirs]
+description = "Ensures directories needed for creating stow symlinks exist"
+run = "scripts/create_config_dirs.sh {{ os() }}"
+sources = ["config/{{ os() }}/_*"]
+outputs = { auto = true }
 
 [tasks.list-configs]
 hide = true
