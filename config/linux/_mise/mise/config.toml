@@ -19,10 +19,17 @@ rust = "latest"
 yarn = "3.8.7"
 
 [settings]
+# Want to ignore macOS version of this file
+ignored_config_paths = [
+  "/Users/{{get_env(name='USER')}}/.config/mise/config.toml"
+]
 idiomatic_version_file_enable_tools = ["ruby"]
 
 [env]
 _.path = [
-  "/opt/oracle/instantclient"
+  "/opt/oracle/instantclient", 
+   # So we can find the `fdfind` program as `fd`
+  "/usr/lib/cargo/bin"
+
 ]
 LD_LIBRARY_PATH = "/opt/oracle/instantclient"

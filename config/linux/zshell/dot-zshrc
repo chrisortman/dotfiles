@@ -57,4 +57,22 @@ cd() {
     __report_working_directory
 }
 
+foreground-vi() {
+    fg %/usr/bin/vim || fg %nvim
+}
+
+zle -N foreground-vi
+
+function edit-last () {
+  local cmd
+  setopt local_options extended_glob
+  for cmd in $history; do
+    case $cmd in
+      ((ls|(cvs|git|hg|svn) status)(| *)) :;;
+      ("rg "*) vim -q<(eval "$cmd --vimgrep"); return;;
+      (edit-last) :;;
+      (*) echo >&2 "The previous rg command is too old."; return 125;;
+    esac
+  done
+}
 
