@@ -19,10 +19,6 @@ rust = "latest"
 yarn = "3.8.7"
 
 [settings]
-# Want to ignore macOS version of this file
-ignored_config_paths = [
-  "/Users/cortman/.config/mise/config.toml"
-]
 idiomatic_version_file_enable_tools = ["ruby"]
 
 [env]

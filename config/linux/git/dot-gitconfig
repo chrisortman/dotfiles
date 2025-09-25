@@ -18,9 +18,9 @@
 [rerere]
 	enabled = true
 [core]
-	excludesfile = /home/cortman/.gitignore_global
+	excludesfile = ~/.gitignore_global
 	trustctime = false
-  attributesfile = /home/cortman/.gitattributes
+  attributesfile = ~/.gitattributes
   symlinks = true
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"

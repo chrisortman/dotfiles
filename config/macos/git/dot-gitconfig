@@ -24,9 +24,9 @@
 [rerere]
 	enabled = true
 [core]
-	excludesfile = /Users/cortman/.gitignore_global
+	excludesfile = ~/.gitignore_global
 	trustctime = false
-	attributesfile = /Users/cortman/.gitattributes
+	attributesfile = ~/.gitattributes
 	symlinks = true
 [push]
 	default = simple

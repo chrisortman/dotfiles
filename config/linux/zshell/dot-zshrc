@@ -16,16 +16,16 @@ if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
     source "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration"
 fi
 
-source /home/cortman/.antidote/antidote.zsh
+source $HOME/.antidote/antidote.zsh
 
 # initialize plugins statically with ~/.zsh_plugins.txt
 antidote load
 
 autoload -Uz promptinit && promptinit && prompt pure
 
-# Not sure why this setting is ignored in my config.toml file
-# So i export env var here
-export MISE_IGNORED_CONFIG_PATHS="/Users/cortman/.config/mise/config.toml"
+# Want to ignore my mac home directory version of this file on linux
+# assumes that you have the same user name
+export MISE_IGNORED_CONFIG_PATHS="/Users/$USER/.config/mise/config.toml"
 
 export REPORTTIME=60
 
