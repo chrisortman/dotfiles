@@ -12,7 +12,7 @@ theme = "Monokai Remastered"
 command = "direct:/Users/cortman/bin/orbterm.sh"
 
 # Don't dim the inactive pane
-unfocused-split-opacity = 0.6
+unfocused-split-opacity = 0.8
 
 keybind = super+shift+l=goto_split:right
 keybind = super+shift+h=goto_split:left
