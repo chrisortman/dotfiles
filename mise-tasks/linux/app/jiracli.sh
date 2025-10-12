@@ -2,7 +2,7 @@
 
 
 #MISE description="Installs Jira CLI client"
-#MISE depends=["system-update"]
+#MISE depends=["linux:system-update"]
 
 # https://developer.atlassian.com/cloud/acli/guides/install-acli/
 
