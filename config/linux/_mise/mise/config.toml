@@ -14,7 +14,7 @@ neovim = "latest"
 node = "lts"
 python = "3.11"
 ripgrep = "latest"
-ruby = "3.4"
+ruby = "3.4.6"
 rust = "latest"
 yarn = "3.8.7"
 
