@@ -45,7 +45,70 @@ if has('python3')
   silent! python3 1
 endif
 
-" BUNDLES 
+" In ORB we want the system clipboard to be
+" the macOS clipboard.
+" ORB exposes the macOS pbcopy and pbpaste commands so
+" we will tell vim to use them
+if executable('pbcopy')
+  " Override the + and * register operations to use pbcopy/pbpaste
+  " Yank operations
+  vnoremap <silent> "+y :<C-u>call <SID>Pbcopy()<CR>
+  nnoremap <silent> "+yy :<C-u>call <SID>PbcopyLine()<CR>
+  nnoremap <silent> "+y :<C-u>set opfunc=<SID>PbcopyOp<CR>g@
+
+  " Paste operations
+  nnoremap <silent> "+p :call <SID>Pbpaste('p')<CR>
+  nnoremap <silent> "+P :call <SID>Pbpaste('P')<CR>
+  vnoremap <silent> "+p :<C-u>call <SID>PbpasteVisual()<CR>
+
+  " Same for * register
+  vnoremap <silent> "*y :<C-u>call <SID>Pbcopy()<CR>
+  nnoremap <silent> "*yy :<C-u>call <SID>PbcopyLine()<CR>
+  nnoremap <silent> "*y :<C-u>set opfunc=<SID>PbcopyOp<CR>g@
+  nnoremap <silent> "*p :call <SID>Pbpaste('p')<CR>
+  nnoremap <silent> "*P :call <SID>Pbpaste('P')<CR>
+  vnoremap <silent> "*p :<C-u>call <SID>PbpasteVisual()<CR>
+
+  function! s:Pbcopy() range
+    let lines = getline(a:firstline, a:lastline)
+    call system('pbcopy', join(lines, "\n"))
+  endfunction
+
+  function! s:PbcopyLine()
+    call system('pbcopy', getline('.') . "\n")
+  endfunction
+
+  function! s:PbcopyOp(type)
+    let sel_save = &selection
+    let &selection = "inclusive"
+    let reg_save = @@
+
+    if a:type == 'line'
+      silent exe "normal! '[V']y"
+    elseif a:type == 'char'
+      silent exe "normal! `[v`]y"
+    else
+      silent exe "normal! `[v`]y"
+    endif
+
+    call system('pbcopy', @@)
+
+    let &selection = sel_save
+    let @@ = reg_save
+  endfunction
+
+  function! s:Pbpaste(cmd)
+    let @+ = system('pbpaste')
+    exe 'normal! "' . a:cmd
+  endfunction
+
+  function! s:PbpasteVisual()
+    let @+ = system('pbpaste')
+    normal! gv"+p
+  endfunction
+endif
+
+" BUNDLES
 call plug#begin('~/.vim/plugged')
 
 
@@ -147,12 +210,12 @@ let g:surround_{char2nr('-')} = "<% \r %>"
 let test#strategy='vimterminal'
 
 " I don't need a map to clear highlighting
-let g:LoupeCenterResults=0 
+let g:LoupeCenterResults=0
 
-" Change the cursor based on mode 
+" Change the cursor based on mode
 " when running tmux in iterm
 if exists('$ITERM_PROFILE')
-  if exists('$TMUX') 
+  if exists('$TMUX')
     let &t_SI = "\<Esc>[3 q"
     let &t_EI = "\<Esc>[0 q"
   else
