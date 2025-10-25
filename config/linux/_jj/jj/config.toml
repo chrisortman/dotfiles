@@ -8,6 +8,8 @@ email = "chris-ortman@uiowa.edu"
 #default-command = "log-recent"
 
 [aliases]
+tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
+
 #log-recent = ["log", "-r", "default() & recent()"]
 #log-full = ["log", "-r", "default()"]
 
