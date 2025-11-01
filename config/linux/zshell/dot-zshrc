@@ -58,10 +58,11 @@ cd() {
 }
 
 foreground-vi() {
-    fg %/usr/bin/vim || fg %nvim
+    fg %nvim || fg %vim
 }
 
 zle -N foreground-vi
+bindkey '^Z' foreground-vi
 
 function edit-last () {
   local cmd
