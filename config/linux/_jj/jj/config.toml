@@ -9,16 +9,18 @@ email = "chris-ortman@uiowa.edu"
 
 [aliases]
 tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
-
-#log-recent = ["log", "-r", "default() & recent()"]
+log-recent = ["log", "-r", "current() & recent()"]
+wut = ["log", "-r", "work()"]
 #log-full = ["log", "-r", "default()"]
 
 [revset-aliases]
 # set all remote bookmarks (commits pushed to remote branches) to be immutable
 # https://zerowidth.com/2025/jj-tips-and-tricks/
 # 'immutable_heads()' = "builtin_immutable_heads() | remote_bookmarks()"
-# 'default()' = 'coalesce(trunk(),root())::present(@) | ancestors(visible_heads() & recent(), 2)'
-# 'recent()' = 'committer_date(after:"1 month ago")'
+# 'current()' = 'coalesce(trunk(),root())::present(@) | ancestors(visible_heads() & recent(), 2)'
+'work()' = 'ancestors((visible_heads() & mine()) | (mine() & bookmarks()), 3)'
+'recent()' = 'committer_date(after:"1 month ago")'
+'closest_bookmark(to)' = 'heads(::to & bookmarks())'
 
 [colors]
 # Highlight hunks with background
