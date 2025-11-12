@@ -40,6 +40,7 @@ zvm_after_init() {
 
 alias rc="bin/rails console"
 alias bat="batcat"
+alias fzp="fzf -m --preview 'batcat --color=always --style=numbers {}' --preview-window=right:60%"
 # Function to report directory
 __report_working_directory() {
     echo "orb" > /mnt/mac/tmp/last.txt
