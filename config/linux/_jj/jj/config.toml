@@ -5,6 +5,8 @@ name = "Chris Ortman"
 email = "chris-ortman@uiowa.edu"
 
 [ui]
+diff-editor = ["kdiff3", "$left", "$right"]
+merge-editor = ["kdiff3", "$left", "$base", "$right", "-o", "$output"]
 #default-command = "log-recent"
 
 [aliases]
