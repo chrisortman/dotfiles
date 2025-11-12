@@ -13,6 +13,9 @@ merge-editor = ["kdiff3", "$left", "$base", "$right", "-o", "$output"]
 tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
 log-recent = ["log", "-r", "current() & recent()"]
 wut = ["log", "-r", "work()"]
+pe = ["prev","--edit"]
+ne = ["next", "--edit"]
+
 #log-full = ["log", "-r", "default()"]
 
 [revset-aliases]
