@@ -15,17 +15,19 @@ log-recent = ["log", "-r", "current() & recent()"]
 wut = ["log", "-r", "work()"]
 pe = ["prev","--edit"]
 ne = ["next", "--edit"]
-
-#log-full = ["log", "-r", "default()"]
+ep = ["prev","--edit"]
+en = ["next", "--edit"]
 
 [revset-aliases]
 # set all remote bookmarks (commits pushed to remote branches) to be immutable
 # https://zerowidth.com/2025/jj-tips-and-tricks/
-# 'immutable_heads()' = "builtin_immutable_heads() | remote_bookmarks()"
-# 'current()' = 'coalesce(trunk(),root())::present(@) | ancestors(visible_heads() & recent(), 2)'
+'immutable_heads()' = "builtin_immutable_heads() | remote_bookmarks()"
+'default()' = 'coalesce(trunk(), root())::present(@) | ancestors(visible_heads(), 2)'
+'current()' = 'coalesce(trunk(),root())::present(@) | ancestors(visible_heads() & recent(), 2)'
 'work()' = 'ancestors((visible_heads() & mine()) | (mine() & bookmarks()), 3)'
 'recent()' = 'committer_date(after:"1 month ago")'
 'closest_bookmark(to)' = 'heads(::to & bookmarks())'
+'review(x)' = 'author(x) & author_date(before:1am) & (author_date(after:yesterday) | committer_date(after:yesterday))'
 
 [template-aliases]
 empty_commit_marker = 'label("empty", "(empty)")'
@@ -52,7 +54,7 @@ if(commit.root(),
   )
 )
 '''
-
+esterday = 'commit_id.short() ++ " " ++ author.name() ++ " [A:" ++ author.timestamp().format("%Y-%m-%d") ++ " C:" ++ committer.timestamp().format("%Y-%m-%d") ++ "] " ++ if(remote_bookmarks, remote_bookmarks ++ " ", "") ++ description.first_line()'
 [colors]
 # Highlight hunks with background
 "diff removed token" = { underline = false }

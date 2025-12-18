@@ -71,7 +71,7 @@ function edit-last () {
   for cmd in $history; do
     case $cmd in
       ((ls|(cvs|git|hg|svn) status)(| *)) :;;
-      ("rg "*) vim -q<(eval "$cmd --vimgrep"); return;;
+      ("rg "*) nvim -q<(eval "$cmd --vimgrep"); return;;
       (edit-last) :;;
       (*) echo >&2 "The previous rg command is too old."; return 125;;
     esac
