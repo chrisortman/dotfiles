@@ -1,0 +1,6 @@
+[colors]
+# Highlight hunks with background
+"diff removed token" = { underline = false }
+"diff added token" = {  underline = false }
+# Alternatively, swap colors
+"diff token" = { reverse = false, underline = false }

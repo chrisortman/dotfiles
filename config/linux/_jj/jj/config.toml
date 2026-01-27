@@ -62,3 +62,7 @@ esterday = 'commit_id.short() ++ " " ++ author.name() ++ " [A:" ++ author.timest
 # Alternatively, swap colors
 "diff token" = { reverse = false, underline = false }
 
+[merge-tools.beads-merge]
+program = "bd"
+merge-args = ["merge", "$output", "$base", "$left", "$right"]
+merge-conflict-exit-codes = [1]

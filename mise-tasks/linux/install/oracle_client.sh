@@ -12,15 +12,21 @@ set -e
 ORACLE_BASE_URL="https://download.oracle.com/otn_software/linux/instantclient"
 
 # Newer 23  
-#ORACLE_VERSION="2370000" # Update this version if needed
-CLIENT_VERSION="23_7"
-#ARCH="arm64-23.7.0.25.01" # ARM architecture
+# https://download.oracle.com/otn_software/linux/instantclient/2326000/instantclient-basic-linux.arm64-23.26.0.0.0.zip
+ORACLE_VERSION="2326000" # Update this version if needed
+CLIENT_VERSION="23_26"
+ARCH="arm64-23.26.0.0.0" # ARM architecture
 #
 #
 # Older 19
-ORACLE_VERSION="1927000" # Update this version if needed
-CLIENT_VERSION="19_27"
-ARCH="arm64-19.27.0.0.0dbru"
+# https://download.oracle.com/otn_software/linux/instantclient/2121000/instantclient-basic-linux.x64-21.21.0.0.0dbru.zip
+# https://download.oracle.com/otn_software/linux/instantclient/1929000/instantclient-basic-linux.arm64-19.29.0.0.0dbru.zip
+#
+# ORACLE_VERSION="1929000" # Update this version if needed
+# CLIENT_VERSION="19_29"
+# ARCH="arm64-19.29.0.0.0dbru"
+
+
 DOWNLOAD_DIR="/tmp/oracle_instant_client"
 
 # Dependencies
@@ -49,8 +55,8 @@ unzip -o "instantclient-sqlplus-linux.${ARCH}.zip"
 # Move to /opt/oracle
 echo "Installing Oracle Instant Client..."
 sudo mkdir -p /opt/oracle
-sudo mv instantclient_* /opt/oracle/
-sudo ln -s /opt/oracle/instantclient_${CLIENT_VERSION} /opt/oracle/instantclient
+sudo mv instantclient_${CLIENT_VERSION} /opt/oracle/
+#sudo ln -s /opt/oracle/instantclient_${CLIENT_VERSION} /opt/oracle/instantclient
 
 echo "Patching oracle async library for newer ubuntu system (libaio.so.1)"
 sudo ln -sf /usr/lib/aarch64-linux-gnu/libaio.so.1t64 /usr/lib/aarch64-linux-gnu/libaio.so.1
