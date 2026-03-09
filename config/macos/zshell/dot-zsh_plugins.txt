@@ -13,7 +13,7 @@ belak/zsh-utils path:editor
 # History
 belak/zsh-utils path:history
 
-chrisortman/pure     kind:fpath
+sindresorhus/pure     kind:fpath
 
 # Utilities
 zshzoo/macos conditional:is-macos

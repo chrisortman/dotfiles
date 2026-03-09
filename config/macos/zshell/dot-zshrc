@@ -30,7 +30,8 @@ antidote load
 
 autoload -Uz promptinit && promptinit && prompt pure
 
-PROMPT='$(aws_identity) '$PROMPT
+_pure_os_icon=$([[ $(uname) == "Darwin" ]] && echo "🍎" || echo "🐧")
+PROMPT='${_pure_os_icon} $(aws_identity) '$PROMPT
 
 foreground-vi() {
     fg %/opt/homebrew/bin/vim || fg %nvim

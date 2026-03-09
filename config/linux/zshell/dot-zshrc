@@ -23,6 +23,13 @@ antidote load
 
 autoload -Uz promptinit && promptinit && prompt pure
 
+_pure_os_icon=$([[ $(uname) == "Darwin" ]] && echo "🍎" || echo "🐧")
+PROMPT='${_pure_os_icon} '$PROMPT
+
+# Hide username@host on the default OrbStack machine ("ubuntu").
+# Keep it for SSH sessions and machines with a different hostname.
+[[ -z $SSH_CONNECTION && $HOST == "ubuntu" ]] && psvar[13]=
+
 # Want to ignore my mac home directory version of this file on linux
 # assumes that you have the same user name
 export MISE_IGNORED_CONFIG_PATHS="/Users/$USER/.config/mise/config.toml"
