@@ -22,3 +22,5 @@ keybind = super+shift+j=goto_split:bottom
 
 
 keybind = shift+enter=text:\n
+
+auto-update-channel = stable
