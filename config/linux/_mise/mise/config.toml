@@ -1,5 +1,6 @@
 [settings.ruby]
 ruby_install = true
+compile = false
 
 [tools]
 claude = "latest"
