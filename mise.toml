@@ -4,6 +4,11 @@
 jj = "latest"
 usage = "latest"
 
+[env]
+_.file = [
+  "~/.secrets"
+]
+
 [vars]
 verbose_arg = '--verbose'
 home_dir = "{{ get_env(name='HOME', default='/tmp') }}"
@@ -62,3 +67,8 @@ hide = true
 quiet = true
 description = "List the stow packages"
 run = 'eza -D -1 config'
+
+[tasks."install:common:ui-dotsh"]
+description = "Install the ui.sh tool, uses node"
+run = "npx @uidotsh/install $UIDOTSH_TOKEN"
+

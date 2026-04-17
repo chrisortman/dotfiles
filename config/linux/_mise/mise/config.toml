@@ -30,9 +30,14 @@ ignored_config_paths = [
 idiomatic_version_file_enable_tools = ["ruby", "node", "java"]
 
 [env]
+_.file = [
+  "~/.secrets"
+]
 _.path = [
   "/opt/oracle/instantclient", 
    # So we can find the `fdfind` program as `fd`
   "/usr/lib/cargo/bin",
 ]
+
 LD_LIBRARY_PATH = "/opt/oracle/instantclient"
+
