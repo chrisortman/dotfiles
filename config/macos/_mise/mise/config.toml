@@ -8,7 +8,7 @@ run = 'echo "running build tasks"'
 idiomatic_version_file_enable_tools = ["ruby"]
 
 [settings.ruby]
-ruby_install = true
+compile=false
 
 [tools]
 aws-cli = "latest"
