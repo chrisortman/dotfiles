@@ -14,6 +14,7 @@ ruby_install = true
 aws-cli = "latest"
 claude = "latest"
 git-lfs = "latest"
+jujutsu = "latest"
 lua = "5.1"
 node = "lts"
 python = "3.11.11"
