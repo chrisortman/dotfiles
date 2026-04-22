@@ -31,3 +31,6 @@ zsh-users/zsh-history-substring-search      # Up/Down to search history
 
 #vi mode -- better than default?
 jeffreytse/zsh-vi-mode
+
+# Load latest version of tmuxinator completions
+tmuxinator/tmuxinator path:completion/tmuxinator.zsh kind:fpath
