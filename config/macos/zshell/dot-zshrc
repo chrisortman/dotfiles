@@ -79,6 +79,7 @@ alias ls=eza
 alias vim='/opt/homebrew/bin/vim'
 alias vi='/opt/homebrew/bin/vim'
 alias mobileproxy='ssh -o "ControlMaster=no" -R 3333:localhost:3000 icts-test-reversetunnel'
+alias bearcli='/Applications/Bear.app/Contents/MacOS/bearcli'
 #this stopped working when i moved some path logic before it?
 bindkey '^Z' foreground-vi
 # bindkey '^X' foreground-server
