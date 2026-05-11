@@ -4,7 +4,8 @@
 #MISE description="Installs Jira CLI client"
 #MISE depends=["linux:system-update"]
 
-# https://developer.atlassian.com/cloud/acli/guides/install-acli/
+# https://developer.atlassian.com/cloud/acli/guides/install-linux/
+sudo apt-get install -y wget gnupg2
 
 sudo mkdir -p -m 755 /etc/apt/keyrings
 wget -nv -O- https://acli.atlassian.com/gpg/public-key.asc | sudo gpg --dearmor -o /etc/apt/keyrings/acli-archive-keyring.gpg
