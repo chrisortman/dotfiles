@@ -33,7 +33,10 @@ export MISE_IGNORED_CONFIG_PATHS="/Users/$USER/.config/mise/config.toml"
 
 export REPORTTIME=60
 
+export PATH="${PATH}:$HOME/.local/bin"
+
 eval "$(mise activate zsh)"
+eval "$(fnox activate zsh)"
 
 # zsh-vi-mode compatibility function for fzf
 zvm_after_init() {
@@ -45,7 +48,9 @@ zvm_after_init() {
 alias rc="bin/rails console"
 alias bat="batcat"
 alias fzp="fzf -m --preview 'batcat --color=always --style=numbers {}' --preview-window=right:60%"
-alias mux="mise exec ruby@3.4.9 -- tmuxinator $@"
+alias claude-personal='CLAUDE_CONFIG_DIR=~/.claude-personal command claude'
+
+mux() { "$(mise where ruby@3.4.9)/bin/tmuxinator" "$@"; }
 # Function to report directory
 __report_working_directory() {
     echo "orb" > /mnt/mac/tmp/last.txt

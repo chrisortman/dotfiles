@@ -3,3 +3,4 @@
 lazy-lock.json
 config/linux/_jj/jj/repos
 config/macos/_jj/jj/repos
+.claude/settings.local.json

@@ -3,24 +3,30 @@ ruby_install = true
 compile = false
 
 [tools]
+age = "latest"
 claude = "latest"
 docker-compose = "latest"
+fnox = "latest"
 fzf = "latest"
 "github:anomalyco/opencode" = "latest"
 glab = "latest"
 glow = "latest"
+gum = "latest"
+hyperfine = "latest"
 jq = "latest"
 jujutsu = "latest"
 lua = "latest"
 neovim = "latest"
 node = "lts"
 "npm:agent-browser" = "latest"
+"npm:hunkdiff" = "latest"
 python = "3.11"
 ripgrep = "latest"
 ruby = "3.4.6"
 rust = "latest"
 tmux = "latest"
 usage = "latest"
+watchexec = "latest"
 yarn = "3.8.7"
 
 [settings]
