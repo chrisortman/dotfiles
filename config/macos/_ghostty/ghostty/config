@@ -18,9 +18,6 @@ keybind = super+shift+l=goto_split:right
 keybind = super+shift+h=goto_split:left
 keybind = super+shift+k=goto_split:top
 keybind = super+shift+j=goto_split:bottom
-#keybind = global:ctrl+grave_accent=toggle_quick_terminal
 
-
-#keybind = shift+enter=text:\n
 
 auto-update-channel = tip
