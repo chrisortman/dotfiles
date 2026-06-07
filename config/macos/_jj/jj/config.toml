@@ -20,6 +20,7 @@ ne = ["next", "--edit"]
 'work()' = 'ancestors((visible_heads() & mine()) | (mine() & bookmarks()), 3)'
 'recent()' = 'committer_date(after:"1 month ago")'
 'closest_bookmark(to)' = 'heads(::to & bookmarks())'
+'immutable_heads()' = 'builtin_immutable_heads() | remote_bookmarks("main") | remote_bookmarks("demo") | remote_bookmarks("project") | remote_bookmarks("project_demo")'
 
 # set all remote bookmarks (commits pushed to remote branches) to be immutable
 # https://zerowidth.com/2025/jj-tips-and-tricks/
