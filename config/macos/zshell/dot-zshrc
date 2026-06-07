@@ -79,6 +79,7 @@ alias ls=eza
 alias vim='/opt/homebrew/bin/vim'
 alias vi='/opt/homebrew/bin/vim'
 alias mobileproxy='ssh -o "ControlMaster=no" -R 3333:localhost:3000 icts-test-reversetunnel'
+alias claude-personal='CLAUDE_CONFIG_DIR=~/.claude-personal command claude'
 #this stopped working when i moved some path logic before it?
 bindkey '^Z' foreground-vi
 # bindkey '^X' foreground-server
@@ -93,6 +94,7 @@ bindkey '^[b' backward-word
 source <(fzf --zsh)
 export PATH="/Users/cortman/bin:/Applications/Postgres.app/Contents/Versions/17/bin:/Users/cortman/oracle/instantclient_23_3:$PATH"
 eval "$(mise activate zsh)"
+eval "$(fnox activate zsh)"
 # Set up fzf key bindings and fuzzy completion
 
 # Added by LM Studio CLI (lms)

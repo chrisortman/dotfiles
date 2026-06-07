@@ -19,5 +19,6 @@ keybind = super+shift+h=goto_split:left
 keybind = super+shift+k=goto_split:top
 keybind = super+shift+j=goto_split:bottom
 
-
 auto-update-channel = tip
+
+ 

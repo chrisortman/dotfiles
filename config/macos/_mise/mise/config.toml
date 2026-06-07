@@ -11,12 +11,15 @@ idiomatic_version_file_enable_tools = ["ruby"]
 compile=false
 
 [tools]
+age = "latest"
 aws-cli = "latest"
 claude = "latest"
+fnox = "latest"
 git-lfs = "latest"
 jujutsu = "latest"
 lua = "5.1"
 node = "lts"
 python = "3.11.11"
 ruby = "3.4"
+rust = "latest"
 yarn = "3.8.7"
