@@ -107,6 +107,7 @@ __report_working_directory() {
     echo "mac" > /tmp/last.txt
     echo $PWD > /tmp/lastdir_mac.txt
     printf '\e]7;file://%s%s\a' "$HOST" "$PWD"
+    echo -ne "\033]0;${PWD##*/}\007"
 }
 
 # Add to precmd hook (runs before each prompt)
