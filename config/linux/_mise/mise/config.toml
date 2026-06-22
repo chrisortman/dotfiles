@@ -5,6 +5,7 @@ compile = false
 [tools]
 age = "latest"
 claude = "latest"
+codex = "latest"
 docker-compose = "latest"
 fnox = "latest"
 fzf = "latest"
