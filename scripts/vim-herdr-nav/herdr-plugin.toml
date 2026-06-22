@@ -1,0 +1,47 @@
+id = "vim-herdr-nav"
+name = "Vim Herdr Navigator"
+version = "0.1.0"
+min_herdr_version = "0.6.0"
+description = "Navigate vim splits and herdr panes seamlessly with ctrl+hjkl"
+
+
+[[actions]]
+id = "focus-left"
+title = "Focus left (vim split or herdr pane)"
+command = ["bash", "navigate.sh", "left", "ctrl+h"]
+
+[[actions]]
+id = "focus-down"
+title = "Focus down (vim split or herdr pane)"
+command = ["bash", "navigate.sh", "down", "ctrl+j"]
+
+[[actions]]
+id = "focus-up"
+title = "Focus up (vim split or herdr pane)"
+command = ["bash", "navigate.sh", "up", "ctrl+k"]
+
+[[actions]]
+id = "focus-right"
+title = "Focus right (vim split or herdr pane)"
+command = ["bash", "navigate.sh", "right", "ctrl+l"]
+
+[[actions]]
+id = "tab-one"
+title = "Focus first tab"
+command = ["bash", "select-tab.sh", "1"]
+
+[[actions]]
+id = "tab-two"
+title = "Focus second tab"
+command = ["bash", "select-tab.sh", "2"]
+
+[[actions]]
+id = "tab-three"
+title = "Focus third tab"
+command = ["bash", "select-tab.sh", "3"]
+
+[[actions]]
+id = "tab-four"
+title = "Focus fourth tab"
+command = ["bash", "select-tab.sh", "4"]
+
