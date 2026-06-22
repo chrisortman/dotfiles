@@ -279,11 +279,26 @@ nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>l :TestLast<CR>
 nmap ,ss <Plug>SlimeLineSend
 
-"" Use ctrl-[hjkl] to select the active split!
-nmap <silent> <c-k> :wincmd k<CR>
-nmap <silent> <c-j> :wincmd j<CR>
-nmap <silent> <c-h> :wincmd h<CR>
-nmap <silent> <c-l> :wincmd l<CR>
+"" Use ctrl-[hjkl] to select the active split, falling back to tmux or herdr panes
+function! SmartNavigate(direction)
+  let l:move_map = {'h': 'left', 'j': 'down', 'k': 'up', 'l': 'right'}
+  let l:winnr_before = winnr()
+  execute 'wincmd ' . a:direction
+  if winnr() == l:winnr_before
+    if !empty($TMUX)
+      call system('tmux select-pane -' . toupper(a:direction))
+    elseif $HERDR_ENV ==# '1'
+      call job_start(['herdr', 'pane', 'focus', '--direction', l:move_map[a:direction]])
+    endif
+  endif
+endfunction
+" VimEnter ensures these run after plugins are sourced. vim-plug adds plugins
+" to runtimepath during plug#end() but sources them after the vimrc finishes,
+" so vim-tmux-navigator would otherwise override these mappings.
+autocmd VimEnter * nmap <silent> <c-k> :call SmartNavigate('k')<CR>
+autocmd VimEnter * nmap <silent> <c-j> :call SmartNavigate('j')<CR>
+autocmd VimEnter * nmap <silent> <c-h> :call SmartNavigate('h')<CR>
+autocmd VimEnter * nmap <silent> <c-l> :call SmartNavigate('l')<CR>
 
 map rp :VimuxPromptCommand<cr>
 map rl :VimuxRunLastCommand<cr>

@@ -11,12 +11,26 @@ vim.o.shiftwidth = 2
 vim.o.expandtab = true
 vim.o.guifont = 'Berkeley Mono:h14'
 
-
--- Navigate  split windows without having to use control key
--- vim.keymap.set('n', '<c-k>', ':wincmd k<CR>', {remap = true, desc = 'Select split above'})
--- vim.keymap.set('n', '<c-j>', ':wincmd j<CR>', {remap = true, desc = 'Select split below'})
--- vim.keymap.set('n', '<c-h>', ':wincmd h<CR>', {remap = true, desc = 'Select split left'})
--- vim.keymap.set('n', '<c-l>', ':wincmd l<CR>', {remap = true, desc = 'Select split right'})
+-- Navigate split windows, falling back to herdr panes at edges
+local function smart_navigate(direction)
+  local move_map = { h = 'left', j = 'down', k = 'up', l = 'right' }
+  local winnr_before = vim.fn.winnr()
+  vim.cmd('wincmd ' .. direction)
+  if vim.fn.winnr() == winnr_before then
+    if vim.env.HERDR_ENV == '1' then
+      vim.fn.system('herdr pane focus --direction ' .. move_map[direction])
+    end
+  end
+end
+vim.keymap.set('n', '<C-h>', function() smart_navigate('h') end, { desc = 'Focus left split or herdr pane' })
+vim.keymap.set('n', '<C-j>', function() smart_navigate('j') end, { desc = 'Focus down split or herdr pane' })
+vim.keymap.set('n', '<C-k>', function() smart_navigate('k') end, { desc = 'Focus up split or herdr pane' })
+vim.keymap.set('n', '<C-l>', function() smart_navigate('l') end, { desc = 'Focus right split or herdr pane' })
+-- Terminal mode mappings for window navigation
+vim.keymap.set('t', '<C-h>', [[<C-\><C-n><C-w>h]])
+vim.keymap.set('t', '<C-j>', [[<C-\><C-n><C-w>j]])
+vim.keymap.set('t', '<C-k>', [[<C-\><C-n><C-w>k]])
+vim.keymap.set('t', '<C-l>', [[<C-\><C-n><C-w>l]])
 
 -- Clear search when you hit escape
 -- nnoremap <silent> <Esc> <Esc>:noh<CR>
