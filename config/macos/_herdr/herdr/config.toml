@@ -1,0 +1,57 @@
+onboarding = false
+[keys]
+prefix = "ctrl+a"
+split_vertical = ["prefix+v", "prefix+double_quote"]
+split_horizontal = ["prefix+minus", "prefix+percent"]
+focus_pane_left = ""
+focus_pane_down = ""
+focus_pane_up = ""
+focus_pane_right = ""
+
+[[keys.command]]
+key = "ctrl+h"
+type = "plugin_action"
+command = "vim-herdr-nav.focus-left"
+description = "Focus left vim split or herdr pane"
+
+[[keys.command]]
+key = "ctrl+j"
+type = "plugin_action"
+command = "vim-herdr-nav.focus-down"
+description = "Focus down vim split or herdr pane"
+
+[[keys.command]]
+key = "ctrl+k"
+type = "plugin_action"
+command = "vim-herdr-nav.focus-up"
+description = "Focus up vim split or herdr pane"
+
+[[keys.command]]
+key = "ctrl+l"
+type = "plugin_action"
+command = "vim-herdr-nav.focus-right"
+description = "Focus right vim split or herdr pane"
+
+[[keys.command]]
+key = "prefix+h"
+type = "plugin_action"
+command = "vim-herdr-nav.tab-one"
+description = "Focus tab 1"
+
+[[keys.command]]
+key = "prefix+j"
+type = "plugin_action"
+command = "vim-herdr-nav.tab-two"
+description = "Focus tab 2"
+
+[[keys.command]]
+key = "prefix+k"
+type = "plugin_action"
+command = "vim-herdr-nav.tab-three"
+description = "Focus tab 3"
+
+[[keys.command]]
+key = "prefix+l"
+type = "plugin_action"
+command = "vim-herdr-nav.tab-four"
+description = "Focus tab 4"
