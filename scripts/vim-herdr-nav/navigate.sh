@@ -5,11 +5,13 @@ DIRECTION=$1  # left/right/up/down
 KEY=$2        # ctrl+h/j/k/l
 
 # HERDR_PANE_ID is injected by herdr when a keybinding triggers this action
-INFO=$(herdr pane process-info --pane "$HERDR_PANE_ID")
+HERDR="${HERDR_BIN_PATH:-herdr}"
+
+INFO=$("$HERDR" pane process-info --pane "$HERDR_PANE_ID")
 
 # Check if vim or neovim is the foreground process
 if echo "$INFO" | grep -qiE '"name":"n?vim"'; then
-    herdr pane send-keys "$HERDR_PANE_ID" "$KEY"
+    "$HERDR" pane send-keys "$HERDR_PANE_ID" "$KEY"
 else
-    herdr pane focus --direction "$DIRECTION"
+    "$HERDR" pane focus --direction "$DIRECTION" --pane "$HERDR_PANE_ID"
 fi
