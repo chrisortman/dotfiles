@@ -53,7 +53,8 @@ if(commit.root(),
   )
 )
 '''
-esterday = 'commit_id.short() ++ " " ++ author.name() ++ " [A:" ++ author.timestamp().format("%Y-%m-%d") ++ " C:" ++ committer.timestamp().format("%Y-%m-%d") ++ "] " ++ if(remote_bookmarks, remote_bookmarks ++ " ", "") ++ description.first_line()'
+'merge_check' = 'change_id.shortest(8) ++ " " ++ description.first_line() ++ if(parents.len() > 1, " (MERGE, parents: " ++ parents.map(|c| c.change_id().shortest(8)).join(", ") ++ ")", "") ++ "\n"'
+
 [colors]
 # Highlight hunks with background
 "diff removed token" = { underline = false }
