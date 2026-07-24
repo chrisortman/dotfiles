@@ -1,6 +1,6 @@
 # Herdr Window Title Sync
 
-> [!Note] Copied / forked from https://github.com/rjyo/herdr-window-title-sync but I don't want it in a separate repo and don't want to use bun
+> [!Note] Copied / forked from https://github.com/rjyo/herdr-window-title-sync but I don't want it in a separate repo and don't want to use bun. Reimplemented in Zig instead of the original Bun/TypeScript.
 
 Sync the outer terminal window/tab title to the focused Herdr workspace, tab, and agent session.
 
@@ -17,8 +17,13 @@ herdr plugin install rjyo/herdr-window-title-sync
 For local development:
 
 ```sh
+zig build
 herdr plugin link .
 ```
+
+The plugin invokes the compiled `zig-out/bin/sync-title` binary directly, so
+run `zig build` once after installing or pulling changes, and again any time
+`src/main.zig` changes.
 
 ## What It Shows
 
@@ -52,7 +57,7 @@ The plugin runs locally and does not send data over the network. As a fallback, 
 ## Requirements
 
 - Herdr `0.7.0` or newer
-- Bun available on `PATH`
+- Zig `0.16.0` (pinned in `mise.toml`) to build the plugin
 - macOS or Linux
 
 ## License
