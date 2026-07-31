@@ -1,4 +1,7 @@
 onboarding = false
+[worktrees]
+directory = "~/code/worktrees"
+
 [keys]
 prefix = "ctrl+a"
 split_vertical = ["prefix+v", "prefix+double_quote"]
