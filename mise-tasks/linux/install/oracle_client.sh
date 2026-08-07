@@ -56,7 +56,7 @@ unzip -o "instantclient-sqlplus-linux.${ARCH}.zip"
 echo "Installing Oracle Instant Client..."
 sudo mkdir -p /opt/oracle
 sudo mv instantclient_${CLIENT_VERSION} /opt/oracle/
-#sudo ln -s /opt/oracle/instantclient_${CLIENT_VERSION} /opt/oracle/instantclient
+sudo ln -s /opt/oracle/instantclient_${CLIENT_VERSION} /opt/oracle/instantclient
 
 echo "Patching oracle async library for newer ubuntu system (libaio.so.1)"
 sudo ln -sf /usr/lib/aarch64-linux-gnu/libaio.so.1t64 /usr/lib/aarch64-linux-gnu/libaio.so.1
