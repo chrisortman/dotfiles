@@ -51,9 +51,4 @@ vim.cmd.colorscheme('monokai')
 
 vim.cmd.hi 'Comment gui=none'
 
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { '<filetype>' },
-  callback = function() vim.treesitter.start() end,
-})
-
 vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
