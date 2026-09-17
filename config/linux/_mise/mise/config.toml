@@ -3,6 +3,7 @@ compile = false
 
 [tools]
 age = "latest"
+"aqua:gastownhall/beads" = "latest"
 claude = "latest"
 codex = "latest"
 docker-compose = "latest"

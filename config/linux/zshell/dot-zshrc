@@ -49,6 +49,7 @@ alias rc="bin/rails console"
 alias bat="batcat"
 alias fzp="fzf -m --preview 'batcat --color=always --style=numbers {}' --preview-window=right:60%"
 alias claude-personal='CLAUDE_CONFIG_DIR=~/.claude-personal command claude'
+alias aws1=~/.virtualenvs/awscliv1/bin/aws
 
 mux() { "$(mise where ruby@3.4.9)/bin/tmuxinator" "$@"; }
 # Function to report directory
