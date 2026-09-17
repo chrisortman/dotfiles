@@ -7,8 +7,11 @@ zsh-users/zsh-completions kind:fpath path:src
 belak/zsh-utils path:completion
 aloxaf/fzf-tab
 
-# Completion styles
-belak/zsh-utils path:completion/functions kind:autoload post:compstyle_zshzoo_setup
+# Completion styles are applied by `compstyle zshzoo` in .zshrc. The
+# `path:completion/functions kind:autoload` bundle that used to live here was
+# redundant -- completion.plugin.zsh adds that directory to fpath and runs
+# compstyleinit itself -- and its generated `autoload -Uz $fpath[-1]/*` line
+# broke when fzf-tab's lib directory ended up last in fpath.
 
 # Keybindings
 belak/zsh-utils path:editor
