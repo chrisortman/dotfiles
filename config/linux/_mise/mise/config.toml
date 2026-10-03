@@ -19,6 +19,7 @@ jujutsu = "latest"
 lua = "latest"
 neovim = "latest"
 node = "lts"
+npm = "latest"
 "npm:agent-browser" = "latest"
 python = "3.11"
 ripgrep = "latest"
@@ -28,7 +29,7 @@ tmux = "latest"
 tree-sitter = "latest"
 usage = "latest"
 watchexec = "latest"
-yarn = "3.8.7"
+yarn = "latest"
 
 [settings]
 # Want to ignore macOS version of this file
