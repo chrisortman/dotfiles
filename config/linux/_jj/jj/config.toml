@@ -7,6 +7,7 @@ email = "chris-ortman@uiowa.edu"
 [ui]
 diff-editor = ["kdiff3", "$left", "$right"]
 merge-editor = ["kdiff3", "$left", "$base", "$right", "-o", "$output"]
+default-command = "log"
 #default-command = "log-recent"
 
 [aliases]
@@ -66,3 +67,6 @@ if(commit.root(),
 program = "bd"
 merge-args = ["merge", "$output", "$base", "$left", "$right"]
 merge-conflict-exit-codes = [1]
+
+[revsets]
+log = "all()"
