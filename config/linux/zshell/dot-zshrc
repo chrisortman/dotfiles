@@ -26,6 +26,14 @@ do
 done
 unset _ghostty_dir
 
+function aws_identity() {
+    if [[ -f ~/.aws-login/identity.txt ]]; then
+      echo "[$(cat ~/.aws-login/identity.txt)]"
+    else
+        echo ""
+    fi
+}
+
 source $HOME/.antidote/antidote.zsh
 
 # initialize plugins statically with ~/.zsh_plugins.txt
@@ -37,7 +45,7 @@ compstyle zshzoo
 autoload -Uz promptinit && promptinit && prompt pure
 
 _pure_os_icon=$([[ $(uname) == "Darwin" ]] && echo "🍎" || echo "🐧")
-PROMPT='${_pure_os_icon} '$PROMPT
+PROMPT='${_pure_os_icon} $(aws_identity) '$PROMPT
 
 
 # Want to ignore my mac home directory version of this file on linux
